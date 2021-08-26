@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/init/init.dart';
+import 'package:rabbito/view/navigation-pages/homepage.dart';
 
 void main() {
   runApp(App());
@@ -10,6 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InitPage();
+    // return InitPage();
+    return MaterialApp(home: SafeArea(child: HomePage(title: 'Rabbito')),);
   }
 }

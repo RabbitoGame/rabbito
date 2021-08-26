@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List <Widget> _menus = <Widget>[
+    List<Widget> _menus = <Widget>[
       shopMenu(context),
       gameMenu(context),
       profileMenu(context),
@@ -72,81 +72,74 @@ class _HomePageState extends State<HomePage> {
                         flex: 2,
                       ),
                       Expanded(
-                        child: Row(
-                            children: [
-                              Image(
-                                image: AssetImage('./assets/images/coin.png'),
-                                width: 30.0,
-                              ),
-                              Container(
-                                child:  Center(
-                                  child: Text(
-                                    '45',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.amber,
-                                      fontFamily: 'Railway',
-                                      fontSize: 16.0,
-                                    ),
-                                  ),
+                        child: Row(children: [
+                          Image(
+                            image: AssetImage('./assets/images/appbar/coin.png'),
+                            width: 30.0,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '45',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber,
+                                  fontFamily: 'Railway',
+                                  fontSize: 16.0,
                                 ),
-                                padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                              )
-                            ]
-                        ),
+                              ),
+                            ),
+                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                          )
+                        ]),
                       ),
                       Expanded(
-                        child: Row(
-                            children: [
-                              Image(
-                                image: AssetImage('./assets/images/cup.png'),
-                                width: 30.0,
-                              ),
-                              Container(
-                                child:  Center(
-                                  child: Text(
-                                    '100',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.amber,
-                                      fontFamily: 'Railway',
-                                      fontSize: 16.0,
-                                    ),
-                                  ),
+                        child: Row(children: [
+                          Image(
+                            image: AssetImage('./assets/images/appbar/cup.png'),
+                            width: 30.0,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '100',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber,
+                                  fontFamily: 'Railway',
+                                  fontSize: 16.0,
                                 ),
-                                padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                              )
-                            ]
-                        ),
+                              ),
+                            ),
+                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                          )
+                        ]),
                       ),
                       Expanded(
-                        child: Row(
-                            children: [
-                              Image(
-                                image: AssetImage('./assets/images/heart.png'),
-                                width: 30.0,
-                              ),
-                              Container(
-                                child:  Center(
-                                  child: Text(
-                                    '5',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.amber,
-                                      fontFamily: 'Railway',
-                                      fontSize: 16.0,
-                                    ),
-                                  ),
+                        child: Row(children: [
+                          Image(
+                            image: AssetImage('./assets/images/appbar/heart.png'),
+                            width: 30.0,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '5',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber,
+                                  fontFamily: 'Railway',
+                                  fontSize: 16.0,
                                 ),
-                                padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                              )
-                            ]
-                        ),
+                              ),
+                            ),
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                          )
+                        ]),
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             Container(
               child: _menus[_currentIndex],
             )
@@ -163,19 +156,21 @@ class _HomePageState extends State<HomePage> {
       selectedColor: Colors.white,
       strokeColor: Colors.white,
       unSelectedColor: Color(0xff6c788a),
-      backgroundColor: Colors.blue,//Color(0xff040307),
+
+      backgroundColor: Colors.blue,
+      //Color(0xff040307),
       items: [
         CustomNavigationBarItem(
-          icon: Image.asset('assets/images/shop.png'),
+          icon: Image.asset('assets/images/navigation/shop.png'),
         ),
         CustomNavigationBarItem(
-          icon: Image.asset('assets/images/game.png'),
+          icon: Image.asset('assets/images/navigation/game.png'),
         ),
         CustomNavigationBarItem(
-          icon: Image.asset('assets/images/user.png'),
+          icon: Image.asset('assets/images/navigation/user.png'),
         ),
         CustomNavigationBarItem(
-          icon: Image.asset('assets/images/ranking.png'),
+          icon: Image.asset('assets/images/navigation/ranking.png'),
         ),
       ],
       currentIndex: _currentIndex,

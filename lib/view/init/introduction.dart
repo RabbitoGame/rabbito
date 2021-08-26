@@ -110,24 +110,24 @@ final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
     title: "Set your own goals and get better",
     description: "Goal support your motivation and inspire you to work harder",
-    imgUrl: "assets/images/welcome1.png",
+    imgUrl: "assets/images/introduction/welcome1.png",
   ),
   const OnBoardModel(
     title: "Track your progress with statistics",
     description:
     "Analyse personal result with detailed chart and numerical values",
-    imgUrl: 'assets/images/welcome2.png',
+    imgUrl: 'assets/images/introduction/welcome2.png',
   ),
   const OnBoardModel(
     title: "Create photo comparissions and share your results",
     description:
     "Take before and after photos to visualize progress and get the shape that you dream about",
-    imgUrl: 'assets/images/welcome3.png',
+    imgUrl: 'assets/images/introduction/welcome3.png',
   ),
   const OnBoardModel(
     title: "Create photo comparissions and share your results",
     description:
     "Take before and after photos to visualize progress and get the shape that you dream about",
-    imgUrl: 'assets/images/welcome4.png',
+    imgUrl: 'assets/images/introduction/welcome4.png',
   ),
 ];

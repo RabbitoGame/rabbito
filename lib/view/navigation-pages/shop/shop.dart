@@ -97,25 +97,25 @@ Widget shopMenu(BuildContext context) {
   List<Product> foods = [
     Product(
         name: "Card",
-        image: "assets/images/welcome1.png",
+        image: "assets/images/introduction/welcome1.png",
         price: "\$25.00",
         userLiked: true,
         discount: 10),
     Product(
         name: "Card",
-        image: "assets/images/welcome2.png",
+        image: "assets/images/introduction/welcome2.png",
         price: "\$150.00",
         userLiked: false,
         discount: 7.8),
     Product(
       name: "Card",
-      image: "assets/images/welcome3.png",
+      image: "assets/images/introduction/welcome3.png",
       price: '\$10.99',
       userLiked: false, discount: 0,
     ),
     Product(
         name: "Card",
-        image: "assets/images/welcome4.png",
+        image: "assets/images/introduction/welcome4.png",
         price: '\$50.00',
         userLiked: true,
         discount: 14)
@@ -124,24 +124,24 @@ Widget shopMenu(BuildContext context) {
   List<Product> drinks = [
     Product(
         name: "Card",
-        image: "assets/images/coin.png",
+        image: "assets/images/appbar/coin.png",
         price: "\$45.12",
         userLiked: true,
         discount: 2),
     Product(
         name: "Card",
-        image: "assets/images/cup.png",
+        image: "assets/images/appbar/cup.png",
         price: "\$28.00",
         userLiked: false,
         discount: 5.2),
     Product(
         name: "Card",
-        image: "assets/images/heart.png",
+        image: "assets/images/appbar/heart.png",
         price: "\$78.99",
         userLiked: false, discount: 0),
     Product(
         name: "Card",
-        image: "assets/images/ranking.png",
+        image: "assets/images/navigation/ranking.png",
         price: "\$168.99",
         userLiked: true,
         discount: 3.4)
