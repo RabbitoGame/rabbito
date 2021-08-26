@@ -32,7 +32,9 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   flutter_onboard: ^1.0.3
   google_fonts: ^2.1.0
-
+  get: ^4.3.8
+  flutter_localizations:
+    sdk: flutter
 dev_dependencies:
   flutter_test:
     sdk: flutter

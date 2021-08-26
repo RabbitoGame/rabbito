@@ -1,10 +1,10 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:rabbito/profile.dart';
-import 'package:rabbito/ranking.dart';
-import 'package:rabbito/shop.dart';
+import 'package:rabbito/view/navigation-pages/profile/profile.dart';
+import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
+import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 
-import 'gamehome.dart';
+import 'game-page/gamehome.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.title}) : super(key: key);

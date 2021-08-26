@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:provider/provider.dart';
-import 'package:rabbito/homepage.dart';
-import 'package:rabbito/shop.dart';
+import 'package:rabbito/view/navigation-pages/homepage.dart';
+import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 
 class IntroductionScreen extends StatelessWidget {
   @override
