@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RankItem extends StatelessWidget {
-  var item;
+  var userState;
   int index;
 
-  RankItem(this.item, this.index);
+  RankItem(this.userState, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class RankItem extends StatelessWidget {
                   children: [
                     Image.asset('assets/images/ranking/badge.png', width: 45.0),
                     Text(
-                      "102",
+                      userState.xp.toString(),
                       style: TextStyle(
                           color: Colors.purple,
                           fontWeight: FontWeight.bold,
@@ -63,51 +63,33 @@ class RankItem extends StatelessWidget {
                 width: 5,
               ),
               Expanded(
-                child: Text(item.name),
-                flex: 4,
+                child: Text(userState.name),
+                flex: 6,
               ),
               Expanded(
-                flex: 9,
+                flex: 3,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.amber.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/ranking/carrot2.png",
-                            width: 35,
-                          ),
-                          Text("1000"),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
                     Stack(
                       overflow: Overflow.visible,
                       alignment: Alignment.center,
                       children: [
                         Container(
                           padding: EdgeInsets.only(
-                              left: 5, right: 20, top: 10, bottom: 10),
+                              left: 10, right: 20, top: 10, bottom: 10),
                           decoration: BoxDecoration(
-                            color: Colors.teal.withOpacity(0.5),
+                            color: Colors.amber.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            "5342",
+                            userState.carrot.toString(),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Positioned(
                           child: Image.asset(
-                            "assets/images/appbar/cup.png",
+                            "assets/images/ranking/carrot2.png",
                             width: 35,
                           ),
                           right: -20,
@@ -115,7 +97,6 @@ class RankItem extends StatelessWidget {
                       ],
                     ),
                   ],
-                  mainAxisAlignment: MainAxisAlignment.end,
                 ),
               )
             ],

@@ -28,59 +28,45 @@ Widget rankingMenu(BuildContext context) {
         name: 'ali',
         rank: League.Diamond,
         cups: 23,
-        image: 'assets/images/logo.png'),
+        image: 'assets/images/logo.png',
+        carrot: 13,
+        xp: 102),
     RankingRow(
         name: 'hasan',
         rank: League.Diamond,
         cups: 50,
-        image: 'assets/images/appbar/cup.png'),
+        image: 'assets/images/appbar/cup.png',
+        carrot: 13,
+        xp: 102),
     RankingRow(
         name: 'ali',
         rank: League.Diamond,
         cups: 23,
-        image: 'assets/images/logo.png'),
+        image: 'assets/images/logo.png',
+        carrot: 13,
+        xp: 102),
     RankingRow(
         name: 'hasan',
         rank: League.Diamond,
         cups: 50,
-        image: 'assets/images/appbar/cup.png'),
+        image: 'assets/images/appbar/cup.png',
+        carrot: 13,
+        xp: 102),
     RankingRow(
         name: 'ali',
         rank: League.Diamond,
         cups: 23,
-        image: 'assets/images/logo.png'),
+        image: 'assets/images/logo.png',
+        carrot: 13,
+        xp: 102),
     RankingRow(
         name: 'hasan',
         rank: League.Diamond,
         cups: 50,
-        image: 'assets/images/appbar/cup.png'),
-    RankingRow(
-        name: 'ali',
-        rank: League.Diamond,
-        cups: 23,
-        image: 'assets/images/logo.png'),
-    RankingRow(
-        name: 'hasan',
-        rank: League.Diamond,
-        cups: 50,
-        image: 'assets/images/appbar/cup.png'),
-    RankingRow(
-        name: 'hasan',
-        rank: League.Diamond,
-        cups: 50,
-        image: 'assets/images/appbar/cup.png'),
-    RankingRow(
-        name: 'ali',
-        rank: League.Diamond,
-        cups: 23,
-        image: 'assets/images/appbar/logo.png'),
-    RankingRow(
-        name: 'hasan',
-        rank: League.Diamond,
-        cups: 50,
-        image: 'assets/images/appbar/cup.png')
+        image: 'assets/images/appbar/cup.png',
+        carrot: 1213,
+        xp: 102),
   ];
-
 
   ExpandableThemeData openableTheme = ExpandableThemeData(
     hasIcon: true,
@@ -130,14 +116,13 @@ Widget rankingMenu(BuildContext context) {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
-        itemCount: items.length +1,
+        itemCount: items.length + 1,
         itemBuilder: (context, index) {
-          if(index == 0){
+          if (index == 0) {
             return RankWatch();
-          }else{
-            return RankItem(items[index-1], index);
+          } else {
+            return RankItem(items[index - 1], index);
           }
-
         },
       ),
     );
@@ -191,12 +176,16 @@ class RankingRow {
   late League rank;
   late int cups;
   late String image;
+  late int carrot;
+  late int xp;
 
   RankingRow(
       {required this.name,
       required this.rank,
       required this.cups,
-      required this.image});
+      required this.image,
+      required this.carrot,
+      required this.xp});
 }
 
 enum League { Gem, Diamond, Platinum, Gold, Silver, Bronze, Copper, Iron }
