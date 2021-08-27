@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
+import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
 
 class PathPainter extends CustomPainter {
   @override
@@ -80,324 +81,6 @@ Widget rankingMenu(BuildContext context) {
         image: 'assets/images/appbar/cup.png')
   ];
 
-  Widget wid() {
-    return ListView(
-      children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child:
-                    Image.asset('assets/images/leagues/gem.png', width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'GEM League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xff17A0F2),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/images/leagues/diamond.png',
-                    width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'DIAMOND League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffB9F2FF),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/images/leagues/platinum.png',
-                    width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'PLATINUM League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffE5E4E2),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child:
-                    Image.asset('assets/images/leagues/gold.png', width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'GOLD League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffFFD700),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/images/leagues/silver.png',
-                    width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'SILVER League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffC0C0C0),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/images/leagues/bronze.png',
-                    width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'BRONZE League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffCD7F32),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/images/leagues/copper.png',
-                    width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'COPPER League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffB87333),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            )),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child:
-                    Image.asset('assets/images/leagues/iron.png', width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'IRON League',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-            height: 200,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    color: const Color(0xffa19d94),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(items[index].image),
-                      ),
-                      title: Text(items[index].name),
-                      subtitle: Text(items[index].cups.toString()),
-                    ));
-              },
-            ))
-      ],
-    );
-  }
 
   ExpandableThemeData openableTheme = ExpandableThemeData(
     hasIcon: true,
@@ -419,6 +102,69 @@ Widget rankingMenu(BuildContext context) {
     collapseIcon: Icons.close,
     iconPadding: EdgeInsets.all(10),
   );
+  ExpandablePanel openableLeague(String url, String name) {
+    return ExpandablePanel(
+      theme: openableTheme,
+      header: Container(
+        padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Row(
+          children: [
+            Container(
+              child: Image.asset(url, width: 40.0),
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            ),
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+                fontFamily: 'Railway',
+                fontSize: 20.0,
+              ),
+            )
+          ],
+        ),
+      ),
+      collapsed: SizedBox(),
+      expanded: ListView.builder(
+        physics: ClampingScrollPhysics(),
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(8),
+        itemCount: items.length +1,
+        itemBuilder: (context, index) {
+          if(index == 0){
+            return RankWatch();
+          }else{
+            return RankItem(items[index-1], index);
+          }
+
+        },
+      ),
+    );
+  }
+
+  Container closeLeague(String url, String name) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+      child: Row(
+        children: [
+          Container(
+            child: Image.asset(url, width: 40.0),
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+          ),
+          Text(
+            name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple,
+              fontFamily: 'Railway',
+              fontSize: 20.0,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   return SizedBox(
     height: MediaQuery.of(context).size.height - 100,
@@ -427,83 +173,14 @@ Widget rankingMenu(BuildContext context) {
         CustomPaint(
           painter: PathPainter(),
         ),
-        ExpandablePanel(
-          theme: openableTheme,
-          header: Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-            child: Row(
-              children: [
-                Container(
-                  child:
-                      Image.asset('assets/images/leagues/gem.png', width: 40.0),
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                ),
-                Text(
-                  'GEM League',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
-                    fontFamily: 'Railway',
-                    fontSize: 20.0,
-                  ),
-                )
-              ],
-            ),
-          ),
-          collapsed: SizedBox(),
-          expanded: ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(8),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return RankItem(items[index] , index);
-            },
-          ),
-        ),
-        ExpandablePanel(
-          theme: closeTheme,
-          header: Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-            child: Row(
-              children: [
-                Container(
-                  child: Image.asset('assets/images/leagues/diamond.png',
-                      width: 40.0),
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                ),
-                Text(
-                  'DIAMOND League',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
-                    fontFamily: 'Railway',
-                    fontSize: 20.0,
-                  ),
-                )
-              ],
-            ),
-          ),
-          collapsed: SizedBox(),
-          expanded: ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(8),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                  color: const Color(0xff17A0F2),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage(items[index].image),
-                    ),
-                    title: Text(items[index].name),
-                    subtitle: Text(items[index].cups.toString()),
-                  ));
-            },
-          ),
-        ),
+        openableLeague('assets/images/leagues/gem.png', "GEM League"),
+        closeLeague('assets/images/leagues/diamond.png', 'DIAMOND League'),
+        closeLeague('assets/images/leagues/platinum.png', 'PLATINUM League'),
+        closeLeague('assets/images/leagues/gold.png', 'GOLD League'),
+        closeLeague('assets/images/leagues/silver.png', 'SILVER League'),
+        closeLeague('assets/images/leagues/bronze.png', 'BRONZE League'),
+        closeLeague('assets/images/leagues/copper.png', 'COPPER League'),
+        closeLeague('assets/images/leagues/iron.png', 'IRON League'),
       ],
     ),
   );

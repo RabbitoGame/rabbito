@@ -30,7 +30,7 @@ class RankItem extends StatelessWidget {
               color: Colors.lightBlueAccent),
           child: Center(
             child: Text(
-              (index + 1).toString(),
+              index.toString(),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -48,8 +48,7 @@ class RankItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset('assets/images/ranking/badge.png',
-                        width: 45.0),
+                    Image.asset('assets/images/ranking/badge.png', width: 45.0),
                     Text(
                       "102",
                       style: TextStyle(
