@@ -75,16 +75,19 @@ class RankItem extends StatelessWidget {
                       overflow: Overflow.visible,
                       alignment: Alignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: 10, right: 20, top: 10, bottom: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.amber.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            userState.carrot.toString(),
-                            textAlign: TextAlign.center,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(minWidth: 60),
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 20, top: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              userState.carrot.toString(),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                         Positioned(

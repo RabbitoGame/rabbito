@@ -3,6 +3,7 @@ import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:provider/provider.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroductionScreen extends StatelessWidget {
   @override
@@ -16,6 +17,7 @@ class IntroductionScreen extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Provider<OnBoardState>(
@@ -54,7 +56,9 @@ class HomeScreen extends StatelessWidget {
           skipButton: TextButton(
             onPressed: () {
               //print('skipButton pressed');
-              _pageController.animateToPage(3, duration: const Duration(milliseconds: 250), curve: Curves.easeInOutSine);
+              _pageController.animateToPage(3,
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOutSine);
             },
             child: const Text(
               "Skip",
@@ -65,8 +69,19 @@ class HomeScreen extends StatelessWidget {
           nextButton: Consumer<OnBoardState>(
             builder: (BuildContext context, OnBoardState state, Widget? child) {
               return InkWell(
-                onTap: () => {if(state.isLastPage) {Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => HomePage(title: 'Rabbito')))}, _onNextTap(state)},
+                onTap: () async {
+                  print('befoore');
+                  SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+                  prefs.setBool("firstEnter", false);
+                  print('after');
+                  if (state.isLastPage) {
+
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => HomePage(title: 'Rabbito')));
+                  }
+                  _onNextTap(state);
+                },
                 child: Container(
                   width: 230,
                   height: 50,
@@ -115,19 +130,19 @@ final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
     title: "Track your progress with statistics",
     description:
-    "Analyse personal result with detailed chart and numerical values",
+        "Analyse personal result with detailed chart and numerical values",
     imgUrl: 'assets/images/introduction/welcome2.png',
   ),
   const OnBoardModel(
     title: "Create photo comparissions and share your results",
     description:
-    "Take before and after photos to visualize progress and get the shape that you dream about",
+        "Take before and after photos to visualize progress and get the shape that you dream about",
     imgUrl: 'assets/images/introduction/welcome3.png',
   ),
   const OnBoardModel(
     title: "Create photo comparissions and share your results",
     description:
-    "Take before and after photos to visualize progress and get the shape that you dream about",
+        "Take before and after photos to visualize progress and get the shape that you dream about",
     imgUrl: 'assets/images/introduction/welcome4.png',
   ),
 ];

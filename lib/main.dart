@@ -11,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return InitPage();
-    return MaterialApp(home: SafeArea(child: HomePage(title: 'Rabbito')),);
+    return InitPage();
+    // return MaterialApp(home: SafeArea(child: HomePage(title: 'Rabbito')),);
   }
 }
