@@ -158,6 +158,7 @@ class _HomePageState extends State<HomePage> {
       unSelectedColor: Color(0xff6c788a),
 
       backgroundColor: Colors.blue,
+      // backgroundColor: Colors.transparent,
       //Color(0xff040307),
       items: [
         CustomNavigationBarItem(

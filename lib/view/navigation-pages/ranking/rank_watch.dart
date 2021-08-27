@@ -6,7 +6,7 @@ class RankWatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
+      margin: EdgeInsets.only(bottom: 5),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         color: const Color(0xff17A0F2).withOpacity(0.2),
