@@ -33,117 +33,122 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       // extendBody for floating bar get better performance
-      extendBody: true,
+      // extendBody: true,
       backgroundColor: Colors.white,
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-                height: 60.0,
-                color: Colors.purple,
-                padding: EdgeInsets.fromLTRB(30.0, 10.0, 4.0, 10.0),
-                child: IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Row(
-                          children: [
+      body: SafeArea(
+        child: Container(
+          child: Column(
+
+            children: [
+              Container(
+                  height: 60.0,
+                  color: Colors.purple,
+                  padding: EdgeInsets.fromLTRB(30.0, 10.0, 4.0, 10.0),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Image(
+                                image: AssetImage('./assets/images/logo.png'),
+                              ),
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    'Rabbito',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.lightGreen,
+                                      fontFamily: 'Railway',
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                ),
+                                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                              )
+                            ],
+                          ),
+                          flex: 2,
+                        ),
+                        Expanded(
+                          child: Row(children: [
                             Image(
-                              image: AssetImage('./assets/images/logo.png'),
+                              image: AssetImage('./assets/images/appbar/coin.png'),
+                              width: 30.0,
                             ),
                             Container(
                               child: Center(
                                 child: Text(
-                                  'Rabbito',
+                                  '45',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.lightGreen,
+                                    color: Colors.amber,
                                     fontFamily: 'Railway',
-                                    fontSize: 20.0,
+                                    fontSize: 16.0,
                                   ),
                                 ),
                               ),
-                              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                              padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
                             )
-                          ],
+                          ]),
                         ),
-                        flex: 2,
-                      ),
-                      Expanded(
-                        child: Row(children: [
-                          Image(
-                            image: AssetImage('./assets/images/appbar/coin.png'),
-                            width: 30.0,
-                          ),
-                          Container(
-                            child: Center(
-                              child: Text(
-                                '45',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.amber,
-                                  fontFamily: 'Railway',
-                                  fontSize: 16.0,
+                        Expanded(
+                          child: Row(children: [
+                            Image(
+                              image: AssetImage('./assets/images/appbar/cup.png'),
+                              width: 30.0,
+                            ),
+                            Container(
+                              child: Center(
+                                child: Text(
+                                  '100',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.amber,
+                                    fontFamily: 'Railway',
+                                    fontSize: 16.0,
+                                  ),
                                 ),
                               ),
+                              padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                            )
+                          ]),
+                        ),
+                        Expanded(
+                          child: Row(children: [
+                            Image(
+                              image: AssetImage('./assets/images/appbar/heart.png'),
+                              width: 30.0,
                             ),
-                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                          )
-                        ]),
-                      ),
-                      Expanded(
-                        child: Row(children: [
-                          Image(
-                            image: AssetImage('./assets/images/appbar/cup.png'),
-                            width: 30.0,
-                          ),
-                          Container(
-                            child: Center(
-                              child: Text(
-                                '100',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.amber,
-                                  fontFamily: 'Railway',
-                                  fontSize: 16.0,
+                            Container(
+                              child: Center(
+                                child: Text(
+                                  '5',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.amber,
+                                    fontFamily: 'Railway',
+                                    fontSize: 16.0,
+                                  ),
                                 ),
                               ),
-                            ),
-                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                          )
-                        ]),
-                      ),
-                      Expanded(
-                        child: Row(children: [
-                          Image(
-                            image: AssetImage('./assets/images/appbar/heart.png'),
-                            width: 30.0,
-                          ),
-                          Container(
-                            child: Center(
-                              child: Text(
-                                '5',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.amber,
-                                  fontFamily: 'Railway',
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
-                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                          )
-                        ]),
-                      ),
-                    ],
-                  ),
-                )),
-            Container(
-              child: _menus[_currentIndex],
-            )
-          ],
+                              padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            )
+                          ]),
+                        ),
+                      ],
+                    ),
+                  )),
+              Expanded(
+                child: Container(
+                  child: _menus[_currentIndex],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: _buildOriginDesign(),
@@ -156,7 +161,6 @@ class _HomePageState extends State<HomePage> {
       selectedColor: Colors.white,
       strokeColor: Colors.white,
       unSelectedColor: Color(0xff6c788a),
-
       backgroundColor: Colors.blue,
       // backgroundColor: Colors.transparent,
       //Color(0xff040307),

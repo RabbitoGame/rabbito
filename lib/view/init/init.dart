@@ -16,13 +16,20 @@ class InitPage extends StatelessWidget {
           return MaterialApp(
               home: SplashScreen(), debugShowCheckedModeBanner: false);
         } else {
-          return MaterialApp(
-              theme: ThemeData(
-                  primaryColor: Colors.red, accentColor: Colors.yellowAccent),
-              debugShowCheckedModeBanner: false,
-              home: AppController.appController.firstEntrance.value
-                  ? IntroductionScreen()
-                  : HomePage(title: 'Rabbito'));
+          return GetMaterialApp(
+            theme: ThemeData(
+                primaryColor: Colors.red, accentColor: Colors.yellowAccent),
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/home-page',
+            getPages: [
+              GetPage(
+                name: '/home-page',
+                page: () => AppController.appController.firstEntrance.value
+                    ? IntroductionScreen()
+                    : HomePage(title: 'Rabbito'),
+              ),
+            ],
+          );
         }
       },
     );

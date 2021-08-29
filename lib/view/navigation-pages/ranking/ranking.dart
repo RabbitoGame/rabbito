@@ -151,23 +151,20 @@ Widget rankingMenu(BuildContext context) {
     );
   }
 
-  return SizedBox(
-    height: MediaQuery.of(context).size.height - 100,
-    child: ListView(
-      children: <Widget>[
-        CustomPaint(
-          painter: PathPainter(),
-        ),
-        openableLeague('assets/images/leagues/gem.png', "GEM League"),
-        closeLeague('assets/images/leagues/diamond.png', 'DIAMOND League'),
-        closeLeague('assets/images/leagues/platinum.png', 'PLATINUM League'),
-        closeLeague('assets/images/leagues/gold.png', 'GOLD League'),
-        closeLeague('assets/images/leagues/silver.png', 'SILVER League'),
-        closeLeague('assets/images/leagues/bronze.png', 'BRONZE League'),
-        closeLeague('assets/images/leagues/copper.png', 'COPPER League'),
-        closeLeague('assets/images/leagues/iron.png', 'IRON League'),
-      ],
-    ),
+  return ListView(
+    children: <Widget>[
+      CustomPaint(
+        painter: PathPainter(),
+      ),
+      openableLeague('assets/images/leagues/gem.png', "GEM League"),
+      closeLeague('assets/images/leagues/diamond.png', 'DIAMOND League'),
+      closeLeague('assets/images/leagues/platinum.png', 'PLATINUM League'),
+      closeLeague('assets/images/leagues/gold.png', 'GOLD League'),
+      closeLeague('assets/images/leagues/silver.png', 'SILVER League'),
+      closeLeague('assets/images/leagues/bronze.png', 'BRONZE League'),
+      closeLeague('assets/images/leagues/copper.png', 'COPPER League'),
+      closeLeague('assets/images/leagues/iron.png', 'IRON League'),
+    ],
   );
 }
 

@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Product
-{
-  String name,
-      price,
-      image;
+class Product {
+  String name, price, image;
   bool userLiked;
   double discount;
 
-  Product({
-    required this.name,
-    required this.price,
-    required this.discount,
-    required this.image,
-    required this.userLiked
-  });
-
+  Product(
+      {required this.name,
+      required this.price,
+      required this.discount,
+      required this.image,
+      required this.userLiked});
 }
 
 Widget cardItem(Product food,
     {required double imgWidth, onLike, onTapped, bool isProductPage = false}) {
-
   return Container(
     width: 180,
     height: 180,
@@ -61,13 +55,13 @@ Widget cardItem(Product food,
           left: 0,
           child: (!isProductPage)
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(food.name),
-              Text(food.price),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(food.name),
+                    Text(food.price),
+                  ],
+                )
               : Text(' '),
         ),
         Positioned(
@@ -75,15 +69,15 @@ Widget cardItem(Product food,
             left: 10,
             child: (food.discount != null)
                 ? Container(
-              padding:
-              EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 5),
-              decoration: BoxDecoration(
-                  color: Colors.grey[600],
-                  borderRadius: BorderRadius.circular(50)),
-              child: Text('-' + food.discount.toString() + '%',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w700)),
-            )
+                    padding:
+                        EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[600],
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Text('-' + food.discount.toString() + '%',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w700)),
+                  )
                 : SizedBox(width: 0))
       ],
     ),
@@ -91,7 +85,6 @@ Widget cardItem(Product food,
 }
 
 Widget shopMenu(BuildContext context) {
-
   // will pick it up from here
   // am to start another template
   List<Product> foods = [
@@ -111,7 +104,8 @@ Widget shopMenu(BuildContext context) {
       name: "Card",
       image: "assets/images/introduction/welcome3.png",
       price: '\$10.99',
-      userLiked: false, discount: 0,
+      userLiked: false,
+      discount: 0,
     ),
     Product(
         name: "Card",
@@ -138,7 +132,8 @@ Widget shopMenu(BuildContext context) {
         name: "Card",
         image: "assets/images/appbar/heart.png",
         price: "\$78.99",
-        userLiked: false, discount: 0),
+        userLiked: false,
+        discount: 0),
     Product(
         name: "Card",
         image: "assets/images/navigation/ranking.png",
@@ -147,10 +142,7 @@ Widget shopMenu(BuildContext context) {
         discount: 3.4)
   ];
 
-  return
-    SizedBox(
-      height: MediaQuery.of(context).size.height-100, child:
-    ListView(children: <Widget>[
+  return ListView(children: <Widget>[
     headerTopCategories(),
     deals('Hot Things', onViewMore: () {}, items: <Widget>[
       cardItem(foods[0], onTapped: () {
@@ -176,9 +168,7 @@ Widget shopMenu(BuildContext context) {
         //     },
         //   ),
         // );
-      }, imgWidth: 250, onLike: () {
-
-      }),
+      }, imgWidth: 250, onLike: () {}),
       cardItem(foods[2], onTapped: () {
         // Navigator.push(
         //   context,
@@ -190,9 +180,7 @@ Widget shopMenu(BuildContext context) {
         //     },
         //   ),
         // );
-      }, imgWidth: 200, onLike: () {
-
-      }),
+      }, imgWidth: 200, onLike: () {}),
       cardItem(foods[3], onTapped: () {
         // Navigator.push(
         //   context,
@@ -204,22 +192,20 @@ Widget shopMenu(BuildContext context) {
         //     },
         //   ),
         // );
-      }, onLike: () {
-
-      }, imgWidth: 40),
+      }, onLike: () {}, imgWidth: 40),
     ]),
     deals('Cards', onViewMore: () {}, items: <Widget>[
       cardItem(drinks[0], onTapped: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) {
-      //         return new ProductPage(
-      //           productData: drinks[0],
-      //         );
-      //       },
-      //     ),
-      //   );
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) {
+        //         return new ProductPage(
+        //           productData: drinks[0],
+        //         );
+        //       },
+        //     ),
+        //   );
       }, onLike: () {}, imgWidth: 60),
       cardItem(drinks[1], onTapped: () {
         // Navigator.push(
@@ -258,7 +244,7 @@ Widget shopMenu(BuildContext context) {
         // );
       }, onLike: () {}, imgWidth: 40),
     ])
-  ]));
+  ]);
 }
 
 Widget sectionHeader(String headerTitle, {onViewMore}) {
@@ -297,7 +283,8 @@ Widget headerTopCategories() {
             headerCategoryItem('Cards', Icons.credit_card, onPressed: () {}),
             headerCategoryItem('Scores', Icons.score, onPressed: () {}),
             headerCategoryItem('Colors', Icons.color_lens, onPressed: () {}),
-            headerCategoryItem('Games', Icons.videogame_asset, onPressed: () {}),
+            headerCategoryItem('Games', Icons.videogame_asset,
+                onPressed: () {}),
             headerCategoryItem('Games', Icons.games_outlined, onPressed: () {}),
           ],
         ),
@@ -346,11 +333,11 @@ Widget deals(String dealTitle, {onViewMore, required List<Widget> items}) {
             children: (items != null)
                 ? items
                 : <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: 15),
-                child: Text('No items available at this moment.'),
-              )
-            ],
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text('No items available at this moment.'),
+                    )
+                  ],
           ),
         )
       ],

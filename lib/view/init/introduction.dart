@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:rabbito/global/strings/get_page_names.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,10 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class IntroductionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
+    return HomeScreen();
   }
 }
 
@@ -76,9 +75,9 @@ class HomeScreen extends StatelessWidget {
                   prefs.setBool("firstEnter", false);
                   print('after');
                   if (state.isLastPage) {
-
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => HomePage(title: 'Rabbito')));
+                    Get.toNamed(PageNameStrings.homePage);
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //     builder: (context) => HomePage(title: 'Rabbito')));
                   }
                   _onNextTap(state);
                 },
