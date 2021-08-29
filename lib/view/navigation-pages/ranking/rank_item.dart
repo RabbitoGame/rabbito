@@ -8,7 +8,19 @@ class RankItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (index == 1) {
+      return ClipPath(
+        child: watch(40),
+        clipper: MyCustomClipper(),
+      );
+    } else {
+      return watch(0);
+    }
+  }
+
+  Widget watch(double topPadding) {
     return Container(
+      padding: EdgeInsets.only(top: topPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.elliptical(20, 30),
@@ -108,5 +120,30 @@ class RankItem extends StatelessWidget {
         // subtitle: Text(item.cups.toString()),
       ),
     );
+  }
+}
+
+class MyCustomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, 30);
+    var firstStart = Offset(size.width / 5, 40);
+    var firstEnd = Offset(size.width / 2.25, 20);
+    path.quadraticBezierTo(
+        firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
+    var secondStart = Offset(size.width - size.width / 3.25, -10);
+
+    var secondEnd = Offset(size.width, 30);
+    path.quadraticBezierTo(
+        secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

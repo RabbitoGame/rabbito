@@ -90,42 +90,51 @@ Widget rankingMenu(BuildContext context) {
   );
   ExpandablePanel openableLeague(String url, String name) {
     return ExpandablePanel(
-      theme: openableTheme,
-      header: Container(
-        padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-        child: Row(
-          children: [
-            Container(
-              child: Image.asset(url, width: 40.0),
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            ),
-            Text(
-              name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-                fontFamily: 'Railway',
-                fontSize: 20.0,
+        theme: openableTheme,
+        header: Container(
+          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+          child: Row(
+            children: [
+              Container(
+                child: Image.asset(url, width: 40.0),
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
               ),
-            )
-          ],
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple,
+                  fontFamily: 'Railway',
+                  fontSize: 20.0,
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      collapsed: SizedBox(),
-      expanded: ListView.builder(
-        physics: ClampingScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(8),
-        itemCount: items.length + 1,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return RankWatch();
-          } else {
-            return RankItem(items[index - 1], index);
-          }
-        },
-      ),
-    );
+        collapsed: SizedBox(),
+        expanded: Stack(
+          overflow: Overflow.visible,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RankWatch(),
+            ),
+            Column(
+              children: [
+                SizedBox(height: 95,),
+                ListView.builder(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(8),
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return RankItem(items[index], index + 1);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ));
   }
 
   Container closeLeague(String url, String name) {
@@ -153,9 +162,6 @@ Widget rankingMenu(BuildContext context) {
 
   return ListView(
     children: <Widget>[
-      CustomPaint(
-        painter: PathPainter(),
-      ),
       openableLeague('assets/images/leagues/gem.png', "GEM League"),
       closeLeague('assets/images/leagues/diamond.png', 'DIAMOND League'),
       closeLeague('assets/images/leagues/platinum.png', 'PLATINUM League'),
