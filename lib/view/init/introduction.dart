@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/get_page_names.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'package:meta/meta.dart';
 
 class IntroductionScreen extends StatelessWidget {
   @override
@@ -15,8 +18,20 @@ class IntroductionScreen extends StatelessWidget {
   }
 }
 
+class HomeScreenController extends GetxController {
+  @override
+  void onInit() {
+    if (!AppController.appController.firstEntrance.value) {
+      Get.toNamed(PageNameStrings.homePage);
+    }
+
+    super.onInit();
+  }
+}
+
 class HomeScreen extends StatelessWidget {
   final PageController _pageController = PageController();
+  // HomeScreenController _homeScreenController = Get.put(HomeScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +87,14 @@ class HomeScreen extends StatelessWidget {
                 onTap: () async {
                   print('befoore');
                   SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
+                      await SharedPreferences.getInstance();
                   prefs.setBool("firstEnter", false);
                   AppController.appController.firstEntrance.value = false;
                   print('after');
                   if (state.isLastPage) {
-                    Get.offAndToNamed(PageNameStrings.homePage);
+                    // Get.offAndToNamed(PageNameStrings.homePage);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => HomePage(title: 'Rabbito')));
                   }
                   _onNextTap(state);
                 },

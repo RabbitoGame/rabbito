@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/init/introduction.dart';
 import 'package:rabbito/view/init/splash.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
@@ -9,29 +10,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Init.instance.initialize(),
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-              home: SplashScreen(), debugShowCheckedModeBanner: false);
-        } else {
-          return GetMaterialApp(
-            theme: ThemeData(
-                primaryColor: Colors.red, accentColor: Colors.yellowAccent),
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/home-page',
-            getPages: [
-              GetPage(
-                name: '/home-page',
-                page: () => AppController.appController.firstEntrance.value
-                    ? IntroductionScreen()
-                    : HomePage(title: 'Rabbito'),
-              ),
-            ],
-          );
-        }
-      },
+    return GetMaterialApp(
+      theme:
+          ThemeData(primaryColor: Colors.red, accentColor: Colors.yellowAccent),
+      debugShowCheckedModeBanner: false,
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      translations: LocalizationService(),
+      home: FutureBuilder(
+        future: Init.instance.initialize(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SplashScreen();
+          } else if (AppController.appController.firstEntrance.value) {
+            return IntroductionScreen();
+          } else {
+            return HomePage(title: 'Rabbito');
+          }
+        },
+      ),
+      getPages: [
+        GetPage(
+          name: '/home-page',
+          page: () => HomePage(title: 'Rabbito'),
+        ),
+      ],
     );
   }
 }
@@ -54,6 +57,6 @@ class Init {
       }
     });
 
-    await Future.delayed(Duration(seconds: 0));
+    await Future.delayed(Duration(seconds: 1));
   }
 }

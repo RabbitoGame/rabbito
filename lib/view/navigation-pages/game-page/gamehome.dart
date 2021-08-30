@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/navigation-pages/game-page/chest.dart';
 
 Widget gameMenu(BuildContext context) {
