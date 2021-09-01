@@ -5,5 +5,4 @@ class User {
   int? xpLevel;
   int? league;
   int? leagueLevel;
-
 }
