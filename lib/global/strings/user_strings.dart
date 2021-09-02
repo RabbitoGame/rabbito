@@ -1,5 +1,6 @@
 class UserStrings{
   static const String username = "username";
+  static const String password = 'password';
   static const String email = "email";
   static const String hearts = "hearts";
   static const String carrot = "carrot";
