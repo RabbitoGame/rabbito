@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.7
   flutter_secure_storage: ^4.2.1
   email_validator: ^2.0.1
+  flutter_awesome_buttons: ^1.1.0
 
 
 
