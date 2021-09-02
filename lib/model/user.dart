@@ -51,7 +51,6 @@ class User {
         refreshToken: responseData[UserStrings.refreshToken]);
   }
 
-
   static Future getAccessToken() async {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
@@ -187,7 +186,8 @@ class User {
     httpResponse.Response response = await get(
       Uri.parse(AppUrl.userInfo),
       headers: {
-        RequestStrings.authentication:AppController.appController.currUser!.accessToken!,
+        RequestStrings.authentication:
+            AppController.appController.currUser!.accessToken!,
       },
     );
 
@@ -207,7 +207,6 @@ class User {
     return result;
   }
 
-
   static onError(error) {
     print("the error is $error.detail");
     return {
@@ -215,5 +214,41 @@ class User {
       RequestStrings.message: 'Unsuccessful Request',
       RequestStrings.data: error,
     };
+  }
+
+  static getUserDetail() {
+    //todo complete getUserDetail
+  }
+
+  static getCarrot() {
+    //todo complete getCarrot
+  }
+
+  static getCoin() {
+    //todo complete getCoin
+  }
+
+  static getHeart() {
+    //todo complete getHeart
+  }
+
+  static getRank() {
+    //todo complete getRank
+  }
+
+  static setCarrot() {
+    //todo complete setCarrot
+  }
+
+  static setCoin() {
+    //todo complete setCoin
+  }
+
+  static setHeart() {
+    //todo complete setHeart
+  }
+
+  static setRank() {
+    //todo complete setRank
   }
 }
