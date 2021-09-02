@@ -51,6 +51,44 @@ class User {
         refreshToken: responseData[UserStrings.refreshToken]);
   }
 
+
+  static Future getAccessToken() async {
+    var result;
+    AppController.appController.loggedInStatus.value = Status.Authenticating;
+    httpResponse.Response response = await get(
+      Uri.parse(AppUrl.refreshToken),
+      headers: {
+        RequestStrings.authentication:
+            AppController.appController.currUser!.refreshToken!,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      var accessToken = responseData[UserStrings.accessToken];
+      var refreshToken = responseData[UserStrings.refreshToken];
+
+      AppController.appController.currUser!.accessToken = accessToken;
+      AppController.appController.currUser!.refreshToken = refreshToken;
+
+      AppController.appController.loggedInStatus.value = Status.LoggedIn;
+
+      result = {
+        RequestStrings.status: true,
+        RequestStrings.message: 'Successful',
+      };
+    } else {
+      AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
+
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+    }
+    return result;
+  }
+
   static Future<Map<String, dynamic>> login(
       String username, String password) async {
     var result;
@@ -143,6 +181,32 @@ class User {
 
     return result;
   }
+
+  static Future<Map<String, dynamic>> getUserInfo() async {
+    var result;
+    httpResponse.Response response = await get(
+      Uri.parse(AppUrl.userInfo),
+      headers: {
+        RequestStrings.authentication:AppController.appController.currUser!.accessToken!,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      AppController.appController.currUser = User.fromJson(responseData);
+      result = {
+        RequestStrings.status: true,
+        RequestStrings.message: 'Successful',
+      };
+    } else {
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+    }
+    return result;
+  }
+
 
   static onError(error) {
     print("the error is $error.detail");

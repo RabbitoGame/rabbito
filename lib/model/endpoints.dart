@@ -38,7 +38,7 @@ const List<Map> endpoints = [
     }
   },
   {
-    "url": "/get-user",
+    "url": "/get-user-info",
     "methode": "GET",
     "body": null,
     "header": {

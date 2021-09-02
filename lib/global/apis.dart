@@ -5,5 +5,7 @@ class AppUrl {
   static const String baseURL = liveBaseURL;
   static const String login = baseURL + "/login";
   static const String register = baseURL + "/register";
+  static const String refreshToken = baseURL + "/refresh-token";
+  static const String userInfo = baseURL + "/get-user-info";
 
 }
