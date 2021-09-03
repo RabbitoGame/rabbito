@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
+import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
 
 Widget profileMenu(BuildContext context) {
   return ProfileUI2();
@@ -74,6 +75,10 @@ class ProfileUI2 extends StatelessWidget {
                       style: TextStyle(
                           letterSpacing: 2.0, fontWeight: FontWeight.w300),
                     ))),
+            SizedBox(
+              height: 15,
+            ),
+            WordsLearned(15),
             SizedBox(
               height: 15,
             ),

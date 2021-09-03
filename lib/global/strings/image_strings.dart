@@ -24,5 +24,6 @@ class ImageStrings{
   static const String rankingBadgeAsset = 'assets/images/ranking/badge.png';
   static const String rankingClockAsset = 'assets/images/ranking/clock.png';
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
+  static const String profileBookAsset = 'assets/images/profile/book.png';
 
 }

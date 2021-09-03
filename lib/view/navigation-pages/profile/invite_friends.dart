@@ -12,14 +12,17 @@ class InviteFriends extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
       child: Column(
         children: [
-          ListTile(
-            leading: Icon(
-              Icons.card_giftcard,
-              size: 50,
-              color: Colors.tealAccent,
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 8, 20, 0),
+            child: ListTile(
+              leading: Icon(
+                Icons.card_giftcard,
+                size: 60,
+                color: Colors.tealAccent,
+              ),
+              title: Text("invite-gift".tr),
+              subtitle: Text("invite-gift-message".tr),
             ),
-            title: Text("invite-gift".tr),
-            subtitle: Text("invite-gift-message".tr),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
