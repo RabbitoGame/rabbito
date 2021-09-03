@@ -89,6 +89,9 @@ flutter:
     - assets/images/game-home/chest1.png
     - assets/images/game-home/chest2.png
     - assets/images/profile/book.png
+    - assets/images/profile/gift.png
+    - assets/images/profile/man.png
+    - assets/images/profile/woman.png
 
 
 

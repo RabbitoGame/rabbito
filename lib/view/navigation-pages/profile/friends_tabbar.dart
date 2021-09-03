@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 
 class FriendsTabBar extends StatelessWidget {
   const FriendsTabBar({Key? key}) : super(key: key);
@@ -76,11 +77,20 @@ class FriendsTabBar extends StatelessWidget {
                             ),
                           ),
                           child: Center(
-                            child: Text(
-                              "Cake",
-                              style: textStyle(),
-                            ),
-                          ),
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(ImageStrings.profileManAsset),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "no follower yet",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -90,9 +100,20 @@ class FriendsTabBar extends StatelessWidget {
                             ),
                           ),
                           child: Center(
-                            child: Text(
-                              "Android",
-                              style: textStyle(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(ImageStrings.profileWomanAsset),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "no following yet",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ),
                         ),

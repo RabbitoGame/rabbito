@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 
 class InviteFriends extends StatelessWidget {
@@ -15,11 +16,7 @@ class InviteFriends extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(20, 8, 20, 0),
             child: ListTile(
-              leading: Icon(
-                Icons.card_giftcard,
-                size: 60,
-                color: Colors.tealAccent,
-              ),
+              leading: Image.asset(ImageStrings.profileGiftAsset),
               title: Text("invite-gift".tr),
               subtitle: Text("invite-gift-message".tr),
             ),
