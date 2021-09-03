@@ -16,7 +16,7 @@ class InviteFriends extends StatelessWidget {
             leading: Icon(
               Icons.card_giftcard,
               size: 50,
-              color: Colors.lightBlueAccent,
+              color: Colors.tealAccent,
             ),
             title: Text("invite-gift".tr),
             subtitle: Text("invite-gift-message".tr),
