@@ -3,6 +3,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/navigation-pages/game-page/chest.dart';
+import 'package:rabbito/view/navigation-pages/game-page/top_row_icon_button.dart';
 
 Widget gameMenu(BuildContext context) {
   return Container(
@@ -19,18 +20,12 @@ Widget gameMenu(BuildContext context) {
             ),
             padding: EdgeInsets.all(10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(
-                  Icons.receipt,
-                  color: Colors.teal,
-                  size: 50,
-                ),
-                Icon(
-                  Icons.settings_applications,
-                  color: Colors.teal,
-                  size: 50,
-                )
+                TopRowIconButton(() {}, Icons.share),
+                TopRowIconButton(() {}, Icons.settings),
+                TopRowIconButton(() {}, Icons.add_shopping_cart_outlined),
+                TopRowIconButton(() {}, Icons.circle),
               ],
             ),
           ),
