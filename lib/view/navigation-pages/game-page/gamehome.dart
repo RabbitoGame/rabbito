@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/navigation-pages/game-page/chest.dart';
 import 'package:rabbito/view/navigation-pages/game-page/top_row_icon_button.dart';
+import 'package:rabbito/view/widgets/custom_container.dart';
 
 Widget gameMenu(BuildContext context) {
   return Container(
@@ -40,22 +41,23 @@ Widget gameMenu(BuildContext context) {
                 Expanded(
                   flex: 4,
                   child: Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(20),
-                          primary: const Color(0xff6383F7),
+                    margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(20),
+                        primary: const Color(0xff6383F7),
+                      ),
+                      child: Text(
+                        "General League Game",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.manrope(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Text(
-                          "General League Game",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.manrope(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        onPressed: () {},
-                      )),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 3,
