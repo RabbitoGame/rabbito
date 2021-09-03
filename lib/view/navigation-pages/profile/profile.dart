@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
 import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
@@ -76,11 +77,7 @@ class ProfileUI2 extends StatelessWidget {
                           letterSpacing: 2.0, fontWeight: FontWeight.w300),
                     ))),
             SizedBox(
-              height: 15,
-            ),
-            WordsLearned(15),
-            SizedBox(
-              height: 15,
+              height: 10,
             ),
             Card(
               elevation: 10,
@@ -140,8 +137,28 @@ class ProfileUI2 extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            WordsLearned(15),
+            SizedBox(
+              height: 10,
+            ),
             InviteFriends(),
-            SizedBox(height: 500, child: FriendsTabBar()),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 500,
+              child: FriendsTabBar(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 400,
+              child: UserAchievements(),
+            ),
           ],
         ),
       ),
