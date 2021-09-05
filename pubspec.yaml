@@ -65,6 +65,8 @@ flutter:
     - assets/images/appbar/coin.png
     - assets/images/appbar/cup.png
     - assets/images/appbar/heart.png
+    - assets/images/appbar/star.png
+    - assets/images/appbar/flag.png
     - assets/images/logo.png
     - assets/images/navigation/shop.png
     - assets/images/navigation/user.png

@@ -3,6 +3,8 @@ class ImageStrings{
   static const String appbarCoinAsset = 'assets/images/appbar/coin.png';
   static const String appbarCupAsset = 'assets/images/appbar/cup.png';
   static const String appbarHeartAsset = 'assets/images/appbar/heart.png';
+  static const String appbarStarAsset = 'assets/images/appbar/star.png';
+  static const String appbarFlagAsset = 'assets/images/appbar/flag.png';
   static const String navigationShopAsset = 'assets/images/navigation/shop.png';
   static const String navigationUserAsset = 'assets/images/navigation/user.png';
   static const String navigationGameAsset = 'assets/images/navigation/game.png';
