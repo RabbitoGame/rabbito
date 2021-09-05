@@ -101,77 +101,52 @@ class _HomePageState extends State<HomePage> {
   Widget barIcons() {
     double width = 30;
     return Expanded(
-      flex: 3,
+      flex: 2,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
 
-          Expanded(
-            child: Row(children: [
-              Image(
-                image: AssetImage(ImageStrings.rankingCarrotAsset),
-                width: width,
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    '45',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.amber,
-                      fontFamily: 'Railway',
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-                padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-              )
-            ]),
-          ),
-          Expanded(
-            child: Row(children: [
-              Image(
-                image: AssetImage('./assets/images/appbar/coin.png'),
-                width: width,
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    '45',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.amber,
-                      fontFamily: 'Railway',
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-                padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-              )
-            ]),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage('./assets/images/appbar/heart.png'),
-                  width: width,
-                ),
-                Container(
-                  child: Center(
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber,
-                        fontFamily: 'Railway',
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
-                )
-              ],
+          Row(children: [
+            Image(
+              image: AssetImage('./assets/images/appbar/coin.png'),
+              width: width,
             ),
+            Container(
+              child: Center(
+                child: Text(
+                  '45',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                    fontFamily: 'Railway',
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+              padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+            )
+          ]),
+          Row(
+            children: [
+              Image(
+                image: AssetImage('./assets/images/appbar/heart.png'),
+                width: width,
+              ),
+              Container(
+                child: Center(
+                  child: Text(
+                    '5',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                      fontFamily: 'Railway',
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+              )
+            ],
           ),
         ],
       ),
@@ -182,97 +157,39 @@ class _HomePageState extends State<HomePage> {
     return Expanded(
       flex: 3,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Image(
-
               image: AssetImage(ImageStrings.appbarFlagAsset),
               width: 45,
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Stack(
-              alignment: Alignment.centerLeft,
+            flex: 2,
+            child: Row(
               children: [
-                Positioned(
-                  top: 8,
-                  left: 20,
-                  child: Container(
-                    width: 120,
-                    height: 25,
-                    child: LiquidLinearProgressIndicator(
-                      value: 0.5,
-                      valueColor: AlwaysStoppedAnimation(Colors.blue),
-                      // Defaults to the current Theme's accentColor.
-                      center: Text(
-                        '30/100',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                          fontFamily: 'Railway',
-                          fontSize: 16.0,
-                        ),
+                Image(
+                  image: AssetImage('./assets/images/logo.png'),
+                ),
+                Container(
+                  child: Center(
+                    child: Text(
+                      'Rabbito',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightGreen,
+                        fontFamily: 'Railway',
+                        fontSize: 20.0,
                       ),
-                      borderColor: Colors.blue,
-                      borderWidth: 2.0,
-                      borderRadius: 12.0,
-                      backgroundColor: Colors.white,
                     ),
                   ),
-                ),
-                Positioned(
-                  top:-5,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image(
-                        image: AssetImage(ImageStrings.appbarStarAsset),
-                        width: 45,
-                      ),
-                      Positioned(
-                        top: 15,
-                        left: 12,
-                        child: Text(
-                          "12",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.purple,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                 )
               ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
 }
-// Row(
-//   children: [
-//     Image(
-//       image: AssetImage('./assets/images/logo.png'),
-//     ),
-//     Container(
-//       child: Center(
-//         child: Text(
-//           'Rabbito',
-//           style: TextStyle(
-//             fontWeight: FontWeight.bold,
-//             color: Colors.lightGreen,
-//             fontFamily: 'Railway',
-//             fontSize: 20.0,
-//           ),
-//         ),
-//       ),
-//       padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-//     )
-//   ],
-// ),
