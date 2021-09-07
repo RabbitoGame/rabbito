@@ -26,6 +26,10 @@ class ImageStrings{
   static const String rankingBadgeAsset = 'assets/images/ranking/badge.png';
   static const String rankingClockAsset = 'assets/images/ranking/clock.png';
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
+  static const String gameHomeRouletteAsset = 'assets/images/game-home/roulette.png';
+  static const String gameHomeSettingsAsset = 'assets/images/game-home/settings.png';
+  static const String gameHomeCarrot1sAsset = 'assets/images/game-home/carrot1.png';
+  static const String gameHomeCarrot2sAsset = 'assets/images/game-home/carrot2.png';
   static const String profileBookAsset = 'assets/images/profile/book.png';
   static const String profileGiftAsset = 'assets/images/profile/gift.png';
   static const String profileManAsset = 'assets/images/profile/man.png';

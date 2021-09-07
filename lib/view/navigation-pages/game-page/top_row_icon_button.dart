@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class TopRowIconButton extends StatelessWidget {
   Function onPressed;
-  IconData icon;
+  Widget widget;
 
-  TopRowIconButton(this.onPressed, this.icon);
+  TopRowIconButton(this.onPressed, this.widget);
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,7 @@ class TopRowIconButton extends StatelessWidget {
         color: Colors.teal,
         padding: EdgeInsets.all(0),
         splashColor: Colors.white,
-        icon: Icon(
-          icon,
-          // color: Colors.lime,
-          size: 45,
-        ),
+        icon: widget,
         onPressed: () => onPressed,
       ),
     );

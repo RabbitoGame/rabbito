@@ -41,18 +41,16 @@ class _HomePageState extends State<HomePage> {
                 height: 60.0,
                 color: Colors.purple,
                 padding: EdgeInsets.fromLTRB(10.0, 10.0, 4.0, 10.0),
-                child: IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      xpProgressBar(),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      barIcons(),
-                    ],
-                  ),
+                child: Row(
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    flagAndName(),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    barIcons(),
+                  ],
                 )),
             Expanded(
               child: Container(
@@ -99,13 +97,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget barIcons() {
-    double width = 30;
+    double width = 33;
     return Expanded(
-      flex: 2,
+      flex: 6,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-
           Row(children: [
             Image(
               image: AssetImage('./assets/images/appbar/coin.png'),
@@ -126,6 +123,29 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
             )
           ]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image(
+                image: AssetImage(ImageStrings.rankingCarrotAsset,),
+                width: 30,
+              ),
+              Container(
+                child: Center(
+                  child: Text(
+                    '4235',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                      fontFamily: 'Railway',
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+              )
+            ],
+          ),
           Row(
             children: [
               Image(
@@ -153,9 +173,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  xpProgressBar() {
+  flagAndName() {
     return Expanded(
-      flex: 3,
+      flex: 6,
       child: Row(
         children: [
           Expanded(
