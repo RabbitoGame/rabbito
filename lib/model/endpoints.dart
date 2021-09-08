@@ -9,6 +9,8 @@ const List<Map> endpoints = [
     },
     "header": null,
     "response.data": {
+      "status" : String,
+      "Message" : String,
       "data": null,
       "access-token": String,
       "refresh-token": String,
@@ -33,6 +35,8 @@ const List<Map> endpoints = [
         "join-date": String,
         "avatar": String,
       },
+      "status" : String,
+      "Message" : String,
       "access-token": String,
       "refresh-token": String,
     }
@@ -55,6 +59,8 @@ const List<Map> endpoints = [
         "join-date": String,
         "avatar": String,
       },
+      "status" : String,
+      "Message" : String,
       "access-token": String,
       "refresh-token": String,
     }
@@ -68,6 +74,8 @@ const List<Map> endpoints = [
     },
     "response.data": {
       "data": null,
+      "status" : String,
+      "Message" : String,
       "access-token": String,
       "refresh-token": String,
     }
@@ -83,8 +91,8 @@ const List<Map> endpoints = [
       "data": {
         "heart": int,
       },
-      "access-token": String,
-      "refresh-token": String,
+      "status" : String,
+      "Message" : String,
     }
   },
   {
@@ -99,8 +107,8 @@ const List<Map> endpoints = [
         //todo some specific data
         //todo like how many words he learnde and ..
       },
-      "access-token": String,
-      "refresh-token": String,
+      "status" : String,
+      "Message" : String,
     }
   },
   {
@@ -116,10 +124,81 @@ const List<Map> endpoints = [
         "position": int,
         //competitors is a list off all people in one league
         //this list must be sorted (1 to n)
-        "competitors": List,
+        // every competitor is in fact a user and i need some info
+        // about him in form of a list of json
+        // [
+        //   {
+        //     "avatar": String,
+        //     "username" : String,
+        //     "carrot" : int ,
+        //   },
+        //   {
+        //     "avatar": String,
+        //     "username" : String,
+        //     "carrot" : int ,
+        //   },
+        // ],
+        "competitors": List ,
+
+
       },
-      "access-token": String,
-      "refresh-token": String,
+      "status" : String,
+      "Message" : String,
+    }
+  },
+  {
+    "url": "/get-competitor-info",
+    //this api is for seeing other
+    //people account info
+    "methode": "POST",
+    "body": {
+      "username": String,
+    },
+    "header": null,
+    "response.data": {
+      "data": {
+        "username": String,
+        "carrot": int,
+        "coin": int,
+        "league": int,
+        "rank": int,
+        "join-date": String,
+        "avatar": String,
+        //todo add more info
+      },
+      "status" : String,
+      "Message" : String,
+    }
+  },
+  {
+    "url": "/words",
+    "methode": "GET",
+    "body": null,
+    "header": {
+      "Authorization": "access token",
+    },
+    "response.data": {
+      "data": {
+        "words": List ,// a list of words
+        "translation": List // a list of words translations
+      },
+      "status" : String,
+      "Message" : String,
+    }
+  },
+  {
+    "url": "/achievements",
+    "methode": "GET",
+    "body": null,
+    "header": {
+      "Authorization": "access token",
+    },
+    "response.data": {
+      "data": {
+        "achievements": List ,// a list of achievements
+      },
+      "status" : String,
+      "Message" : String,
     }
   },
   {
