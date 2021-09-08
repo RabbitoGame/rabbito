@@ -25,13 +25,14 @@ class WordsLearned extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
               width: double.infinity,
               child: CustomContainer(
-                Text(
+                child: Text(
                   "REVIEW WORDS!",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
+                onPressed: () {},
                 outerColor: Colors.green,
                 innerColor: Colors.lightGreen,
               ))

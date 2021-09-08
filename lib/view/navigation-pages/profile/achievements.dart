@@ -110,7 +110,6 @@ class UserAchievements extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(subTitle),
-
                 AchievementProgressBar(),
               ],
             ),
@@ -119,7 +118,7 @@ class UserAchievements extends StatelessWidget {
         Expanded(
           flex: 2,
           child: CustomContainer(
-            Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -130,6 +129,7 @@ class UserAchievements extends StatelessWidget {
                 Text(assetString)
               ],
             ),
+            onPressed: () {},
           ),
         )
       ],

@@ -8,11 +8,13 @@ class CustomContainer extends StatelessWidget {
   double y;
 
   double minHeight;
-
+  var onPressed;
   Widget child;
 
-  CustomContainer(
-    this.child, {
+  CustomContainer({
+    required this.child,
+    required this.onPressed,
+
     this.innerColor = Colors.lightBlueAccent,
     this.outerColor = Colors.blue,
     this.x = 20,
@@ -25,6 +27,7 @@ class CustomContainer extends StatelessWidget {
     return ClipPath(
       clipper: MyCustomClipper(x, 0),
       child: Container(
+
         constraints: BoxConstraints(minHeight: minHeight),
         color: outerColor,
         child: ClipPath(
@@ -32,7 +35,7 @@ class CustomContainer extends StatelessWidget {
           child: Material(
             color: innerColor,
             child: InkWell(
-              onTap: () {},
+              onTap: onPressed,
               splashColor: Colors.white,
               child: Center(
                 child: child,

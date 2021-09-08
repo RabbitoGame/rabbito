@@ -38,7 +38,7 @@ Widget gameMenu(BuildContext context) {
             width: double.maxFinite,
             margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: CustomContainer(
-               Text(
+              child: Text(
                 "General League Game",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.manrope(
@@ -46,6 +46,7 @@ Widget gameMenu(BuildContext context) {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              onPressed: () {},
               innerColor: const Color(0xff6383F7),
               outerColor: const Color(0xff6383F7).withOpacity(0.5),
             ),
@@ -57,7 +58,7 @@ Widget gameMenu(BuildContext context) {
             width: double.maxFinite,
             margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: CustomContainer(
-              Text(
+              child: Text(
                 "Thematic Game",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.manrope(
@@ -65,6 +66,7 @@ Widget gameMenu(BuildContext context) {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              onPressed: () {},
               innerColor: const Color(0xffB06BF7),
               outerColor: const Color(0xffB06BF7).withOpacity(0.5),
               // innerColor: const Color(0xffB06BF7),

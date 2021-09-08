@@ -14,12 +14,13 @@ class GameAppBar extends StatelessWidget {
         Expanded(
           flex: 5,
           child: CustomContainer(
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset(
                 ImageStrings.gameHomeRouletteAsset,
               ),
             ),
+            onPressed: () {},
             innerColor: Colors.redAccent,
             outerColor: Colors.red,
           ),
@@ -30,7 +31,7 @@ class GameAppBar extends StatelessWidget {
         Expanded(
           flex: 10,
           child: CustomContainer(
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -47,6 +48,7 @@ class GameAppBar extends StatelessWidget {
                 ],
               ),
             ),
+            onPressed: () {},
             innerColor: Colors.green,
             outerColor: Colors.greenAccent,
           ),
@@ -57,10 +59,11 @@ class GameAppBar extends StatelessWidget {
         Expanded(
           flex: 4,
           child: CustomContainer(
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Image.asset(ImageStrings.gameHomeSettingsAsset),
             ),
+            onPressed: () {},
             innerColor: Colors.redAccent,
             outerColor: Colors.red,
           ),
@@ -124,4 +127,3 @@ xpWidget() {
     ],
   );
 }
-
