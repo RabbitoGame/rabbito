@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 
 class RankItem extends StatelessWidget {
   var userState;
@@ -56,7 +57,7 @@ class RankItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -75,8 +76,17 @@ class RankItem extends StatelessWidget {
                 width: 5,
               ),
               Expanded(
+                flex: 2,
+                child: CircleAvatar(
+                  child: Image.asset(ImageStrings.logoAsset),
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
                 child: Text(userState.name),
-                flex: 6,
+                flex: 5,
               ),
               Expanded(
                 flex: 3,
