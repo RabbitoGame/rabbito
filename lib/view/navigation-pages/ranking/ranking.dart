@@ -2,8 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
-
-
+import 'package:rabbito/view/widgets/loading.dart';
 
 Widget rankingMenu(BuildContext context) {
   final List<RankingRow> items = <RankingRow>[
@@ -71,53 +70,70 @@ Widget rankingMenu(BuildContext context) {
     collapseIcon: Icons.close,
     iconPadding: EdgeInsets.all(10),
   );
-  ExpandablePanel openableLeague(String url, String name) {
-    return ExpandablePanel(
-        theme: openableTheme,
-        header: Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset(url, width: 40.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
-                ),
-              )
-            ],
-          ),
+
+  Widget buildList() {
+    return Stack(
+      overflow: Overflow.visible,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RankWatch(),
         ),
-        collapsed: SizedBox(),
-        expanded: Stack(
-          overflow: Overflow.visible,
+        Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RankWatch(),
+            SizedBox(
+              height: 95,
             ),
-            Column(
-              children: [
-                SizedBox(height: 95,),
-                ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return RankItem(items[index], index + 1);
-                  },
-                ),
-              ],
+            ListView.builder(
+              physics: ClampingScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(8),
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return RankItem(items[index], index + 1);
+              },
             ),
           ],
-        ));
+        ),
+      ],
+    );
+  }
+
+  ExpandablePanel openableLeague(String url, String name) {
+    return ExpandablePanel(
+      theme: openableTheme,
+      header: Container(
+        padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Row(
+          children: [
+            Container(
+              child: Image.asset(url, width: 40.0),
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            ),
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+                fontFamily: 'Railway',
+                fontSize: 20.0,
+              ),
+            )
+          ],
+        ),
+      ),
+      collapsed: SizedBox(),
+      expanded: FutureBuilder(
+        future: Future.delayed(Duration(seconds: 3)),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return buildList();
+          } else {
+            return Container( height:150,child: Center(child: LoadingWidget()));
+          }
+        },
+      ),
+    );
   }
 
   Container closeLeague(String url, String name) {

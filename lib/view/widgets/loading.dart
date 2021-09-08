@@ -15,10 +15,11 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: LoadingIndicator(
-        indicatorType: Indicator.lineScale,
+        indicatorType: Indicator.lineScaleParty,
         colors: _kDefaultRainbowColors,
         strokeWidth: 4.0,
         // pathBackgroundColor: showPathBackground ? Colors.black45 : null,
+        pathBackgroundColor: Colors.black45,
       ),
     );
   }
