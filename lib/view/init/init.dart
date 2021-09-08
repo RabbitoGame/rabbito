@@ -7,6 +7,7 @@ import 'package:rabbito/view/init/splash.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/widgets/fortune_wheel.dart';
 import 'package:rabbito/view/widgets/indicator.dart';
+import 'package:rabbito/view/widgets/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InitPage extends StatelessWidget {
@@ -27,8 +28,8 @@ class InitPage extends StatelessWidget {
           } else if (AppController.appController.firstEntrance.value) {
             return IntroductionScreen();
           } else {
-            return HomePage(title: 'Rabbito');
-            // return FortuneWheelPage();
+            // return HomePage(title: 'Rabbito');
+            return LoadingWidget();
           }
         },
       ),
