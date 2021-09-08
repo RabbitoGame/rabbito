@@ -9,8 +9,8 @@ const List<Map> endpoints = [
     },
     "header": null,
     "response.data": {
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
       "data": null,
       "access-token": String,
       "refresh-token": String,
@@ -35,8 +35,8 @@ const List<Map> endpoints = [
         "join-date": String,
         "avatar": String,
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
       "access-token": String,
       "refresh-token": String,
     }
@@ -59,23 +59,23 @@ const List<Map> endpoints = [
         "join-date": String,
         "avatar": String,
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
       "access-token": String,
       "refresh-token": String,
     }
   },
   {
-    "url": "/refresh-token",
-    "methode": "GET",
-    "body": null,
-    "header": {
-      "Authorization": "refresh token",
+    "url": "/token/refresh",
+    "methode": "POST",
+    "body": {
+      "refresh": String,
     },
+    "header": null,
     "response.data": {
       "data": null,
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
       "access-token": String,
       "refresh-token": String,
     }
@@ -91,8 +91,8 @@ const List<Map> endpoints = [
       "data": {
         "heart": int,
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {
@@ -107,8 +107,8 @@ const List<Map> endpoints = [
         //todo some specific data
         //todo like how many words he learnde and ..
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {
@@ -138,12 +138,10 @@ const List<Map> endpoints = [
         //     "carrot" : int ,
         //   },
         // ],
-        "competitors": List ,
-
-
+        "competitors": List,
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {
@@ -166,8 +164,8 @@ const List<Map> endpoints = [
         "avatar": String,
         //todo add more info
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {
@@ -179,11 +177,11 @@ const List<Map> endpoints = [
     },
     "response.data": {
       "data": {
-        "words": List ,// a list of words
+        "words": List, // a list of words
         "translation": List // a list of words translations
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {
@@ -195,10 +193,10 @@ const List<Map> endpoints = [
     },
     "response.data": {
       "data": {
-        "achievements": List ,// a list of achievements
+        "achievements": List, // a list of achievements
       },
-      "status" : String,
-      "Message" : String,
+      "status": String,
+      "Message": String,
     }
   },
   {

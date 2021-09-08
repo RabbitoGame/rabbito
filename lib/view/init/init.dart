@@ -5,6 +5,7 @@ import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/init/introduction.dart';
 import 'package:rabbito/view/init/splash.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
+import 'package:rabbito/view/widgets/fortune_wheel.dart';
 import 'package:rabbito/view/widgets/indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,7 @@ class InitPage extends StatelessWidget {
             return IntroductionScreen();
           } else {
             return HomePage(title: 'Rabbito');
+            // return FortuneWheelPage();
           }
         },
       ),

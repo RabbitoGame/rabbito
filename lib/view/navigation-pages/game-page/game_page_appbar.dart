@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
-import 'package:rabbito/view/navigation-pages/game-page/top_row_icon_button.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
+import 'package:rabbito/view/widgets/fortune_wheel.dart';
 
 class GameAppBar extends StatelessWidget {
   const GameAppBar({Key? key}) : super(key: key);
@@ -20,7 +21,24 @@ class GameAppBar extends StatelessWidget {
                 ImageStrings.gameHomeRouletteAsset,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return Dialog(
+
+                    shape: RoundedRectangleBorder(
+
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    insetPadding:const EdgeInsets.symmetric(vertical: 160.0 , horizontal: 40) ,
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    child: FortuneWheelPage(),
+                  );
+                },
+              );
+            },
             innerColor: Colors.redAccent,
             outerColor: Colors.red,
           ),

@@ -101,6 +101,8 @@ flutter:
     - assets/images/profile/man.png
     - assets/images/profile/woman.png
     - assets/images/profile/achievement.png
+    - assets/images/widgets/ticket1.png
+    - assets/images/widgets/ticket2.png
 
 
 
