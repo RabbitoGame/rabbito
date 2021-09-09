@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
+import 'package:rabbito/view/login/register.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -150,8 +151,8 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              child: Image.asset('assets/images/logo.png', width: 120.0),
-              top: 0,
+              child: Image.asset('assets/images/rabbit/Waving.png', width: 200.0),
+              top: 20,
               right: 0
             ),
             Positioned(
@@ -166,14 +167,23 @@ class LoginScreen extends StatelessWidget {
                           fontSize: 16.0
                       ),
                     ),
-                    Text(
-                      ' Sign up',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        color: Colors.green
+                    FlatButton(
+                      // splashColor: Colors.red,
+                      color: const Color(0xffF2F2F2),
+                      // textColor: Colors.white,
+                      child: Text(
+                        ' Sign up',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                            color: Colors.green
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => RegisterScreen()));
+                      },
                     ),
                   ],
                 ),
