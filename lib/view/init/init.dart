@@ -4,6 +4,7 @@ import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/view/init/introduction.dart';
 import 'package:rabbito/view/init/splash.dart';
+import 'package:rabbito/view/login/login.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/widgets/fortune_wheel.dart';
 import 'package:rabbito/view/widgets/indicator.dart';
@@ -26,9 +27,9 @@ class InitPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SplashScreen();
           } else if (AppController.appController.firstEntrance.value) {
-            return IntroductionScreen();
+            return LoginScreen();
           } else {
-            return HomePage(title: 'Rabbito');
+            return IntroductionScreen();
             // return LoadingWidget();
           }
         },
