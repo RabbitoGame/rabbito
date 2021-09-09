@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
         body: Stack(
           children: [
             Container(
-              color: Colors.white,
+              color: const Color(0xffF2F2F2),
               child: Column(
                 children: [
                   Align(
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(55, 5, 55, 10),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: "Email",
+                        labelText: "Username",
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       validator: (val) {
                         if(val!.length==0) {
-                          return "Email cannot be empty";
+                          return "Username cannot be empty";
                         }else{
                           return null;
                         }
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        'Login',
+                                        'LOGIN',
                                         textAlign: TextAlign.end,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
