@@ -97,6 +97,16 @@ flutter:
     - assets/images/game-home/settings.png
     - assets/images/game-home/carrot1.png
     - assets/images/game-home/carrot2.png
+    - assets/images/game-home/donation.png
+    - assets/images/game-home/sound1.png
+    - assets/images/game-home/sound2.png
+    - assets/images/game-home/sound3.png
+    - assets/images/game-home/music1.png
+    - assets/images/game-home/music2.png
+    - assets/images/game-home/share1.png
+    - assets/images/game-home/share2.png
+    - assets/images/game-home/close1.png
+    - assets/images/game-home/close2.png
     - assets/images/profile/book.png
     - assets/images/profile/gift.png
     - assets/images/profile/man.png

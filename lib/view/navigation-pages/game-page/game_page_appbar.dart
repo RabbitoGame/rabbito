@@ -5,6 +5,8 @@ import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/fortune_wheel.dart';
 
+import 'settings_widget.dart';
+
 class GameAppBar extends StatelessWidget {
   const GameAppBar({Key? key}) : super(key: key);
 
@@ -25,17 +27,7 @@ class GameAppBar extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (_) {
-                  return Dialog(
-
-                    shape: RoundedRectangleBorder(
-
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    insetPadding:const EdgeInsets.symmetric(vertical: 160.0 , horizontal: 40) ,
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    child: FortuneWheelPage(),
-                  );
+                  return myDialog(widget: FortuneWheelPage());
                 },
               );
             },
@@ -81,12 +73,35 @@ class GameAppBar extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Image.asset(ImageStrings.gameHomeSettingsAsset),
             ),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return myDialog(widget: SettingsWidget(), horizontal: 20, vertical: 60);
+                },
+              );
+            },
             innerColor: Colors.redAccent,
             outerColor: Colors.red,
           ),
         ),
       ],
+    );
+  }
+
+  Widget myDialog({
+    required Widget widget,
+    double vertical = 160.0,
+    double horizontal = 40,
+  }) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      insetPadding: EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal,),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: widget,
     );
   }
 }

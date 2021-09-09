@@ -18,7 +18,6 @@ class LoadingWidget extends StatelessWidget {
         indicatorType: Indicator.lineScaleParty,
         colors: _kDefaultRainbowColors,
         strokeWidth: 4.0,
-        // pathBackgroundColor: showPathBackground ? Colors.black45 : null,
         pathBackgroundColor: Colors.black45,
       ),
     );

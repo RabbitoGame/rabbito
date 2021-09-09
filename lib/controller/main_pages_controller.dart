@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 class MainPagesController extends GetxController {
   Rx<int> _selectedIndex = 0.obs;
