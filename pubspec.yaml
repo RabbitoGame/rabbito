@@ -114,8 +114,8 @@ flutter:
     - assets/images/profile/achievement.png
     - assets/images/widgets/ticket1.png
     - assets/images/widgets/ticket2.png
-
-
+    - assets/images/rabbit/Eating_carrot.png
+    - assets/images/rabbit/Waving.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
