@@ -27,7 +27,7 @@ class GameAppBar extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (_) {
-                  return myDialog(widget: FortuneWheelPage());
+                  return myDialog(widget: FortuneWheelPage() , vertical: 60 , horizontal:20 );
                 },
               );
             },
