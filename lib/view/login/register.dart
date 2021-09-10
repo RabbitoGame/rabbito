@@ -13,7 +13,7 @@ class RegisterScreen extends StatelessWidget {
           body: Stack(
             children: [
               Container(
-                color: const Color(0xffF2F2F2),
+                color: const Color(0xffd4d2d2),
                 child: Column(
                   children: [
                     Align(
@@ -177,7 +177,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     FlatButton(
                       // splashColor: Colors.red,
-                      color: const Color(0xffF2F2F2),
+                      color: const Color(0xffd4d2d2),
                       // textColor: Colors.white,
                       child: Text(
                         ' Sign in',
