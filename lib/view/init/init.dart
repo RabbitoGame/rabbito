@@ -28,10 +28,10 @@ class InitPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SplashScreen();
           } else if (AppController.appController.firstEntrance.value) {
-            return RegisterScreen();
-          } else {
             return IntroductionScreen();
-            // return LoadingWidget();
+          } else {
+            return HomePage(title: "Rabbito");
+
           }
         },
       ),

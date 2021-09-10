@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
 import 'package:rabbito/view/widgets/loading.dart';
@@ -10,28 +11,28 @@ Widget rankingMenu(BuildContext context) {
         name: 'ali',
         rank: League.Diamond,
         cups: 23,
-        image: 'assets/images/logo.png',
+        image: ImageStrings.rankingLeagueCrystal1Asset,
         carrot: 13,
         xp: 102),
     RankingRow(
         name: 'hasan',
         rank: League.Diamond,
         cups: 50,
-        image: 'assets/images/appbar/cup.png',
+        image: ImageStrings.rankingLeagueCrystal2Asset,
         carrot: 13,
         xp: 102),
     RankingRow(
         name: 'ali',
         rank: League.Diamond,
         cups: 23,
-        image: 'assets/images/logo.png',
+        image: ImageStrings.rankingLeagueCrystal3Asset,
         carrot: 13,
         xp: 102),
     RankingRow(
         name: 'hasan',
         rank: League.Diamond,
         cups: 50,
-        image: 'assets/images/appbar/cup.png',
+        image: ImageStrings.rankingLeagueBronze1Asset,
         carrot: 13,
         xp: 102),
     RankingRow(
@@ -53,8 +54,8 @@ Widget rankingMenu(BuildContext context) {
   ExpandableThemeData openableTheme = ExpandableThemeData(
     hasIcon: true,
     tapHeaderToExpand: true,
-    iconColor: Colors.blue,
-    iconSize: 30,
+    iconColor: Colors.black,
+    iconSize: 40,
     headerAlignment: ExpandablePanelHeaderAlignment.center,
     iconRotationAngle: 50,
     collapseIcon: Icons.close,
@@ -103,18 +104,20 @@ Widget rankingMenu(BuildContext context) {
     return ExpandablePanel(
       theme: openableTheme,
       header: Container(
+        // color: Colors.red,
+
         padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
         child: Row(
           children: [
             Container(
-              child: Image.asset(url, width: 40.0),
+              child: Image.asset(url, width: 80.0),
               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
             ),
             Text(
               name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
+                color: Colors.white,
                 fontFamily: 'Railway',
                 fontSize: 20.0,
               ),
@@ -123,15 +126,19 @@ Widget rankingMenu(BuildContext context) {
         ),
       ),
       collapsed: SizedBox(),
-      expanded: FutureBuilder(
-        future: Future.delayed(Duration(seconds: 3)),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return buildList();
-          } else {
-            return Container( height:150,child: Center(child: LoadingWidget()));
-          }
-        },
+      expanded: Container(
+        color: Colors.white,
+        child: FutureBuilder(
+          future: Future.delayed(Duration(seconds: 3)),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return buildList();
+            } else {
+              return Container(
+                  height: 150, child: Center(child: LoadingWidget()));
+            }
+          },
+        ),
       ),
     );
   }
@@ -142,14 +149,14 @@ Widget rankingMenu(BuildContext context) {
       child: Row(
         children: [
           Container(
-            child: Image.asset(url, width: 40.0),
+            child: Image.asset(url, width: 80.0),
             padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
           ),
           Text(
             name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.deepPurple,
+              color: Colors.white,
               fontFamily: 'Railway',
               fontSize: 20.0,
             ),
@@ -161,8 +168,28 @@ Widget rankingMenu(BuildContext context) {
 
   return ListView(
     children: <Widget>[
-      openableLeague('assets/images/leagues/gem.png', "GEM League"),
-      closeLeague('assets/images/leagues/diamond.png', 'DIAMOND League'),
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Colors.brown,
+            Colors.brown.shade300,
+          ], stops: [
+            0.6,
+            1
+          ]),
+        ),
+        child: openableLeague(
+            ImageStrings.rankingLeagueCrystal1Asset, "GEM League"),
+      ),
+      Container(
+
+        color: Colors.black,
+        child: closeLeague(
+            ImageStrings.rankingLeagueBronze2Asset, 'DIAMOND League'),
+      ),
+      closeLeague(ImageStrings.rankingLeagueBronze3Asset, 'DIAMOND League'),
+      closeLeague(ImageStrings.rankingLeagueBronze4Asset, 'DIAMOND League'),
+      closeLeague(ImageStrings.rankingLeagueBronze5Asset, 'DIAMOND League'),
       closeLeague('assets/images/leagues/platinum.png', 'PLATINUM League'),
       closeLeague('assets/images/leagues/gold.png', 'GOLD League'),
       closeLeague('assets/images/leagues/silver.png', 'SILVER League'),

@@ -32,6 +32,16 @@ class ImageStrings {
       'assets/images/ranking/progress.png';
   static const String rankingBadgeAsset = 'assets/images/ranking/badge.png';
   static const String rankingClockAsset = 'assets/images/ranking/clock.png';
+  static const String rankingLeagueCrystal1Asset = 'assets/images/ranking/league/Crystal_1.png';
+  static const String rankingLeagueCrystal2Asset = 'assets/images/ranking/league/Crystal_2.png';
+  static const String rankingLeagueCrystal3Asset = 'assets/images/ranking/league/Crystal_3.png';
+  static const String rankingLeagueCrystal4Asset = 'assets/images/ranking/league/Crystal_4.png';
+  static const String rankingLeagueCrystal5Asset = 'assets/images/ranking/league/Crystal_5.png';
+  static const String rankingLeagueBronze1Asset = 'assets/images/ranking/league/Bronze_1.png';
+  static const String rankingLeagueBronze2Asset = 'assets/images/ranking/league/Bronze_2.png';
+  static const String rankingLeagueBronze3Asset = 'assets/images/ranking/league/Bronze_3.png';
+  static const String rankingLeagueBronze4Asset = 'assets/images/ranking/league/Bronze_4.png';
+  static const String rankingLeagueBronze5Asset = 'assets/images/ranking/league/Bronze_5.png';
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
   static const String gameHomeRouletteAsset =
       'assets/images/game-home/roulette.png';

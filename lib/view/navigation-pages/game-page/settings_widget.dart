@@ -11,7 +11,7 @@ class SettingsWidget extends StatelessWidget {
     return Stack(children: [
       Card(
         color: Colors.amber,
-        // color: Color(0xffdb517b),
+
         child: Container(
           padding: EdgeInsets.all(15),
           child: Column(
