@@ -35,6 +35,8 @@ class ImageStrings {
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
   static const String gameHomeRouletteAsset =
       'assets/images/game-home/roulette.png';
+  static const String gameHomeRoulette2Asset =
+      'assets/images/game-home/roulette2.png';
   static const String gameHomeSettingsAsset =
       'assets/images/game-home/settings.png';
   static const String gameHomeCarrot1sAsset =
@@ -56,6 +58,14 @@ class ImageStrings {
   static const String gameHomeShare2Asset = 'assets/images/game-home/share2.png';
   static const String gameHomeClose1Asset = 'assets/images/game-home/close1.png';
   static const String gameHomeClose2Asset = 'assets/images/game-home/close2.png';
+  static const String gameHomeWheelCash2Asset = 'assets/images/game-home/wheel/cash2.png';
+  static const String gameHomeWheelCoin2Asset = 'assets/images/game-home/wheel/coin2.png';
+  static const String gameHomeWheelMoneyBag1Asset = 'assets/images/game-home/wheel/money_bag1.png';
+  static const String gameHomeWheelMoneyBag3Asset = 'assets/images/game-home/wheel/money_bag3.png';
+  static const String gameHomeWheelMystery1Asset = 'assets/images/game-home/wheel/mystery1.png';
+  static const String gameHomeWheelMystery3Asset = 'assets/images/game-home/wheel/mystery3.png';
+  static const String gameHomeWheelMystery4Asset = 'assets/images/game-home/wheel/mystery4.png';
+  static const String gameHomeWheelHeartPlus6Asset = 'assets/images/game-home/wheel/heart_plus6.png';
   static const String profileBookAsset = 'assets/images/profile/book.png';
   static const String profileGiftAsset = 'assets/images/profile/gift.png';
   static const String profileManAsset = 'assets/images/profile/man.png';

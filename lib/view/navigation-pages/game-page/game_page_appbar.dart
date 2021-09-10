@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
-import 'package:rabbito/view/widgets/fortune_wheel.dart';
+import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
 
 import 'settings_widget.dart';
 

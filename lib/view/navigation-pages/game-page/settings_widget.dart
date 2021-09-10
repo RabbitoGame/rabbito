@@ -40,7 +40,6 @@ class SettingsWidget extends StatelessWidget {
           onTap: () => Navigator.of(context).pop(),
         ),
         alignment: Alignment.topRight,
-
       ),
     ]);
   }
@@ -70,6 +69,7 @@ class SettingsWidget extends StatelessWidget {
 
   supportWidget() {
     return Column(
+      // mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -99,7 +99,11 @@ class SettingsWidget extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                    child: Image.asset(ImageStrings.gameHomeDonationsAsset)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(ImageStrings.gameHomeDonationsAsset),
+                  ),
+                ),
                 Expanded(
                   flex: 2,
                   child: Text(
@@ -126,7 +130,12 @@ class SettingsWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Expanded(child: Image.asset(ImageStrings.gameHomeShare1Asset)),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(ImageStrings.gameHomeShare1Asset,),
+                  ),
+                ),
                 Expanded(
                   flex: 2,
                   child: Text(

@@ -95,6 +95,7 @@ flutter:
     - assets/images/game-home/chest1.png
     - assets/images/game-home/chest2.png
     - assets/images/game-home/roulette.png
+    - assets/images/game-home/roulette2.png
     - assets/images/game-home/settings.png
     - assets/images/game-home/carrot1.png
     - assets/images/game-home/carrot2.png
@@ -108,6 +109,14 @@ flutter:
     - assets/images/game-home/share2.png
     - assets/images/game-home/close1.png
     - assets/images/game-home/close2.png
+    - assets/images/game-home/wheel/coin2.png
+    - assets/images/game-home/wheel/cash2.png
+    - assets/images/game-home/wheel/money_bag1.png
+    - assets/images/game-home/wheel/money_bag3.png
+    - assets/images/game-home/wheel/mystery1.png
+    - assets/images/game-home/wheel/mystery3.png
+    - assets/images/game-home/wheel/mystery4.png
+    - assets/images/game-home/wheel/heart_plus6.png
     - assets/images/profile/book.png
     - assets/images/profile/gift.png
     - assets/images/profile/man.png
