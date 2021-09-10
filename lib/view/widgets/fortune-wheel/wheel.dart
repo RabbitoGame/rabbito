@@ -105,16 +105,16 @@ class Wheel extends StatelessWidget {
 
   confetti() {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.topCenter,
       child: ConfettiWidget(
-        confettiController: _wheelController.controllerCenter.value,
-        blastDirection: pi,
+        confettiController: _wheelController.controller.value,
+        blastDirection: -pi/2,
         // radial value - LEFT
         particleDrag: 0.05,
         // apply drag to the confetti
         emissionFrequency: 0.05,
         // how often it should emit
-        numberOfParticles: 20,
+        numberOfParticles: 2,
         // number of particles to emit
         gravity: 0.05,
         // gravity - or fall speed
@@ -149,9 +149,15 @@ class Wheel extends StatelessWidget {
       builder: (_) => AlertDialog(
         shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: Colors.amber,
-        title: Text(
-          "CONGRATULATIONS!!!",
-          textAlign: TextAlign.center,
+        title: Column(
+          children: [
+            confetti(),
+
+            Text(
+              "CONGRATULATIONS!!!",
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -188,15 +194,21 @@ class Wheel extends StatelessWidget {
               innerColor: Colors.deepPurple,
               outerColor: Colors.brown,
             ),
-            confetti(),
           ],
         ),
       ),
     );
+    _wheelController._controller.value.play();
   }
 }
 
 class WheelController extends GetxController {
-  Rx<ConfettiController> controllerCenter =
+  Rx<ConfettiController> _controller =
       ConfettiController(duration: const Duration(seconds: 10)).obs;
+
+  Rx<ConfettiController> get controller => _controller;
+
+  set controller(Rx<ConfettiController> value) {
+    _controller = value;
+  }
 }
