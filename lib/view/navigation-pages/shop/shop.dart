@@ -1,346 +1,92 @@
 import 'package:flutter/material.dart';
-
-class Product {
-  String name, price, image;
-  bool userLiked;
-  double discount;
-
-  Product(
-      {required this.name,
-      required this.price,
-      required this.discount,
-      required this.image,
-      required this.userLiked});
-}
-
-Widget cardItem(Product food,
-    {required double imgWidth, onLike, onTapped, bool isProductPage = false}) {
-  return Container(
-    width: 180,
-    height: 180,
-    // color: Colors.red,
-    margin: EdgeInsets.only(left: 20),
-    child: Stack(
-      children: <Widget>[
-        Container(
-            width: 180,
-            height: 180,
-            child: RaisedButton(
-                color: Colors.white,
-                elevation: (isProductPage) ? 20 : 12,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                onPressed: onTapped,
-                child: Hero(
-                    transitionOnUserGestures: true,
-                    tag: food.name,
-                    child: Image.asset(food.image,
-                        width: (imgWidth != null) ? imgWidth : 100)))),
-        Positioned(
-          bottom: (isProductPage) ? 10 : 70,
-          right: 0,
-          child: FlatButton(
-            padding: EdgeInsets.all(20),
-            shape: CircleBorder(),
-            onPressed: onLike,
-            child: Icon(
-              (food.userLiked) ? Icons.favorite : Icons.favorite_border,
-              color: (food.userLiked) ? Colors.deepOrange : Colors.orangeAccent,
-              size: 30,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          child: (!isProductPage)
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(food.name),
-                    Text(food.price),
-                  ],
-                )
-              : Text(' '),
-        ),
-        Positioned(
-            top: 10,
-            left: 10,
-            child: (food.discount != null)
-                ? Container(
-                    padding:
-                        EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 5),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[600],
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text('-' + food.discount.toString() + '%',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w700)),
-                  )
-                : SizedBox(width: 0))
-      ],
-    ),
-  );
-}
+import 'package:rabbito/view/navigation-pages/shop/avatar_card.dart';
+import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
 
 Widget shopMenu(BuildContext context) {
-  // will pick it up from here
-  // am to start another template
-  List<Product> foods = [
-    Product(
-        name: "Card",
-        image: "assets/images/introduction/welcome1.png",
-        price: "\$25.00",
-        userLiked: true,
-        discount: 10),
-    Product(
-        name: "Card",
-        image: "assets/images/introduction/welcome2.png",
-        price: "\$150.00",
-        userLiked: false,
-        discount: 7.8),
-    Product(
-      name: "Card",
-      image: "assets/images/introduction/welcome3.png",
-      price: '\$10.99',
-      userLiked: false,
-      discount: 0,
-    ),
-    Product(
-        name: "Card",
-        image: "assets/images/introduction/welcome4.png",
-        price: '\$50.00',
-        userLiked: true,
-        discount: 14)
-  ];
 
-  List<Product> drinks = [
-    Product(
-        name: "Card",
-        image: "assets/images/appbar/coin.png",
-        price: "\$45.12",
-        userLiked: true,
-        discount: 2),
-    Product(
-        name: "Card",
-        image: "assets/images/appbar/cup.png",
-        price: "\$28.00",
-        userLiked: false,
-        discount: 5.2),
-    Product(
-        name: "Card",
-        image: "assets/images/appbar/heart.png",
-        price: "\$78.99",
-        userLiked: false,
-        discount: 0),
-    Product(
-        name: "Card",
-        image: "assets/images/navigation/ranking.png",
-        price: "\$168.99",
-        userLiked: true,
-        discount: 3.4)
-  ];
-
-  return ListView(children: <Widget>[
-    headerTopCategories(),
-    deals('Hot Things', onViewMore: () {}, items: <Widget>[
-      cardItem(foods[0], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: foods[0],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, onLike: () {}, imgWidth: 40),
-      cardItem(foods[1], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: foods[1],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, imgWidth: 250, onLike: () {}),
-      cardItem(foods[2], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: foods[2],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, imgWidth: 200, onLike: () {}),
-      cardItem(foods[3], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: foods[3],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, onLike: () {}, imgWidth: 40),
-    ]),
-    deals('Cards', onViewMore: () {}, items: <Widget>[
-      cardItem(drinks[0], onTapped: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) {
-        //         return new ProductPage(
-        //           productData: drinks[0],
-        //         );
-        //       },
-        //     ),
-        //   );
-      }, onLike: () {}, imgWidth: 60),
-      cardItem(drinks[1], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: drinks[1],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, onLike: () {}, imgWidth: 75),
-      cardItem(drinks[2], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: drinks[2],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, imgWidth: 110, onLike: () {}),
-      cardItem(drinks[3], onTapped: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return new ProductPage(
-        //         productData: drinks[3],
-        //       );
-        //     },
-        //   ),
-        // );
-      }, onLike: () {}, imgWidth: 40),
-    ])
-  ]);
-}
-
-Widget sectionHeader(String headerTitle, {onViewMore}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Container(
-        margin: EdgeInsets.only(left: 15, top: 10),
-        child: Text(headerTitle),
-      ),
-      Container(
-        margin: EdgeInsets.only(left: 15, top: 2),
-        child: FlatButton(
-          onPressed: onViewMore,
-          child: Text('View all ›'),
-        ),
-      )
-    ],
-  );
-}
-
-// wrap the horizontal listview inside a sizedBox..
-Widget headerTopCategories() {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      sectionHeader('All Categories', onViewMore: () {}),
-      SizedBox(
-        height: 130,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          children: <Widget>[
-            headerCategoryItem('Cards', Icons.credit_card, onPressed: () {}),
-            headerCategoryItem('Scores', Icons.score, onPressed: () {}),
-            headerCategoryItem('Colors', Icons.color_lens, onPressed: () {}),
-            headerCategoryItem('Games', Icons.videogame_asset,
-                onPressed: () {}),
-            headerCategoryItem('Games', Icons.games_outlined, onPressed: () {}),
+  return Container(
+    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+    child: SingleChildScrollView( child: Column(
+      children: [
+        Row(
+          children: [
+            Expanded(child: shopCard(new ShopItem(
+                deepColor: const Color(0xff1f6e5c),
+                shadowColor: const Color(0xff5cd0b7),
+                lightColor: const Color(0xffdefff9),
+                width: 200, height: 300,
+                name: 'Buy Coin',
+                description: 'Buy coin to enjoy game more and improve your English!',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0))),
+            Expanded(child: shopCard(new ShopItem(
+                deepColor: const Color(0xffcd1517),
+                shadowColor: const Color(0xffee9693),
+                lightColor: const Color(0xfffee5e4),
+                width: 200, height: 300,
+                name: 'Buy Heart',
+                description: 'Buy heart to do anything you want and improve more and more in game!!',
+                imageURL: 'assets/images/appbar/heart.png',
+                price: 200.0)))
           ],
         ),
-      )
-    ],
-  );
-}
+        Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
+        Row(
+          children: [
+            Expanded(child: shopCard(new ShopItem(
+                deepColor: const Color(0xff8d6a2a),
+                shadowColor: const Color(0xfff3cd79),
+                lightColor: const Color(0xfffff2d4),
+                width: 200, height: 300,
+                name: 'Buy Rabbito',
+                description: 'buy Rabbito Logo with different styles in a pack for yourself!',
+                imageURL: 'assets/images/rabbit/Eating_carrot.png',
+                price: 300.0))),
+            Expanded(child: shopCard(new ShopItem(
+                deepColor: const Color(0xff3c50dd),
+                shadowColor: const Color(0xff8d92ea),
+                lightColor: const Color(0xffedeeff),
+                width: 200, height: 300,
+                name: 'Buy Infinite Heart',
+                description: 'Buy infinite heart to do anything you want in the game without any limits!',
+                imageURL: 'assets/images/appbar/infinite.png',
+                price: 500.0)))
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(17, 12, 0, 0),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Avatars >',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
+                      color: Colors.black
+                  ),
+                )
 
-Widget headerCategoryItem(String name, IconData icon, {onPressed}) {
-  return Container(
-    margin: EdgeInsets.only(left: 15),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-            margin: EdgeInsets.only(bottom: 10),
-            width: 86,
-            height: 86,
-            child: FloatingActionButton(
-              shape: CircleBorder(),
-              heroTag: name,
-              onPressed: onPressed,
-              backgroundColor: Colors.white,
-              child: Icon(icon, size: 35, color: Colors.black87),
-            )),
-        Text(name + ' ›')
-      ],
-    ),
-  );
-}
-
-Widget deals(String dealTitle, {onViewMore, required List<Widget> items}) {
-  return Container(
-    margin: EdgeInsets.only(top: 5),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        sectionHeader(dealTitle, onViewMore: onViewMore),
-        SizedBox(
-          height: 250,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            children: (items != null)
-                ? items
-                : <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(left: 15),
-                      child: Text('No items available at this moment.'),
-                    )
-                  ],
-          ),
+            )
+        ),
+        Padding(
+            padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
+          child: SizedBox(
+            height: 191,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50)),
+                avatarCard(new AvatarIcon(name: 'Avatar', imageURL: 'assets/images/logo.png', price: 50))
+              ],
+            ),
+          )
         )
       ],
     ),
-  );
+  ));
 }

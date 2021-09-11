@@ -5,6 +5,7 @@ import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/profile.dart';
 import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
+import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 
 import 'game-page/gamehome.dart';
 
