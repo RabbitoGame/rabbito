@@ -12,8 +12,8 @@ import 'package:http/http.dart';
 import 'package:http/src/response.dart' as httpResponse;
 
 class User {
-  static const maxHearts =7;
-  static const startCoin =7;
+  static const maxHearts = 7;
+  static const startCoin = 7;
   String? username;
   String? email;
   String? avatar;
@@ -39,11 +39,15 @@ class User {
     this.accessToken,
     required this.refreshToken,
   });
+
   // league: mainData[UserStrings.league],
   // rank: mainData[UserStrings.rank],
   // avatar: mainData[UserStrings.avatar],
   // joinDate: mainData[UserStrings.joinDate],
-  factory User.fromJson(Map<String, dynamic> responseData , String username , ) {
+  factory User.fromJson(
+    Map<String, dynamic> responseData,
+    String username,
+  ) {
     Map<String, dynamic> mainData = responseData["data"];
     return User(
         username: username,
@@ -53,11 +57,12 @@ class User {
         // xp: mainData[UserStrings.xp],
         // xplevel: mainData[UserStrings.xpLevel],
         xp: 0,
-        xpLevel:0,
+        xpLevel: 0,
         accessToken: responseData[UserStrings.accessToken],
         refreshToken: responseData[UserStrings.refreshToken]);
   }
-  factory User.zeroUser(Map<String, dynamic> responseData , username ) {
+
+  factory User.zeroUser(Map<String, dynamic> responseData, username) {
     return User(
         username: username,
         hearts: maxHearts,
@@ -68,14 +73,20 @@ class User {
         accessToken: responseData[UserStrings.accessToken],
         refreshToken: responseData[UserStrings.refreshToken]);
   }
+
+
   static Future getAccessToken() async {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
-    httpResponse.Response response = await get(
+    var refreshData = {
+      UserStrings.refreshToken : AppController.appController.currUser!.refreshToken,
+
+    };
+    httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
+      body: json.encode(refreshData),
       headers: {
-        RequestStrings.authentication:
-            AppController.appController.currUser!.refreshToken!,
+        RequestStrings.contentType: RequestStrings.appJson,
       },
     );
 
@@ -84,7 +95,6 @@ class User {
 
       var accessToken = responseData[UserStrings.accessToken];
       var refreshToken = responseData[UserStrings.refreshToken];
-
       AppController.appController.currUser!.accessToken = accessToken;
       AppController.appController.currUser!.refreshToken = refreshToken;
 
@@ -102,6 +112,7 @@ class User {
         RequestStrings.message: json.decode(response.body)['error'],
       };
     }
+    print(result.toString());
     return result;
   }
 
@@ -130,7 +141,7 @@ class User {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
-      User authUser = User.fromJson(responseData , username);
+      User authUser = User.fromJson(responseData, username);
 
       UserPreferences().saveUser(authUser);
 
@@ -167,14 +178,13 @@ class User {
 
     return await post(Uri.parse(AppUrl.register),
             body: json.encode(registrationData),
-            headers: {RequestStrings.contentType: RequestStrings.appJson}
-        )
-        .then((e)=>onValue(e , username , email))
+            headers: {RequestStrings.contentType: RequestStrings.appJson})
+        .then((e) => onValue(e, username, email))
         .catchError(onError);
   }
 
   static Future<Map<String, dynamic>> onValue(
-      httpResponse.Response response , String username , String email) async {
+      httpResponse.Response response, String username, String email) async {
     var result;
     print(response.statusCode.toString());
     print(response.headers.toString());
@@ -185,7 +195,7 @@ class User {
       // print("inside : ${responseData[RequestStrings.data]}");
       // var userData = responseData[RequestStrings.data];
 
-      User authUser = User.zeroUser(responseData , username );
+      User authUser = User.zeroUser(responseData, username);
 
       UserPreferences().saveUser(authUser);
       result = {
@@ -216,7 +226,8 @@ class User {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      AppController.appController.currUser = User.fromJson(responseData , responseData["data"][UserStrings.username]);
+      AppController.appController.currUser = User.fromJson(
+          responseData, responseData["data"][UserStrings.username]);
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',

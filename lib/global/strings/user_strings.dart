@@ -11,6 +11,6 @@ class UserStrings {
   static const String rank = "rank";
   static const String avatar = "avatar";
   static const String joinDate = "join_date";
-  static const String accessToken = "access_token";
-  static const String refreshToken = "refresh_token";
+  static const String accessToken = "access";
+  static const String refreshToken = "refresh";
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/init/introduction.dart';
 import 'package:rabbito/view/init/splash.dart';
 import 'package:rabbito/view/login/login.dart';
