@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
+import 'package:get/get.dart';
+
+import 'package:rabbito/controller/login_register_controller.dart';
 import 'package:rabbito/view/login/register.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginRegisterController _controller = Get.put(LoginRegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +117,12 @@ class LoginScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _controller.login(
+                                    "yasin5",
+                                    "y124112"
+                                  );
+                                },
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                   child: Row(

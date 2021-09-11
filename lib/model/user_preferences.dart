@@ -41,7 +41,6 @@ class UserPreferences {
       xp: xp,
       carrot: carrot,
       coin: coin,
-      email: email,
       hearts: hearts,
       username: username,
       xpLevel: xpLevel,

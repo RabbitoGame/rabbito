@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   Widget barIcons() {
     double width = 33;
     return Expanded(
-      flex: 6,
+      flex: 4,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -175,41 +175,35 @@ class _HomePageState extends State<HomePage> {
 
   flagAndName() {
     return Expanded(
-      flex: 6,
-      child: Row(
-        children: [
-          Expanded(
-            child: Image(
-              image: AssetImage(ImageStrings.appbarFlagAsset),
-              width: 45,
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage('./assets/images/logo.png'),
-                ),
-                Container(
-                  child: Center(
-                    child: Text(
-                      'Rabbito',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.lightGreen,
-                        fontFamily: 'Railway',
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                )
-              ],
-            ),
-          )
-        ],
+      flex: 1,
+      child: Image(
+        image: AssetImage(ImageStrings.appbarFlagAsset),
+        width: 45,
       ),
     );
   }
 }
+// Expanded(
+//   flex: 2,
+//   child: Row(
+//     children: [
+//       Image(
+//         image: AssetImage('./assets/images/logo.png'),
+//       ),
+//       Container(
+//         child: Center(
+//           child: Text(
+//             'Rabbito',
+//             style: TextStyle(
+//               fontWeight: FontWeight.bold,
+//               color: Colors.lightGreen,
+//               fontFamily: 'Railway',
+//               fontSize: 20.0,
+//             ),
+//           ),
+//         ),
+//         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+//       )
+//     ],
+//   ),
+// )

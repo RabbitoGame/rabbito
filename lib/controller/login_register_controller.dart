@@ -21,9 +21,11 @@ class LoginRegisterController extends GetxController {
         AppController.appController.currUser =
             (result[RequestStrings.data] as User);
         //todo login successful
+        _error.value="successful";
       } else {
-        _error = result[RequestStrings.message];
+        _error.value = result[RequestStrings.message];
       }
+      print("login_error: ${_error}");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;
       print(e.cause);
@@ -44,9 +46,13 @@ class LoginRegisterController extends GetxController {
         //todo register successful
         AppController.appController.currUser =
             (result[RequestStrings.data] as User);
+        _error.value = "successful";
+        print(AppController.appController.currUser!.username);
       } else {
-        _error = result[RequestStrings.message];
+        _error.value = result[RequestStrings.message];
       }
+      print(result.toString());
+      print("error: $_error");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;
       print(e.cause);
@@ -84,7 +90,7 @@ class LoginRegisterController extends GetxController {
   }
 
   void checkUsername(String username) {
-    Pattern pattern = r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+    Pattern pattern = r'^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(username))
       throw InvalidUsernameException("username invalid : $username}");
@@ -99,6 +105,6 @@ class LoginRegisterController extends GetxController {
     Pattern pattern = r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(password))
-      throw InvalidPasswordException("password invalid : $password}");
+      throw InvalidPasswordException("password invalid : $password");
   }
 }

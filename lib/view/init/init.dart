@@ -30,7 +30,8 @@ class InitPage extends StatelessWidget {
           } else if (AppController.appController.firstEntrance.value) {
             return IntroductionScreen();
           } else {
-            return HomePage(title: "Rabbito");
+            // return HomePage(title: "Rabbito");
+            return RegisterScreen();
 
           }
         },
