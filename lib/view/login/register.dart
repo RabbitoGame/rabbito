@@ -7,14 +7,13 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
+      backgroundColor: const Color(0xffd4d2d2),
           body: Stack(
             children: [
               Container(
                 color: const Color(0xffd4d2d2),
-                child: Column(
+                child: SingleChildScrollView( child: Column(
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
@@ -155,53 +154,107 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Positioned(
-                  child: Image.asset('assets/images/rabbit/Eating_carrot.png', width: 125.0),
-                  bottom: 150,
-                  left: 20
-              ),
-              Positioned(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Already have an account?',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0
-                      ),
-                    ),
-                    FlatButton(
-                      // splashColor: Colors.red,
-                      color: const Color(0xffd4d2d2),
-                      // textColor: Colors.white,
-                      child: Text(
-                        ' Sign in',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.0,
-                            color: Colors.green
+                    Container(
+                      width: 320,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Align(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 190, 10),
+                                child: Image.asset('assets/images/rabbit/Eating_carrot.png', width: 125.0),
+                              ),
+                              alignment: Alignment.center,
+                            ),
+                            Align(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Already have an account?',
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0
+                                      ),
+                                    ),
+                                    FlatButton(
+                                      // splashColor: Colors.red,
+                                      color: const Color(0xffd4d2d2),
+                                      // textColor: Colors.white,
+                                      child: Text(
+                                        ' Sign in',
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0,
+                                            color: Colors.green
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => LoginScreen()));
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                            )
+                          ],
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
-                      },
-                    ),
+                    )
                   ],
                 ),
-                bottom: 65,
-                right: 0,
-                left: 0,
               ),
+              ),
+              // Positioned(
+              //     child: Image.asset('assets/images/rabbit/Eating_carrot.png', width: 125.0),
+              //     top: 400,
+              //     left: 20
+              // ),
+              // Positioned(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Text(
+              //         'Already have an account?',
+              //         textAlign: TextAlign.end,
+              //         style: TextStyle(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: 16.0
+              //         ),
+              //       ),
+              //       FlatButton(
+              //         // splashColor: Colors.red,
+              //         color: const Color(0xffd4d2d2),
+              //         // textColor: Colors.white,
+              //         child: Text(
+              //           ' Sign in',
+              //           textAlign: TextAlign.end,
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 18.0,
+              //               color: Colors.green
+              //           ),
+              //         ),
+              //         onPressed: () {
+              //           Navigator.of(context).push(MaterialPageRoute(
+              //               builder: (context) => LoginScreen()));
+              //         },
+              //       ),
+              //     ],
+              //   ),
+              //   bottom: 65,
+              //   right: 0,
+              //   left: 0,
+              // ),
             ],
           )
-      ),
     );
   }
 }
