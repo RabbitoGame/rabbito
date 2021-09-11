@@ -54,7 +54,22 @@ Widget shopMenu(BuildContext context) {
           ],
         ),
         Padding(
-            padding: EdgeInsets.fromLTRB(6, 5, 5, 5),
+          padding: EdgeInsets.fromLTRB(17, 12, 0, 0),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Avatars >',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
+                      color: Colors.black
+                  ),
+                )
+
+            )
+        ),
+        Padding(
+            padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
           child: SizedBox(
             height: 191,
             child: ListView(
