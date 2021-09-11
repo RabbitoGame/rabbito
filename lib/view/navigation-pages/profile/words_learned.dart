@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
+import 'package:rabbito/view/word-collections/review_words.dart';
 
 class WordsLearned extends StatelessWidget {
   int x;
@@ -32,7 +34,7 @@ class WordsLearned extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: ()=> Get.to(ReviewWords()),
                 outerColor: Colors.green,
                 innerColor: Colors.lightGreen,
               ))
