@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
+import 'package:get/get.dart';
+import 'package:rabbito/controller/login_register_controller.dart';
 import 'package:rabbito/view/login/login.dart';
 
 class RegisterScreen extends StatelessWidget {
