@@ -33,6 +33,9 @@ class AppController extends GetxController {
     // await getMusicVolumePrefs();
     update();
   }
+  static bool isLoggedIn(){
+    return appController._loggedInStatus.value == Status.LoggedIn;
+  }
 
 
 }
