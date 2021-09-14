@@ -136,6 +136,13 @@ flutter:
     - assets/images/profile/achievement.png
     - assets/images/widgets/ticket1.png
     - assets/images/widgets/ticket2.png
+    - assets/images/widgets/ad1.png
+    - assets/images/widgets/ad2.png
+    - assets/images/widgets/ad3.png
+    - assets/images/widgets/ad4.png
+    - assets/images/widgets/ad5.png
+    - assets/images/widgets/ad6.png
+    - assets/images/widgets/ad7.png
     - assets/images/rabbit/Eating_carrot.png
     - assets/images/rabbit/Waving.png
     - assets/images/appbar/infinite.png

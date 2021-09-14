@@ -34,20 +34,30 @@ class FortuneWheelPage extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: Stack(
-                      alignment: Alignment.center,
+                    child: Column(
                       children: [
-                        Positioned(
-                            top: 120,
-                            child: Image.asset(
-                              ImageStrings.gameHomeRoulette2Asset,
-                              width: 300,
-                            )),
-                        Wheel(controller),
-                        ticketWidget(),
+                        Expanded(
+                          child: watchAds(),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                child: Image.asset(
+                                  ImageStrings.gameHomeRoulette2Asset,
+                                  width: 300,
+                                ),
+                                top: 90,
+                              ),
+                              Wheel(controller),
+                            ],
+                          ),
+                          flex: 6,
+                        ),
                       ],
                     ),
                   ),
@@ -73,58 +83,38 @@ class FortuneWheelPage extends StatelessWidget {
     );
   }
 
+  watchAds() {
+    return Material(
+      color: Colors.blueGrey,
+      borderRadius: BorderRadius.circular(5),
 
-
-  ticketWidget() {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Container(
-        margin: EdgeInsets.only(left: 15),
-        width: 110,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 7.0,
-          vertical: 5,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Stack(
-          overflow: Overflow.visible,
-          alignment: Alignment.center,
-          children: [
-            Material(
-              color: Colors.transparent,
-              child: Text(
-                "723",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: (){
+          //todo call ads api
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  ImageStrings.widgetsAd3Asset,
+                  ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  "watch video for another try!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              child: TopRowIconButton(
-                () {},
-                Icon(
-                  Icons.add_box,
-                  size: 32,
-                  color: Colors.black,
-                ),
-              ),
-              right: -15,
-            ),
-            Positioned(
-              bottom: -10,
-              left: -30,
-              child: Image.asset(
-                ImageStrings.profileTicket2Asset,
-                width: 50,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -132,7 +122,7 @@ class FortuneWheelPage extends StatelessWidget {
 
   rotateButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
       child: Row(
         children: [
           SizedBox(
@@ -159,8 +149,4 @@ class FortuneWheelPage extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }

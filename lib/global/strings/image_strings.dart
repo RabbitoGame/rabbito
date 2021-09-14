@@ -82,6 +82,13 @@ class ImageStrings {
   static const String profileWomanAsset = 'assets/images/profile/woman.png';
   static const String profileAchievementAsset =
       'assets/images/profile/achievement.png';
-  static const String profileTicket1Asset = 'assets/images/widgets/ticket1.png';
-  static const String profileTicket2Asset = 'assets/images/widgets/ticket2.png';
+  static const String widgetsTicket1Asset = 'assets/images/widgets/ticket1.png';
+  static const String widgetsTicket2Asset = 'assets/images/widgets/ticket2.png';
+  static const String widgetsAd1Asset = 'assets/images/widgets/ad1.png';
+  static const String widgetsAd2Asset = 'assets/images/widgets/ad2.png';
+  static const String widgetsAd3Asset = 'assets/images/widgets/ad3.png';
+  static const String widgetsAd4Asset = 'assets/images/widgets/ad4.png';
+  static const String widgetsAd5Asset = 'assets/images/widgets/ad5.png';
+  static const String widgetsAd6Asset = 'assets/images/widgets/ad6.png';
+  static const String widgetsAd7Asset = 'assets/images/widgets/ad7.png';
 }

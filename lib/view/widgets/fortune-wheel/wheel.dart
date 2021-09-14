@@ -19,87 +19,84 @@ class Wheel extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = 47;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: FortuneWheel(
-        onAnimationEnd: () => onAnimationEnd(context),
-        animateFirst: false,
-        physics: NoPanPhysics(),
-        duration: Duration(seconds: 4),
-        selected: controller.stream,
-        items: [
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelCoin2Asset,
-                width: width - 5,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelCash2Asset,
-                width: width + 10,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelHeartPlus6Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelMystery1Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelCoin2Asset,
-                width: width - 5,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelMoneyBag3Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelHeartPlus6Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelMystery1Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelCoin2Asset,
-                width: width - 5,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-          item(
-              widget: Image.asset(
-                ImageStrings.gameHomeWheelMoneyBag1Asset,
-                width: width,
-              ),
-              color: Colors.black,
-              borderColor: Colors.yellow),
-        ],
-      ),
+    return FortuneWheel(
+      onAnimationEnd: () => onAnimationEnd(context),
+      animateFirst: false,
+      physics: NoPanPhysics(),
+      duration: Duration(seconds: 4),
+      selected: controller.stream,
+      items: [
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelCoin2Asset,
+              width: width - 5,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelCash2Asset,
+              width: width + 10,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelHeartPlus6Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelMystery1Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelCoin2Asset,
+              width: width - 5,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelMoneyBag3Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelHeartPlus6Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelMystery1Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelCoin2Asset,
+              width: width - 5,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+        item(
+            widget: Image.asset(
+              ImageStrings.gameHomeWheelMoneyBag1Asset,
+              width: width,
+            ),
+            color: Colors.black,
+            borderColor: Colors.yellow),
+      ],
     );
   }
 
