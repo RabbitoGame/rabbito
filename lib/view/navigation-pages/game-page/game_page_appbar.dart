@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
 
@@ -58,7 +59,7 @@ class GameAppBar extends StatelessWidget {
                 ],
               ),
             ),
-            onPressed: () {},
+            onPressed: () => Get.to(RankingMenu()),
             innerColor: Colors.green,
             outerColor: Colors.greenAccent,
           ),

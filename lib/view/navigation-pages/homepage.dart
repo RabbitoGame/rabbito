@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
       shopMenu(context),
       gameMenu(context),
       AppController.isLoggedIn() ? profileMenu(context) : RegisterScreen(),
-      rankingMenu(context),
     ];
 
     return Scaffold(
@@ -41,20 +40,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Container(
-                height: 60.0,
-                color: Colors.purple,
-                padding: EdgeInsets.fromLTRB(10.0, 10.0, 4.0, 10.0),
-                child: Row(
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    flagAndName(),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    barIcons(),
-                  ],
-                )),
+              height: 60.0,
+              color: Colors.purple,
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 4.0, 10.0),
+              child: barIcons(),
+            ),
             Expanded(
               child: Container(
                 child: _menus[_currentIndex],
@@ -86,9 +76,9 @@ class _HomePageState extends State<HomePage> {
         CustomNavigationBarItem(
           icon: Image.asset('assets/images/navigation/user.png'),
         ),
-        CustomNavigationBarItem(
-          icon: Image.asset('assets/images/navigation/ranking.png'),
-        ),
+        // CustomNavigationBarItem(
+        //   icon: Image.asset('assets/images/navigation/ranking.png'),
+        // ),
       ],
       currentIndex: _currentIndex,
       onTap: (index) {
@@ -101,11 +91,15 @@ class _HomePageState extends State<HomePage> {
 
   Widget barIcons() {
     double width = 33;
-    return Expanded(
-      flex: 4,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Image(
+            image: AssetImage(ImageStrings.appbarFlagAsset),
+            width: 45,
+          ),
           Row(children: [
             Image(
               image: AssetImage('./assets/images/appbar/coin.png'),
@@ -180,10 +174,13 @@ class _HomePageState extends State<HomePage> {
 
   flagAndName() {
     return Expanded(
-      flex: 1,
-      child: Image(
-        image: AssetImage(ImageStrings.appbarFlagAsset),
-        width: 45,
+      flex: 2,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Image(
+          image: AssetImage(ImageStrings.appbarFlagAsset),
+          width: 45,
+        ),
       ),
     );
   }
