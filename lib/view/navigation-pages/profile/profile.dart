@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
+import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
 
 Widget profileMenu(BuildContext context) {
@@ -82,60 +83,7 @@ class ProfileUI2 extends StatelessWidget {
             Card(
               elevation: 10,
               margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Cups",
-                            style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Text(
-                            "100",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w300),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Rank",
-                            style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Text(
-                            "1458",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w300),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              child: UserStatistics(),
             ),
             SizedBox(
               height: 10,

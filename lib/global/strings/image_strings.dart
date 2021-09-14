@@ -80,6 +80,7 @@ class ImageStrings {
   static const String profileGiftAsset = 'assets/images/profile/gift.png';
   static const String profileManAsset = 'assets/images/profile/man.png';
   static const String profileWomanAsset = 'assets/images/profile/woman.png';
+  static const String profileXpAsset = 'assets/images/profile/xp.png';
   static const String profileAchievementAsset =
       'assets/images/profile/achievement.png';
   static const String widgetsTicket1Asset = 'assets/images/widgets/ticket1.png';
