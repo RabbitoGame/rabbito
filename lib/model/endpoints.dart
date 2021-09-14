@@ -184,8 +184,29 @@ const List<Map> endpoints = [
       "Message": String,
     }
   },
+  // {
+  //   "url": "/achievements",
+  //   "methode": "GET",
+  //   "body": null,
+  //   "header": {
+  //     "Authorization": "access token",
+  //   },
+  //   "response.data": {
+  //     "data": {
+  //       "achievements": List, // a list of achievements
+  //     },
+  //     "status": String,
+  //     "Message": String,
+  //   }
+  // },
+  // {
+  //   "url": "",
+  //   "methode": "",
+  //   "body": null,
+  //   "header": "",
+  // },
   {
-    "url": "/achievements",
+    "url": "/user/getHeart",
     "methode": "GET",
     "body": null,
     "header": {
@@ -193,16 +214,55 @@ const List<Map> endpoints = [
     },
     "response.data": {
       "data": {
-        "achievements": List, // a list of achievements
+        "heart": int,
       },
       "status": String,
       "Message": String,
     }
   },
   {
-    "url": "",
-    "methode": "",
+    "url": "/user/setHeart",
+    "methode": "Post",
+    "header": {
+      "Authorization": "access token",
+    },
+    "body":{
+      "heart": int,
+    },
+    "response.data": {
+      "data": null,
+      "status": String,
+      "Message": String,
+    }
+  },
+  {
+    "url": "/user/getCoin",
+    "methode": "GET",
     "body": null,
-    "header": "",
+    "header": {
+      "Authorization": "access token",
+    },
+    "response.data": {
+      "data": {
+        "coin": int,
+      },
+      "status": String,
+      "Message": String,
+    }
+  },
+  {
+    "url": "/user/setCoin",
+    "methode": "Post",
+    "header": {
+      "Authorization": "access token",
+    },
+    "body":{
+      "coin": int,
+    },
+    "response.data": {
+      "data": null,
+      "status": String,
+      "Message": String,
+    }
   },
 ];
