@@ -27,21 +27,24 @@ class RankItem extends StatelessWidget {
           topRight: Radius.elliptical(20, 30),
           bottomRight: Radius.elliptical(20, 30),
         ),
-        // color: const Color(0xff17A0F2).withOpacity(0.2),
         color: const Color(0xff17A0F2).withOpacity(0.2),
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
       child: ListTile(
+        // contentPadding: EdgeInsets.all(5),
+        horizontalTitleGap: 0,
         leading: Container(
           margin: EdgeInsets.symmetric(vertical: 5),
-          width: 40,
-          height: 40,
+          width: 30,
+          height: 30,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.elliptical(20, 30),
-                bottomRight: Radius.elliptical(20, 30),
-              ),
-              color: Colors.lightBlueAccent),
+            borderRadius: BorderRadius.only(
+              topRight: Radius.elliptical(20, 30),
+              bottomRight: Radius.elliptical(20, 30),
+            ),
+            // color: Colors.lightBlueAccent,
+            color: Colors.green,
+          ),
           child: Center(
             child: Text(
               index.toString(),
@@ -62,7 +65,7 @@ class RankItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset(ImageStrings.profileXpAsset, width: 45.0),
+                    Image.asset(ImageStrings.profileXpAsset, width: 40.0),
                     Text(
                       userState.xp.toString(),
                       style: TextStyle(

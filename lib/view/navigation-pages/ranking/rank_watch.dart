@@ -10,7 +10,7 @@ class RankWatch extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 5),
         padding: EdgeInsets.fromLTRB(10,5,10,50),
-        color: const Color(0xff17A0F2).withOpacity(0.2),
+        color: const Color(0xff17A0F2).withOpacity(0.1),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

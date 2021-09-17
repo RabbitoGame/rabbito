@@ -9,13 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
+  final Indicator indicator;
+
+
+  LoadingWidget(this.indicator);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: LoadingIndicator(
-        indicatorType: Indicator.lineScaleParty,
+        indicatorType: indicator,
         colors: _kDefaultRainbowColors,
         strokeWidth: 4.0,
         pathBackgroundColor: Colors.black45,

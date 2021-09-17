@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import
+'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
@@ -33,6 +34,7 @@ class InitPage extends StatelessWidget {
             return IntroductionScreen();
           } else {
             return HomePage(title: 'Rabbito');
+
           }
         },
       ),

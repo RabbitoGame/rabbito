@@ -1,127 +1,76 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
+class MainCollapsingToolbar extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
 
-const flutterColor = Color(0xFF40D0FD);
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool checkboxSelected = false;
-  bool switchSelected = false;
-  bool radioSelected = false;
-  bool iconSelected = false;
-
-  double sliderValue = 0;
-
+class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GlowContainer(
-              child: Text("sdasd"),
-              glowColor: flutterColor,
-            ),
-            GlowButton(
-              onPressed: () {},
-              color: flutterColor,
-              child: Text('Glow'),
-            ),
-            SizedBox(height: 32),
-            GlowCheckbox(
-              value: checkboxSelected,
-              enable: true,
-              color: flutterColor,
-              onChange: (bool value) {
-                setState(() {
-                  checkboxSelected = !checkboxSelected;
-                });
-              },
-            ),
-            SizedBox(height: 32),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  iconSelected = !iconSelected;
-                });
-              },
-              child: GlowIcon(
-                iconSelected ? Icons.wb_cloudy : Icons.cloud_queue,
-                color: flutterColor,
-                glowColor: iconSelected ? flutterColor : Colors.transparent,
-                size: 64,
-                blurRadius: 9,
+      body: DefaultTabController(
+        length: 2,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                expandedHeight: 200.0,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text("Collapsing Toolbar",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: Image.network(
+                      "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                      fit: BoxFit.cover,
+                    )),
               ),
-            ),
-            SizedBox(height: 32),
-            GlowText(
-              'Glow Text',
-              style: TextStyle(fontSize: 40, color: flutterColor),
-            ),
-            SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GlowRadio<bool>(
-                  value: true,
-                  groupValue: radioSelected,
-                  color: flutterColor,
-                  onChange: (value) {
-                    setState(() {
-                      radioSelected = value;
-                      log(value.toString());
-                    });
-                  },
+              new SliverPadding(
+                padding: new EdgeInsets.all(16.0),
+                sliver: new SliverList(
+                  delegate: new SliverChildListDelegate([
+
+                  ]),
                 ),
-                SizedBox(width: 32),
-                GlowRadio<bool>(
-                  value: false,
-                  color: flutterColor,
-                  groupValue: radioSelected,
-                  onChange: (value) {
-                    setState(() {
-                      radioSelected = value;
-                      log(value.toString());
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: 32),
-            GlowSwitch(
-              onChanged: (value) {
-                setState(() {
-                  switchSelected = value;
-                });
-              },
-              value: switchSelected,
-              activeColor: flutterColor.withOpacity(0.6),
-              blurRadius: 4,
-            ),
-            SizedBox(height: 32),
-            GlowLineProgress(
-              blurRadius: 12,
-              glowColor: flutterColor,
-            )
-          ],
+              ),
+            ];
+          },
+          body: Column(
+            children: List<Widget>.generate(1, (e) => Text("$e")),
+          ),
         ),
       ),
     );
   }
 }
+//
+// class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+//   _SliverAppBarDelegate(this._tabBar);
+//
+//   final Widget _tabBar;
+//
+//   @override
+//   double get minExtent => _tabBar.preferredSize.height;
+//
+//   @override
+//   double get maxExtent => _tabBar.preferredSize.height;
+//
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return new Container(
+//       child: _tabBar,
+//     );
+//   }
+//
+//   @override
+//   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+//     return false;
+//   }
+// }

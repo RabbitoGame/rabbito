@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/loading.dart';
@@ -15,56 +16,65 @@ class ReviewWords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        // flexibleSpace: Text("sfdfddaf"),
-
-        automaticallyImplyLeading: true,
-        // leading: Text("Your Words!"),
-        title: Row(
-          children: [
-            Expanded(
-              child: Text("Review Words"),
-              flex: 4,
-            ),
-            Expanded(
-              child: Image.asset(ImageStrings.logoAsset),
-            ),
-          ],
-        ),
-      ),
-      body: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.purple,
-          title: secondBar(),
-          automaticallyImplyLeading: false,
-        ),
-        body: FutureBuilder(
-          future: Future.delayed(Duration(seconds: 1)),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return LoadingWidget();
-            } else {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(snapshot.error.toString()),
-                );
-              } else {
-                return ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.symmetric(
-                          horizontal: BorderSide(color: Colors.purple),
-                        ),
+      body: SafeArea(
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.purple,
+                automaticallyImplyLeading: true,
+                // expandedHeight: 200.0,
+                floating: false,
+                pinned: true,
+                title: Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text("Review Words"),
+                        flex: 4,
                       ),
-                      child: myRow(),
-                    );
-                  },
-                );
-              }
-            }
+                      Expanded(
+                        child: Image.asset(ImageStrings.logoAsset),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: new SliverChildListDelegate([secondBar()]),
+              ),
+            ];
           },
+          body: FutureBuilder(
+            future: Future.delayed(Duration(seconds: 1)),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return LoadingWidget(Indicator.ballPulse);
+              } else {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else {
+                  return ListView.builder(
+                    // shrinkWrap: true,
+                    itemCount: 100,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          border: Border.symmetric(
+                            horizontal: BorderSide(color: Colors.purple),
+                          ),
+                        ),
+                        child: myRow(),
+                      );
+                    },
+                  );
+                }
+              }
+            },
+          ),
         ),
       ),
     );
@@ -120,14 +130,14 @@ class ReviewWords extends StatelessWidget {
 
   secondBar() {
     return Container(
-      color: Colors.transparent,
+      color: Colors.deepOrangeAccent,
       child: Row(
         children: [
           Expanded(
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
-                  right: BorderSide(color: Colors.amber, width: 7),
+                  right: BorderSide(color: Colors.amber, width: 3),
                 ),
               ),
               padding: const EdgeInsets.all(8.0),
@@ -146,7 +156,7 @@ class ReviewWords extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
-                  left: BorderSide(color: Colors.amber,width: 7),
+                  left: BorderSide(color: Colors.amber, width: 3),
                 ),
               ),
               padding: const EdgeInsets.all(8.0),

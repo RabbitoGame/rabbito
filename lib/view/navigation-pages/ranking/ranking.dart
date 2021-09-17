@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
@@ -159,7 +160,7 @@ class RankingMenu extends StatelessWidget {
                 return buildList();
               } else {
                 return Container(
-                    height: 150, child: Center(child: LoadingWidget()));
+                    height: 150, child: Center(child: LoadingWidget(Indicator.ballPulse)));
               }
             },
           ),
