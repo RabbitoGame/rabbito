@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
@@ -113,71 +114,3 @@ class ProfileUI2 extends StatelessWidget {
     );
   }
 }
-// SizedBox(
-//   height: 50,
-// ),
-// Row(
-//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//   children: [
-//     RaisedButton(
-//       onPressed: (){
-//       },
-//       shape:  RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(80.0),
-//       ),
-//       child: Ink(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               begin: Alignment.centerLeft,
-//               end: Alignment.centerRight,
-//               colors: [Colors.pink,Colors.redAccent]
-//           ),
-//           borderRadius: BorderRadius.circular(30.0),
-//         ),
-//         child: Container(
-//           constraints: BoxConstraints(maxWidth: 100.0,maxHeight: 40.0,),
-//           alignment: Alignment.center,
-//           child: Text(
-//             "Contact me",
-//             style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 12.0,
-//                 letterSpacing: 2.0,
-//                 fontWeight: FontWeight.w300
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//     RaisedButton(
-//       onPressed: (){
-//       },
-//       shape:  RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(80.0),
-//       ),
-//       child: Ink(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//               begin: Alignment.centerLeft,
-//               end: Alignment.centerRight,
-//               colors: [Colors.pink,Colors.redAccent]
-//           ),
-//           borderRadius: BorderRadius.circular(80.0),
-//         ),
-//         child: Container(
-//           constraints: BoxConstraints(maxWidth: 100.0,maxHeight: 40.0,),
-//           alignment: Alignment.center,
-//           child: Text(
-//             "Portfolio",
-//             style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 12.0,
-//                 letterSpacing: 2.0,
-//                 fontWeight: FontWeight.w300
-//             ),
-//           ),
-//         ),
-//       ),
-//     )
-//   ],
-// )

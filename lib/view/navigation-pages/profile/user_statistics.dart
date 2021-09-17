@@ -25,7 +25,7 @@ class UserStatistics extends StatelessWidget {
                     decoration: BoxDecoration(
 
                         gradient: RadialGradient(
-                          colors: [Colors.white, Colors.orangeAccent],
+                          colors: [Colors.white, Colors.green],
                           radius: 2,
                           center: Alignment.centerLeft,
                         ),
@@ -92,7 +92,7 @@ class UserStatistics extends StatelessWidget {
           height: 40,
           child: LiquidLinearProgressIndicator(
             value: 0.5,
-            valueColor: AlwaysStoppedAnimation(Colors.purple),
+            valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
             // Defaults to the current Theme's accentColor.
             center: Text(
               '30/100',
@@ -104,8 +104,8 @@ class UserStatistics extends StatelessWidget {
               ),
             ),
 
-            borderColor: Colors.deepPurple,
-            borderWidth: 2.0,
+            borderColor: Colors.deepPurple.shade100,
+            borderWidth: 4.0,
             borderRadius: 12.0,
             backgroundColor: Colors.white,
           ),

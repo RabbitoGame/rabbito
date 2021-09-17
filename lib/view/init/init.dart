@@ -9,6 +9,7 @@ import 'package:rabbito/view/login/login.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
+import 'package:rabbito/view/widgets/glow.dart';
 import 'package:rabbito/view/widgets/indicator.dart';
 import 'package:rabbito/view/widgets/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -62,11 +62,11 @@ class RankItem extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset('assets/images/ranking/badge.png', width: 45.0),
+                    Image.asset(ImageStrings.profileXpAsset, width: 45.0),
                     Text(
                       userState.xp.toString(),
                       style: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 13),
                     )

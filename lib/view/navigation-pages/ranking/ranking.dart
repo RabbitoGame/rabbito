@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
@@ -63,74 +64,95 @@ class RankingMenu extends StatelessWidget {
       collapseIcon: Icons.close,
       iconPadding: EdgeInsets.all(10),
     );
-    ExpandableThemeData closeTheme = ExpandableThemeData(
-      hasIcon: false,
-      tapHeaderToExpand: false,
-      iconColor: Colors.blue,
-      iconSize: 30,
-      headerAlignment: ExpandablePanelHeaderAlignment.center,
-      iconRotationAngle: 50,
-      collapseIcon: Icons.close,
-      iconPadding: EdgeInsets.all(10),
-    );
 
     Widget buildList() {
-      return Stack(
-        overflow: Overflow.visible,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RankWatch(),
-          ),
-          Column(
-            children: [
-              SizedBox(
-                height: 95,
-              ),
-              ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(8),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return RankItem(items[index], index + 1);
-                },
-              ),
-            ],
-          ),
-        ],
+      return Container(
+        // margin: EdgeInsets.symmetric(horizontal: 10),
+        // padding: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(0),
+              topLeft: Radius.circular(0),
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30)),
+        ),
+        child: Stack(
+          overflow: Overflow.visible,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 8),
+              child: RankWatch(),
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 90,
+                ),
+                ListView.builder(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return RankItem(items[index], index + 1);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       );
     }
 
-    ExpandablePanel openableLeague(String url, String name) {
-      return ExpandablePanel(
-        theme: openableTheme,
-        header: Container(
-          // color: Colors.red,
+    Widget myCard({required Widget widget}) {
+      return GlowContainer(
+        margin: EdgeInsets.all(10),
+        borderRadius: BorderRadius.circular(30),
+        glowColor: Colors.brown,
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              gradient: LinearGradient(colors: [
+                Colors.brown,
+                Colors.brown.shade300,
+              ], stops: [
+                0.6,
+                1
+              ]),
+            ),
+            child: widget),
+      );
+    }
 
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset(url, width: 80.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
+    Widget openableLeague(String url, String name) {
+      return myCard(
+        widget: ExpandablePanel(
+          theme: openableTheme,
+          header: Container(
+            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset(url, width: 100.0),
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                 ),
-              )
-            ],
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Railway',
+                    fontSize: 20.0,
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        collapsed: SizedBox(),
-        expanded: Container(
-          color: Colors.white,
-          child: FutureBuilder(
+          collapsed: SizedBox(),
+          expanded: FutureBuilder(
             future: Future.delayed(Duration(seconds: 3)),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
@@ -145,25 +167,27 @@ class RankingMenu extends StatelessWidget {
       );
     }
 
-    Container closeLeague(String url, String name) {
-      return Container(
-        padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
-        child: Row(
-          children: [
-            Container(
-              child: Image.asset(url, width: 80.0),
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            ),
-            Text(
-              name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontFamily: 'Railway',
-                fontSize: 20.0,
+    Widget closeLeague(String url, String name) {
+      return myCard(
+        widget: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              Container(
+                child: Image.asset(url, width: 100.0),
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
               ),
-            )
-          ],
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'Railway',
+                  fontSize: 20.0,
+                ),
+              )
+            ],
+          ),
         ),
       );
     }
@@ -177,24 +201,10 @@ class RankingMenu extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Colors.brown,
-                  Colors.brown.shade300,
-                ], stops: [
-                  0.6,
-                  1
-                ]),
-              ),
-              child: openableLeague(
-                  ImageStrings.rankingLeagueCrystal1Asset, "GEM League"),
-            ),
-            Container(
-              color: Colors.black,
-              child: closeLeague(
-                  ImageStrings.rankingLeagueBronze2Asset, 'DIAMOND League'),
-            ),
+            openableLeague(
+                ImageStrings.rankingLeagueCrystal1Asset, "GEM League"),
+            closeLeague(
+                ImageStrings.rankingLeagueBronze2Asset, 'DIAMOND League'),
             closeLeague(
                 ImageStrings.rankingLeagueBronze3Asset, 'DIAMOND League'),
             closeLeague(
