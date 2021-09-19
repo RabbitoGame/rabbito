@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
   List<int> _badgeCounts = List<int>.generate(4, (index) => index);
 
@@ -58,34 +58,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildOriginDesign() {
-    return CustomNavigationBar(
-      iconSize: 35.0,
-      selectedColor: Colors.white,
-      strokeColor: Colors.white,
-      unSelectedColor: Color(0xff6c788a),
-      backgroundColor: Colors.blue,
-      // backgroundColor: Colors.transparent,
-      //Color(0xff040307),
-      items: [
-        CustomNavigationBarItem(
-          icon: Image.asset('assets/images/navigation/shop.png'),
-        ),
-        CustomNavigationBarItem(
-          icon: Image.asset('assets/images/navigation/game.png'),
-        ),
-        CustomNavigationBarItem(
-          icon: Image.asset('assets/images/navigation/user.png'),
-        ),
-        // CustomNavigationBarItem(
-        //   icon: Image.asset('assets/images/navigation/ranking.png'),
-        // ),
-      ],
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
+    return Container(
+
+      height: 65,
+      child: CustomNavigationBar(
+        elevation: 0,
+        // borderRadius: Radius.elliptical(30,20),
+        iconSize: 60.0,
+        selectedColor: Colors.white,
+        strokeColor: Colors.white,
+        // unSelectedColor: Color(0xff6c788a),
+        backgroundColor: Colors.deepPurple,
+        items: [
+          navItem(image: ImageStrings.navigationShopAsset, text: "shop"),
+          navItem(image: ImageStrings.navigationGameAsset, text: "game"),
+          navItem(image: ImageStrings.navigationUserAsset, text: "profile"),
+        ],
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
     );
   }
 
@@ -184,28 +179,42 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  navItem({
+    required String image,
+    required String text,
+  }) {
+    return CustomNavigationBarItem(
+      selectedIcon: Container(
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.symmetric(vertical: 1),
+        decoration: BoxDecoration(
+          color: Colors.white12,
+          borderRadius: BorderRadius.circular(10),
+
+        ),
+        child: Stack(
+          overflow: Overflow.visible,
+          children: [
+            Positioned(
+              top: -20,
+              child: Image.asset(image, width: 50,),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            )
+          ],
+        ),
+      ),
+      icon: Center(
+          child: Image.asset(
+        image,
+        width: 40,
+      )),
+    );
+  }
 }
-// Expanded(
-//   flex: 2,
-//   child: Row(
-//     children: [
-//       Image(
-//         image: AssetImage('./assets/images/logo.png'),
-//       ),
-//       Container(
-//         child: Center(
-//           child: Text(
-//             'Rabbito',
-//             style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//               color: Colors.lightGreen,
-//               fontFamily: 'Railway',
-//               fontSize: 20.0,
-//             ),
-//           ),
-//         ),
-//         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-//       )
-//     ],
-//   ),
-// )

@@ -83,53 +83,6 @@ class UserStatistics extends StatelessWidget {
     );
   }
 
-  xpWidget() {
-    return Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          height: 40,
-          child: LiquidLinearProgressIndicator(
-            value: 0.5,
-            valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
-            // Defaults to the current Theme's accentColor.
-            center: Text(
-              '30/100',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.amber,
-                fontFamily: 'Railway',
-                fontSize: 16.0,
-              ),
-            ),
-
-            borderColor: Colors.deepPurple.shade100,
-            borderWidth: 4.0,
-            borderRadius: 12.0,
-            backgroundColor: Colors.white,
-          ),
-        ),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Image(
-              image: AssetImage(ImageStrings.profileXpAsset),
-              width: 45,
-            ),
-            Text(
-              "12",
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        )
-      ],
-    );
-  }
 
   SmallRow() {
     return Row(
@@ -143,4 +96,51 @@ class UserStatistics extends StatelessWidget {
       ],
     );
   }
+}
+xpWidget() {
+  return Stack(
+    alignment: Alignment.centerLeft,
+    children: [
+      Container(
+        padding: EdgeInsets.only(left: 20),
+        height: 40,
+        child: LiquidLinearProgressIndicator(
+          value: 0.5,
+          valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+          // Defaults to the current Theme's accentColor.
+          center: Text(
+            '30/100',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.amber,
+              fontFamily: 'Railway',
+              fontSize: 16.0,
+            ),
+          ),
+
+          borderColor: Colors.deepPurple.shade100,
+          borderWidth: 4.0,
+          borderRadius: 12.0,
+          backgroundColor: Colors.white,
+        ),
+      ),
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          Image(
+            image: AssetImage(ImageStrings.profileXpAsset),
+            width: 45,
+          ),
+          Text(
+            "12",
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      )
+    ],
+  );
 }

@@ -149,6 +149,14 @@ flutter:
     - assets/images/rabbit/Eating_carrot.png
     - assets/images/rabbit/Waving.png
     - assets/images/appbar/infinite.png
+    - assets/images/background/back1.jpg
+    - assets/images/background/back2.jpg
+    - assets/images/background/back3.jpg
+    - assets/images/background/back4.jpg
+    - assets/images/background/back5.jpg
+    - assets/images/background/back6.jpg
+    - assets/images/background/back7.jpg
+    - assets/images/background/back8.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

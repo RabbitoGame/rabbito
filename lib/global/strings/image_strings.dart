@@ -92,4 +92,12 @@ class ImageStrings {
   static const String widgetsAd5Asset = 'assets/images/widgets/ad5.png';
   static const String widgetsAd6Asset = 'assets/images/widgets/ad6.png';
   static const String widgetsAd7Asset = 'assets/images/widgets/ad7.png';
+  static const String backgroundBack1Asset = 'assets/images/background/back1.jpg';
+  static const String backgroundBack2Asset = 'assets/images/background/back2.jpg';
+  static const String backgroundBack3Asset = 'assets/images/background/back3.jpg';
+  static const String backgroundBack4Asset = 'assets/images/background/back4.jpg';
+  static const String backgroundBack5Asset = 'assets/images/background/back5.jpg';
+  static const String backgroundBack6Asset = 'assets/images/background/back6.jpg';
+  static const String backgroundBack7Asset = 'assets/images/background/back7.jpg';
+  static const String backgroundBack8Asset = 'assets/images/background/back8.jpg';
 }
