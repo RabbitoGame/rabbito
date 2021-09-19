@@ -27,7 +27,7 @@ class RankItem extends StatelessWidget {
           topRight: Radius.elliptical(20, 30),
           bottomRight: Radius.elliptical(20, 30),
         ),
-        color: const Color(0xff17A0F2).withOpacity(0.2),
+        color: Colors.white.withOpacity(0.4),
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
       child: ListTile(

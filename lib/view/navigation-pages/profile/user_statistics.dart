@@ -58,11 +58,26 @@ class UserStatistics extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SmallRow(title: "correct matches" , number: "3521"),
-                      Divider(color: Colors.black,thickness: 1,),
-                      SmallRow(title: "wrong matches" , number: "234"),
-                      Divider(color: Colors.black,thickness: 1,),
-                      SmallRow(title: "dfsd" , number: "53"),
+                      SmallRow(
+                        title: "correct matches",
+                        number: "3521",
+                      ),
+                      Divider(
+                        color: Colors.black,
+                        thickness: 1,
+                      ),
+                      SmallRow(
+                        title: "wrong matches",
+                        number: "234",
+                      ),
+                      Divider(
+                        color: Colors.black,
+                        thickness: 1,
+                      ),
+                      SmallRow(
+                        title: "dfsd",
+                        number: "53",
+                      ),
                     ],
                   ),
                 ),
@@ -74,7 +89,7 @@ class UserStatistics extends StatelessWidget {
     );
   }
 
-  SmallRow({required String title , required String number}) {
+  SmallRow({required String title, required String number}) {
     TextStyle style = TextStyle(color: Colors.white, fontSize: 13);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

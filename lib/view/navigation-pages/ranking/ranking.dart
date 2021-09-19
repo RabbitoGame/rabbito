@@ -68,15 +68,14 @@ class RankingMenu extends StatelessWidget {
 
     Widget buildList() {
       return Container(
-        // margin: EdgeInsets.symmetric(horizontal: 10),
-        // padding: EdgeInsets.only(bottom: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(0),
-              topLeft: Radius.circular(0),
-              bottomRight: Radius.circular(30),
-              bottomLeft: Radius.circular(30)),
+            topRight: Radius.circular(0),
+            topLeft: Radius.circular(0),
+            bottomRight: Radius.circular(30),
+            bottomLeft: Radius.circular(30),
+          ),
         ),
         child: Stack(
           overflow: Overflow.visible,
@@ -108,36 +107,81 @@ class RankingMenu extends StatelessWidget {
       );
     }
 
-    Widget myCard({required Widget widget}) {
-      return GlowContainer(
-        margin: EdgeInsets.all(10),
-        borderRadius: BorderRadius.circular(30),
-        glowColor: Colors.brown,
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: LinearGradient(colors: [
-                Colors.brown,
-                Colors.brown.shade300,
-              ], stops: [
-                0.6,
-                1
-              ]),
-            ),
-            child: widget),
+    Widget myCard({required Widget widget, required Color color}) {
+      return Card(
+        // color: Colors.white,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        elevation: 20,
+
+        color: Color(0xff3c2457),
+        child: widget,
       );
     }
 
-    Widget openableLeague(String url, String name) {
-      return myCard(
-        widget: ExpandablePanel(
-          theme: openableTheme,
-          header: Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+    Widget openableLeague(String url, String name, bool right) {
+      return Padding(
+        padding:
+            right ? EdgeInsets.only(right: 30.0) : EdgeInsets.only(left: 30.0),
+        child: myCard(
+          color: Colors.blueAccent,
+          widget: ExpandablePanel(
+            theme: openableTheme,
+            header: Container(
+              padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+              child: Row(
+                children: [
+                  Container(
+                    child: Image.asset(url, width: 60.0),
+                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  ),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'Railway',
+                      fontSize: 20.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            collapsed: SizedBox(),
+            expanded: FutureBuilder(
+              future: Future.delayed(Duration(seconds: 3)),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: buildList(),
+                  );
+                } else {
+                  return Container(
+                      height: 150,
+                      child: Center(child: LoadingWidget(Indicator.ballPulse)));
+                }
+              },
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget closeLeague(String url, String name, bool right) {
+      return Padding(
+        padding:
+            right ? EdgeInsets.only(right: 30.0) : EdgeInsets.only(left: 30.0),
+        child: myCard(
+          color: Colors.amber,
+          widget: Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Row(
               children: [
                 Container(
-                  child: Image.asset(url, width: 100.0),
+                  child: Image.asset(url, width: 60.0),
                   padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                 ),
                 Text(
@@ -152,74 +196,85 @@ class RankingMenu extends StatelessWidget {
               ],
             ),
           ),
-          collapsed: SizedBox(),
-          expanded: FutureBuilder(
-            future: Future.delayed(Duration(seconds: 3)),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return buildList();
-              } else {
-                return Container(
-                    height: 150, child: Center(child: LoadingWidget(Indicator.ballPulse)));
-              }
-            },
-          ),
         ),
       );
     }
 
-    Widget closeLeague(String url, String name) {
-      return myCard(
-        widget: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset(url, width: 100.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          color: Color(0xff301b49),
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  backgroundColor: Color(0xff0d7d7d),
+                  // backgroundColor: Colors.green,
+                  expandedHeight: 200.0,
+                  floating: false,
+                  pinned: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.elliptical(20, 30),
+                      bottomRight: Radius.elliptical(20, 30),
+                    ),
+                  ),
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text(
+                      "Rankings!",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    collapseMode: CollapseMode.parallax,
+                    background: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Image.asset(
+                          ImageStrings.appbarCupAsset,
+                          width: 140,
+                          // fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              )
-            ],
+              ];
+            },
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: ListView(
+                children: <Widget>[
+                  openableLeague(ImageStrings.rankingLeagueCrystal1Asset,
+                      "GEM League", true),
+                  closeLeague(ImageStrings.rankingLeagueBronze2Asset,
+                      'DIAMOND League', false),
+                  closeLeague(ImageStrings.rankingLeagueBronze3Asset,
+                      'DIAMOND League', true),
+                  closeLeague(ImageStrings.rankingLeagueBronze4Asset,
+                      'DIAMOND League', false),
+                  closeLeague(ImageStrings.rankingLeagueBronze5Asset,
+                      'DIAMOND League', true),
+                  closeLeague('assets/images/leagues/platinum.png',
+                      'PLATINUM League', false),
+                  closeLeague(
+                      'assets/images/leagues/gold.png', 'GOLD League', true),
+                  closeLeague('assets/images/leagues/silver.png',
+                      'SILVER League', false),
+                  closeLeague('assets/images/leagues/bronze.png',
+                      'BRONZE League', true),
+                  closeLeague('assets/images/leagues/copper.png',
+                      'COPPER League', false),
+                  closeLeague(
+                      'assets/images/leagues/iron.png', 'IRON League', true),
+                ],
+              ),
+            ),
           ),
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        backgroundColor: Colors.purple,
-        title: Text("ranking"),
-      ),
-      body: SafeArea(
-        child: ListView(
-          children: <Widget>[
-            openableLeague(
-                ImageStrings.rankingLeagueCrystal1Asset, "GEM League"),
-            closeLeague(
-                ImageStrings.rankingLeagueBronze2Asset, 'DIAMOND League'),
-            closeLeague(
-                ImageStrings.rankingLeagueBronze3Asset, 'DIAMOND League'),
-            closeLeague(
-                ImageStrings.rankingLeagueBronze4Asset, 'DIAMOND League'),
-            closeLeague(
-                ImageStrings.rankingLeagueBronze5Asset, 'DIAMOND League'),
-            closeLeague(
-                'assets/images/leagues/platinum.png', 'PLATINUM League'),
-            closeLeague('assets/images/leagues/gold.png', 'GOLD League'),
-            closeLeague('assets/images/leagues/silver.png', 'SILVER League'),
-            closeLeague('assets/images/leagues/bronze.png', 'BRONZE League'),
-            closeLeague('assets/images/leagues/copper.png', 'COPPER League'),
-            closeLeague('assets/images/leagues/iron.png', 'IRON League'),
-          ],
         ),
       ),
     );
