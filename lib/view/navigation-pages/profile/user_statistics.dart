@@ -17,20 +17,16 @@ class UserStatistics extends StatelessWidget {
           ),
           Container(
             height: 100,
+            decoration: BoxDecoration(
+              color: Colors.indigoAccent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.all(8),
             child: Row(
               children: [
                 Expanded(
                   flex: 8,
                   child: Container(
-                    decoration: BoxDecoration(
-
-                        gradient: RadialGradient(
-                          colors: [Colors.white, Colors.green],
-                          radius: 2,
-                          center: Alignment.centerLeft,
-                        ),
-                        borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.all(8),
                     child: Row(
                       children: [
                         Expanded(
@@ -50,29 +46,24 @@ class UserStatistics extends StatelessWidget {
                     ),
                   ),
                 ),
+                VerticalDivider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
                 SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 Expanded(
                   flex: 10,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [Colors.white, Colors.orangeAccent],
-                        radius: 1.5,
-                        center: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.all(8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SmallRow(),
-                        SmallRow(),
-                        SmallRow(),
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SmallRow(title: "correct matches" , number: "3521"),
+                      Divider(color: Colors.black,thickness: 1,),
+                      SmallRow(title: "wrong matches" , number: "234"),
+                      Divider(color: Colors.black,thickness: 1,),
+                      SmallRow(title: "dfsd" , number: "53"),
+                    ],
                   ),
                 ),
               ],
@@ -83,20 +74,24 @@ class UserStatistics extends StatelessWidget {
     );
   }
 
-
-  SmallRow() {
+  SmallRow({required String title , required String number}) {
+    TextStyle style = TextStyle(color: Colors.white, fontSize: 13);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset(
-          ImageStrings.gameHomeCarrot1sAsset,
-          width: 25,
+        Text(
+          title,
+          style: style,
         ),
-        Text("salam")
+        Text(
+          number,
+          style: style,
+        )
       ],
     );
   }
 }
+
 xpWidget() {
   return Stack(
     alignment: Alignment.centerLeft,
