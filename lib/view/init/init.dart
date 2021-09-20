@@ -1,5 +1,5 @@
-import
-'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
@@ -16,11 +16,16 @@ import 'package:rabbito/view/widgets/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InitPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.deepPurple.shade800, // navigation bar color
+    ));
     return GetMaterialApp(
       theme:
-          ThemeData(primaryColor: Colors.red, accentColor: Colors.yellowAccent),
+          ThemeData(primaryColor: Colors.red, accentColor: Colors.yellowAccent,scaffoldBackgroundColor: Colors.purple),
       debugShowCheckedModeBanner: false,
       locale: LocalizationService.locale,
       fallbackLocale: LocalizationService.fallbackLocale,
@@ -33,9 +38,8 @@ class InitPage extends StatelessWidget {
           } else if (AppController.appController.firstEntrance.value) {
             return IntroductionScreen();
           } else {
-            return HomePage(title: 'Rabbito');
-
-
+            return Container(
+                child: HomePage(title: 'Rabbito'), color: Colors.red);
           }
         },
       ),

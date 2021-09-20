@@ -98,12 +98,8 @@ class GameAppBar extends StatelessWidget {
                       },
                     );
                   },
-                  // innerColor: Colors.redAccent,
-
-                  // outerColor: Colors.red,
-                  // innerColor: Color(0xffC0CA33),
-                  innerColor: Colors.lightGreen,
-                  outerColor: Colors.lightGreenAccent,
+                  innerColor: Colors.teal,
+                  outerColor: Colors.tealAccent,
                 ),
               ),
               SizedBox(width: 10,),
@@ -128,8 +124,9 @@ class GameAppBar extends StatelessWidget {
                     // child: Image.asset(ImageStrings.appbarCupAsset),
                   ),
                   onPressed: () => Get.to(RankingMenu()),
-                  innerColor: Colors.teal,
-                  outerColor: Colors.tealAccent,
+
+                  outerColor: Colors.lightGreen,
+                  innerColor: Color(0xff0b5a5a),
                 ),
               ),
             ],

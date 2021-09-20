@@ -5,6 +5,7 @@ import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
 Widget shopMenu(BuildContext context) {
 
   return Container(
+    color: Colors.white,
     padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
     child: SingleChildScrollView( child: Column(
       children: [

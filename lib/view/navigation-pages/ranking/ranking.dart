@@ -201,6 +201,7 @@ class RankingMenu extends StatelessWidget {
     }
 
     return SafeArea(
+
       child: Scaffold(
         body: Container(
           color: Color(0xff301b49),
@@ -209,8 +210,7 @@ class RankingMenu extends StatelessWidget {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
-                  backgroundColor: Color(0xff0d7d7d),
-                  // backgroundColor: Colors.green,
+                  backgroundColor: Color(0xff0b5a5a),
                   expandedHeight: 200.0,
                   floating: false,
                   pinned: true,
@@ -230,7 +230,15 @@ class RankingMenu extends StatelessWidget {
                       ),
                     ),
                     collapseMode: CollapseMode.parallax,
-                    background: Padding(
+                    background: Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Color(0xff0d7d7d),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.elliptical(20, 30),
+                          bottomRight: Radius.elliptical(20, 30),
+                        ),
+                      ),
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.topCenter,
