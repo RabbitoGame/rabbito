@@ -42,6 +42,7 @@ class ImageStrings {
   static const String rankingLeagueBronze3Asset = 'assets/images/ranking/league/Bronze_3.png';
   static const String rankingLeagueBronze4Asset = 'assets/images/ranking/league/Bronze_4.png';
   static const String rankingLeagueBronze5Asset = 'assets/images/ranking/league/Bronze_5.png';
+  static const String rankingLeagueTAsset = 'assets/images/ranking/league/t.jpg';
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
   static const String gameHomeRouletteAsset =
       'assets/images/game-home/roulette.png';
@@ -100,4 +101,5 @@ class ImageStrings {
   static const String backgroundBack6Asset = 'assets/images/background/back6.jpg';
   static const String backgroundBack7Asset = 'assets/images/background/back7.jpg';
   static const String backgroundBack8Asset = 'assets/images/background/back8.jpg';
+  static const String backgroundBack9Asset = 'assets/images/background/back9.jpg';
 }

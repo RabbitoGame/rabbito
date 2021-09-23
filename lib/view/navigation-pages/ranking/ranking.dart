@@ -15,7 +15,7 @@ class RankingMenu extends StatelessWidget {
           name: 'ali',
           rank: League.Diamond,
           cups: 23,
-          image: ImageStrings.rankingLeagueCrystal1Asset,
+          image: ImageStrings.rankingLeagueTAsset,
           carrot: 13,
           xp: 102),
       RankingRow(
@@ -257,7 +257,7 @@ class RankingMenu extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: ListView(
                 children: <Widget>[
-                  openableLeague(ImageStrings.rankingLeagueCrystal1Asset,
+                  openableLeague(ImageStrings.rankingLeagueTAsset,
                       "GEM League", true),
                   closeLeague(ImageStrings.rankingLeagueBronze2Asset,
                       'DIAMOND League', false),

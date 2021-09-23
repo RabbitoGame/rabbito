@@ -63,13 +63,13 @@ class RankWatch extends StatelessWidget {
                       "you are",
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                       ),
                     ),
                     Text(
                       "18",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.teal,
                       ),
@@ -77,7 +77,7 @@ class RankWatch extends StatelessWidget {
                     Text(
                       "th",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                       ),
                     )
                   ],

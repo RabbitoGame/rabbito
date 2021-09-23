@@ -21,7 +21,7 @@ class InitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.deepPurple.shade800, // navigation bar color
+      systemNavigationBarColor: Color(0xff301b49), // navigation bar color
     ));
     return GetMaterialApp(
       theme:

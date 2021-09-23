@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
@@ -26,76 +27,66 @@ class Wheel extends StatelessWidget {
       duration: Duration(seconds: 4),
       selected: controller.stream,
       items: [
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelCoin2Asset,
-              width: width - 5,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelCash2Asset,
-              width: width + 10,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelHeartPlus6Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelMystery1Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelCoin2Asset,
-              width: width - 5,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelMoneyBag3Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelHeartPlus6Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelMystery1Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelCoin2Asset,
-              width: width - 5,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
-        item(
-            widget: Image.asset(
-              ImageStrings.gameHomeWheelMoneyBag1Asset,
-              width: width,
-            ),
-            color: Colors.black,
-            borderColor: Colors.yellow),
+        myItem(
+          image: ImageStrings.gameHomeWheelCoin2Asset,
+          width: width,
+          color: Colors.lightGreen,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelCash2Asset,
+          width: width,
+          color: Colors.green,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelHeartPlus6Asset,
+          width: width,
+          color: Colors.teal,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelMystery1Asset,
+          width: width,
+          color: Colors.blue,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelCoin2Asset,
+          width: width,
+          color: Colors.purple,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelMoneyBag3Asset,
+          width: width,
+          color: Colors.deepPurple,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelHeartPlus6Asset,
+          width: width,
+          color: Colors.red,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelMystery1Asset,
+          width: width,
+          color: Colors.deepOrange,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelCoin2Asset,
+          width: width,
+          color: Colors.orange,
+          prize: "10",
+        ),
+        myItem(
+          image: ImageStrings.gameHomeWheelMoneyBag1Asset,
+          width: width,
+          color: Colors.amber,
+          prize: "10",
+        ),
       ],
     );
   }
@@ -105,7 +96,7 @@ class Wheel extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: ConfettiWidget(
         confettiController: _wheelController.controller.value,
-        blastDirection: -pi/2,
+        blastDirection: -pi / 2,
         // radial value - LEFT
         particleDrag: 0.05,
         // apply drag to the confetti
@@ -124,10 +115,11 @@ class Wheel extends StatelessWidget {
       ),
     );
   }
+
   item(
       {required Widget widget,
-        required Color color,
-        required Color borderColor}) {
+      required Color color,
+      required Color borderColor}) {
     return FortuneItem(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -140,6 +132,7 @@ class Wheel extends StatelessWidget {
           color: color, borderColor: borderColor, borderWidth: 5),
     );
   }
+
   void onAnimationEnd(context) {
     showDialog(
       context: context,
@@ -149,7 +142,6 @@ class Wheel extends StatelessWidget {
         title: Column(
           children: [
             confetti(),
-
             Text(
               "CONGRATULATIONS!!!",
               textAlign: TextAlign.center,
@@ -196,6 +188,36 @@ class Wheel extends StatelessWidget {
       ),
     );
     _wheelController._controller.value.play();
+  }
+
+  myItem(
+      {required String prize,
+      required String image,
+      required double width,
+      required Color color}) {
+    return item(
+      widget: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            prize,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Image.asset(
+            image,
+            width: width - 5,
+          ),
+        ],
+      ),
+      color: color,
+      borderColor: color,
+    );
   }
 }
 

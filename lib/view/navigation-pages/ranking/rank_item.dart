@@ -50,7 +50,7 @@ class RankItem extends StatelessWidget {
               index.toString(),
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -71,7 +71,8 @@ class RankItem extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                          fontSize: 13
+                          ),
                     )
                   ],
                 ),
@@ -79,21 +80,18 @@ class RankItem extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              Expanded(
-                flex: 2,
-                child: CircleAvatar(
-                  child: Image.asset(ImageStrings.logoAsset),
-                ),
+              CircleAvatar(
+                child: Image.asset(ImageStrings.logoAsset),
               ),
               SizedBox(
                 width: 5,
               ),
               Expanded(
-                child: Text(userState.name),
+                child: Text(userState.name ),
                 flex: 5,
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -102,10 +100,10 @@ class RankItem extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         ConstrainedBox(
-                          constraints: BoxConstraints(minWidth: 60),
+                          constraints: BoxConstraints(minWidth: 50),
                           child: Container(
                             padding: EdgeInsets.only(
-                                left: 10, right: 20, top: 10, bottom: 10),
+                                left: 5, right: 10, top: 10, bottom: 10),
                             decoration: BoxDecoration(
                               color: Colors.amber.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(4),
