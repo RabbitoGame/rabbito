@@ -30,9 +30,10 @@ class ShopItem {
 Widget shopCard(ShopItem item) {
 
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-    padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+    padding: EdgeInsets.fromLTRB(5, 10, 5, 2),
       width: item.width,
+      height: item.height,
       decoration: BoxDecoration(
           color: item.lightColor,
           border: Border.all(
@@ -48,12 +49,12 @@ Widget shopCard(ShopItem item) {
           Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-              child: Image.asset(item.imageURL, width: 60.0, height:60.0),
+              padding: EdgeInsets.fromLTRB(0, 2, 0, 5),
+              child: Image.asset(item.imageURL, width: 45.0, height:45.0),
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+            padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -61,7 +62,7 @@ Widget shopCard(ShopItem item) {
                   item.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 17.0,
+                      fontSize: 16.0,
                       color: item.deepColor
                   ),
                 ),
@@ -78,7 +79,7 @@ Widget shopCard(ShopItem item) {
                     item.price.toString() + " \$",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
+                        fontSize: 16.0,
                         color: Colors.amber
                     ),
                   ),
@@ -88,12 +89,12 @@ Widget shopCard(ShopItem item) {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 8),
+              padding: EdgeInsets.fromLTRB(0, 2, 0, 4),
               child: Text(
                 item.description,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
+                    fontSize: 13.0,
                     color: item.shadowColor
                 ),
               ),
@@ -101,17 +102,18 @@ Widget shopCard(ShopItem item) {
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 5),
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
               width: double.infinity,
               child: CustomContainer(
                 child: Text(
                   'Buy Now',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
                 onPressed: () {},
+                minHeight: 40,
               ),
             ),
           )
