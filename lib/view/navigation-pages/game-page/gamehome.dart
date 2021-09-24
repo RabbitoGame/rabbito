@@ -17,7 +17,7 @@ Widget gameMenu(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(ImageStrings.backgroundBack9Asset),
+        image: AssetImage(ImageStrings.backgroundBack1Asset),
         // colorFilter: ColorFilter.,
         fit: BoxFit.cover,
       ),
