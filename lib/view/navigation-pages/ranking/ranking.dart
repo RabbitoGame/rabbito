@@ -1,6 +1,5 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
@@ -15,7 +14,7 @@ class RankingMenu extends StatelessWidget {
           name: 'ali',
           rank: League.Diamond,
           cups: 23,
-          image: ImageStrings.rankingLeagueTAsset,
+          image: ImageStrings.rankingLeagueBroAsset,
           carrot: 13,
           xp: 102),
       RankingRow(
@@ -58,8 +57,8 @@ class RankingMenu extends StatelessWidget {
     ExpandableThemeData openableTheme = ExpandableThemeData(
       hasIcon: true,
       tapHeaderToExpand: true,
-      iconColor: Colors.black,
-      iconSize: 40,
+      iconColor: Colors.orange,
+      iconSize: 30,
       headerAlignment: ExpandablePanelHeaderAlignment.center,
       iconRotationAngle: 50,
       collapseIcon: Icons.close,
@@ -257,7 +256,8 @@ class RankingMenu extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: ListView(
                 children: <Widget>[
-                  openableLeague(ImageStrings.rankingLeagueTAsset,
+
+                  openableLeague(ImageStrings.rankingLeagueBroAsset,
                       "GEM League", true),
                   closeLeague(ImageStrings.rankingLeagueBronze2Asset,
                       'DIAMOND League', false),

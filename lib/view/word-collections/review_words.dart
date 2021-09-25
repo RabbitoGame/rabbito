@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
-import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/loading.dart';
 
 class ReviewWords extends StatelessWidget {

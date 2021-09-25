@@ -1,12 +1,9 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/navigation-pages/profile/profile.dart';
-import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
-import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 
 import 'game-page/gamehome.dart';

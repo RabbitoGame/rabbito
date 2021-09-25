@@ -2,12 +2,9 @@ import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/global/apis.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
-import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/src/response.dart' as httpResponse;
 

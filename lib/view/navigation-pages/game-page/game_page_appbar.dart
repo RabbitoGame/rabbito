@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';

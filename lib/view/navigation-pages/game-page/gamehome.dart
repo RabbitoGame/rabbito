@@ -1,23 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import 'package:rabbito/global/localization_service.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
-import 'package:rabbito/view/navigation-pages/game-page/chest.dart';
-import 'package:rabbito/view/navigation-pages/game-page/top_row_icon_button.dart';
-import 'package:rabbito/view/navigation-pages/homepage.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
-
 import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(ImageStrings.backgroundBack9Asset),
+        image: AssetImage(ImageStrings.backgroundBack1Asset),
         // colorFilter: ColorFilter.,
         fit: BoxFit.cover,
       ),

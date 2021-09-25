@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
 
 class MainCollapsingToolbar extends StatefulWidget {
   @override

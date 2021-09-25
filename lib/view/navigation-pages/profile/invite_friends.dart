@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:path/path.dart' as Path;
 
 class InviteFriends extends StatelessWidget {
   const InviteFriends({Key? key}) : super(key: key);
