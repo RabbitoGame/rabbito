@@ -18,8 +18,8 @@ class AvatarIcon {
 Widget avatarCard(AvatarIcon item) {
 
   return Container(
-    height: 182,
-    width: 184,
+    height: 170,
+    width: 170,
     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
     padding: EdgeInsets.all(5),
     decoration: BoxDecoration(

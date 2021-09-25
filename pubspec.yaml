@@ -158,6 +158,16 @@ flutter:
     - assets/images/background/back6.jpg
     - assets/images/background/back7.jpg
     - assets/images/background/back8.jpg
+    - assets/images/avatars/Clothes/cloth_1.png
+    - assets/images/avatars/Eyes/eye_1.png
+    - assets/images/avatars/Faces/face_1.png
+    - assets/images/avatars/Hairs/hair_1.png
+    - assets/images/avatars/Mouths/mouth_1.png
+    - assets/images/avatars/Specials/special_1.png
+    - assets/images/avatars/Faces/face_2.png
+    - assets/images/avatars/Faces/face_3.png
+    - assets/images/avatars/Faces/face_4.png
+    - assets/images/avatars/background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
