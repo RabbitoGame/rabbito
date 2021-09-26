@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
@@ -9,7 +10,7 @@ import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
 import 'settings_widget.dart';
 
 class GameAppBar extends StatelessWidget {
-  const GameAppBar({Key? key}) : super(key: key);
+  final GameAppBarController _controller = Get.put(GameAppBarController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,14 @@ class GameAppBar extends StatelessWidget {
           flex: 5,
           child: Row(
             children: [
-              Expanded(
-                child: xpWidget(),
-              ),
+              Expanded(child: Obx(() {
+                return xpWidget(
+                  all: _controller.all.value,
+                  part: _controller.part.value,
+                  xpLevel: _controller.xpLevel.value,
+
+                );
+              })),
               SizedBox(
                 width: 5,
               ),
@@ -101,7 +107,9 @@ class GameAppBar extends StatelessWidget {
                   outerColor: Colors.tealAccent,
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Expanded(
                 child: CustomContainer(
                   child: Padding(
@@ -123,7 +131,6 @@ class GameAppBar extends StatelessWidget {
                     // child: Image.asset(ImageStrings.appbarCupAsset),
                   ),
                   onPressed: () => Get.to(RankingMenu()),
-
                   outerColor: Colors.lightGreen,
                   innerColor: Color(0xff0b5a5a),
                 ),
@@ -152,5 +159,29 @@ class GameAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: widget,
     );
+  }
+}
+
+class GameAppBarController extends GetxController {
+  RxDouble _xpLevel = 0.0.obs;
+  RxDouble _part = 0.0.obs;
+  RxDouble _all = 0.0.obs;
+
+  RxDouble get xpLevel => _xpLevel;
+
+  set xpLevel(RxDouble value) {
+    _xpLevel = value;
+  }
+
+  RxDouble get part => _part;
+
+  set part(RxDouble value) {
+    _part = value;
+  }
+
+  RxDouble get all => _all;
+
+  set all(RxDouble value) {
+    _all = value;
   }
 }

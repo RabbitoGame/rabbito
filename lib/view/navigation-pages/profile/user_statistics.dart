@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/strings/user_strings.dart';
 
 class UserStatistics extends StatelessWidget {
   const UserStatistics({Key? key}) : super(key: key);
@@ -11,7 +12,11 @@ class UserStatistics extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          xpWidget(),
+          xpWidget(
+            xpLevel: 12,
+            part: 10,
+            all: 20
+          ),
           SizedBox(
             height: 5,
           ),
@@ -107,7 +112,11 @@ class UserStatistics extends StatelessWidget {
   }
 }
 
-xpWidget() {
+xpWidget({
+  required double xpLevel,
+  required double part,
+  required double all,
+}) {
   return Stack(
     alignment: Alignment.centerLeft,
     children: [
@@ -115,11 +124,13 @@ xpWidget() {
         padding: EdgeInsets.only(left: 20),
         height: 40,
         child: LiquidLinearProgressIndicator(
-          value: 0.5,
+          value: all == 0 ? 0 : part / all,
           valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
           // Defaults to the current Theme's accentColor.
           center: Text(
-            '30/100',
+            all == 0
+                ? UserStrings.emptyInfo
+                : part.toString() + "/" + all.toString(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.amber,
@@ -142,7 +153,7 @@ xpWidget() {
             width: 45,
           ),
           Text(
-            "12",
+            xpLevel == 0 ? UserStrings.emptyInfo : xpLevel.toString(),
             style: TextStyle(
               fontSize: 15,
               color: Colors.white,
