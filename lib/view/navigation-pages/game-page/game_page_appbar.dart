@@ -25,7 +25,6 @@ class GameAppBar extends StatelessWidget {
                   all: _controller.all.value,
                   part: _controller.part.value,
                   xpLevel: _controller.xpLevel.value,
-
                 );
               })),
               SizedBox(
