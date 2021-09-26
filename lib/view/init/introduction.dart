@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/get_page_names.dart';
-import 'package:rabbito/view/navigation-pages/homepage.dart';
+import '../navigation-pages/homepage/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroductionScreen extends StatelessWidget {

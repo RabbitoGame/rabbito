@@ -13,4 +13,5 @@ class UserStrings {
   static const String joinDate = "join_date";
   static const String accessToken = "access";
   static const String refreshToken = "refresh";
+  static const String emptyInfo = "--";
 }
