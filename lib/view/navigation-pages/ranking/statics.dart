@@ -1,7 +1,7 @@
 import 'package:rabbito/global/strings/image_strings.dart';
 
-class RankingStatics{
-  static dynamic response ={
+class RankingStatics {
+  static var rankingResponse = {
     "rank": 15,
     "league": 3,
     "competitors": [
@@ -31,6 +31,58 @@ class RankingStatics{
       },
     ],
   };
+
+  static var wordResponse = {
+    "league": 3,
+    "league-details": [
+      {
+        "index": 0,
+        "words": words,
+      },
+      {
+        "index": 1,
+        "words": words,
+      },
+      {
+        "index": 2,
+        "words": words,
+      },
+      {
+        "index": 3,
+        "words": words,
+      }
+    ]
+  };
+  static List words = [
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+    {
+      "word": "sampleWord",
+      "translation": "sampleTranslation",
+    },
+  ];
 }
 
 class LeagueDetails {

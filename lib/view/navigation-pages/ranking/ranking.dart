@@ -9,6 +9,10 @@ import 'package:rabbito/view/widgets/loading.dart';
 import 'future_rank_leagu_widget.dart';
 
 class RankingMenu extends StatelessWidget {
+  bool isRanking;
+
+  RankingMenu(this.isRanking);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +37,7 @@ class RankingMenu extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Text(
-                      "Rankings!",
+                      isRanking ? "Rankings!" : "Your Words!",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -53,7 +57,9 @@ class RankingMenu extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: Image.asset(
-                          ImageStrings.appbarCupAsset,
+                          isRanking
+                              ? ImageStrings.appbarCupAsset
+                              : ImageStrings.profileBookAsset,
                           width: 140,
                           // fit: BoxFit.contain,
                         ),
@@ -65,12 +71,11 @@ class RankingMenu extends StatelessWidget {
             },
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: FutureRankLeagueWidget(),
+              child: FutureRankLeagueWidget(isRanking),
             ),
           ),
         ),
       ),
     );
   }
-
 }

@@ -9,6 +9,8 @@ import 'package:rabbito/view/widgets/loading.dart';
 
 class FutureRankLeagueWidget extends StatelessWidget {
   int leagueNum = 5;
+  bool isRanking;
+  FutureRankLeagueWidget(this.isRanking);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,12 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   Future<dynamic> getRankPageInfo() async {
     //todo get info from back
-    return Future.delayed(Duration(seconds: 1));
+    if(isRanking){
+      return Future.delayed(Duration(seconds: 1));
+    }else{
+      return Future.delayed(Duration(seconds: 1));
+    }
+
   }
 
   ExpandableThemeData openableTheme = ExpandableThemeData(
@@ -51,7 +58,8 @@ class FutureRankLeagueWidget extends StatelessWidget {
     iconPadding: EdgeInsets.all(10),
   );
 
-  buildListElements(List competitors) {
+  buildRankingListElements(List competitors) {
+    print("yasin list: "+competitors.toString());
     return Container(
       decoration: BoxDecoration(
         color: Colors.transparent,
@@ -81,7 +89,8 @@ class FutureRankLeagueWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                 itemCount: competitors.length,
                 itemBuilder: (context, index) {
-                  return RankItem(competitors[index], index + 1);
+                  print("words here:"+ competitors[index].toString());
+                  return RankItem(competitors[index], index + 1 ,isRanking);
                 },
               ),
             ],
@@ -134,7 +143,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
             ),
           ),
           collapsed: Container(),
-          expanded: buildListElements(competitors),
+          expanded: buildRankingListElements(competitors),
         ),
       ),
     );
@@ -172,23 +181,46 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   convertToUsefulJson({data}) {
     //todo compete data conversion
-    return RankingStatics.response;
+    if(isRanking){
+      return RankingStatics.rankingResponse;
+    }else{
+      return RankingStatics.wordResponse;
+    }
+
   }
 
   List<Widget> makeChildren(jsonData) {
-    int leagueIndex = jsonData["league"];
-    int rank = jsonData["rank"];
-    List competitors = jsonData["competitors"];
-    return List<Widget>.generate(leagueNum, (index) {
-      LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
-      if (index == leagueIndex) {
-        return openableLeague(leagueDetail.image, leagueDetail.text,
-            leagueDetail.rightSide, competitors);
-      } else {
-        return closeLeague(
-            leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
-      }
-    }).toList();
+    if(isRanking){
+      int leagueIndex = jsonData["league"];
+      int rank = jsonData["rank"];
+      List competitors = jsonData["competitors"];
+      return List<Widget>.generate(leagueNum, (index) {
+        LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
+        if (index == leagueIndex) {
+          return openableLeague(leagueDetail.image, leagueDetail.text,
+              leagueDetail.rightSide, competitors);
+        } else {
+          return closeLeague(
+              leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
+        }
+      }).toList();
+    }else{
+      int leagueIndex = jsonData["league"];
+      List jsonWords = jsonData["league-details"];
+      return List<Widget>.generate(leagueNum, (index) {
+        LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
+        if (index <= leagueIndex) {
+          return openableLeague(leagueDetail.image, leagueDetail.text,
+              leagueDetail.rightSide, jsonWords.elementAt(index)["words"]);
+        } else {
+          return closeLeague(
+              leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
+        }
+      }).toList();
+    }
+
   }
+
+
 }
 

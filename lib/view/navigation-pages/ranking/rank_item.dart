@@ -4,22 +4,31 @@ import 'package:rabbito/global/strings/image_strings.dart';
 class RankItem extends StatelessWidget {
   var userState;
   int index;
+  bool isRanking;
 
-  RankItem(this.userState, this.index);
+  RankItem(this.userState, this.index, this.isRanking);
 
   @override
   Widget build(BuildContext context) {
     if (index == 1) {
       return ClipPath(
-        child: watch(40),
+        child: item(40),
         clipper: MyCustomClipper(),
       );
     } else {
-      return watch(0);
+      return item(0);
     }
   }
 
-  Widget watch(double topPadding) {
+  Widget item(double topPadding) {
+    if (isRanking) {
+      return rankingItem(topPadding);
+    } else {
+      return wordItem(topPadding);
+    }
+  }
+
+  rankingItem(double topPadding) {
     return Container(
       padding: EdgeInsets.only(top: topPadding),
       decoration: BoxDecoration(
@@ -71,8 +80,7 @@ class RankItem extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 13
-                          ),
+                          fontSize: 13),
                     )
                   ],
                 ),
@@ -87,7 +95,7 @@ class RankItem extends StatelessWidget {
                 width: 5,
               ),
               Expanded(
-                child: Text(userState["name"] ),
+                child: Text(userState["name"]),
                 flex: 5,
               ),
               Expanded(
@@ -117,7 +125,6 @@ class RankItem extends StatelessWidget {
                         Positioned(
                           child: Image.asset(
                             ImageStrings.gameHomeCarrot2sAsset,
-
                             width: 35,
                           ),
                           right: -20,
@@ -131,6 +138,32 @@ class RankItem extends StatelessWidget {
           ),
         ),
         // subtitle: Text(item.cups.toString()),
+      ),
+    );
+  }
+
+  Widget wordItem(double topPadding) {
+    if(userState["word"] == null ){
+      print("null detected");
+    }
+    print(userState["word"]);
+    print(userState["translation"]);
+    return Container(
+      padding: EdgeInsets.only(top: topPadding),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.elliptical(20, 30),
+          bottomRight: Radius.elliptical(20, 30),
+        ),
+        color: Colors.white.withOpacity(0.4),
+      ),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(userState["word"]),
+          Text(userState["translation"]),
+        ],
       ),
     );
   }

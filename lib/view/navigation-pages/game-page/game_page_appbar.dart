@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
+import 'package:rabbito/view/navigation-pages/ranking/interface.dart';
 import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
@@ -129,7 +130,7 @@ class GameAppBar extends StatelessWidget {
                     ),
                     // child: Image.asset(ImageStrings.appbarCupAsset),
                   ),
-                  onPressed: () => Get.to(RankingMenu()),
+                  onPressed: () => Get.to(Interface(true)),
                   outerColor: Colors.lightGreen,
                   innerColor: Color(0xff0b5a5a),
                 ),
