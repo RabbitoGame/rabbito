@@ -67,7 +67,7 @@ class RankItem extends StatelessWidget {
                   children: [
                     Image.asset(ImageStrings.profileXpAsset, width: 40.0),
                     Text(
-                      userState.xp.toString(),
+                      userState["xp"].toString(),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -81,13 +81,13 @@ class RankItem extends StatelessWidget {
                 width: 5,
               ),
               CircleAvatar(
-                child: Image.asset(ImageStrings.logoAsset),
+                child: Image.asset(userState["image"]),
               ),
               SizedBox(
                 width: 5,
               ),
               Expanded(
-                child: Text(userState.name ),
+                child: Text(userState["name"] ),
                 flex: 5,
               ),
               Expanded(
@@ -109,14 +109,15 @@ class RankItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              userState.carrot.toString(),
+                              userState["carrot"].toString(),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
                         Positioned(
                           child: Image.asset(
-                            "assets/images/ranking/carrot2.png",
+                            ImageStrings.gameHomeCarrot2sAsset,
+
                             width: 35,
                           ),
                           right: -20,
