@@ -48,6 +48,8 @@ dependencies:
   path_provider: ^2.0.3
   cached_network_image: ^3.1.0
   flutter_glow: ^0.2.0
+  flutter_svg: ^0.22.0
+  auto_size_text: ^3.0.0-nullsafety.0
 
 
 
@@ -168,6 +170,11 @@ flutter:
     - assets/images/avatars/Faces/face_3.png
     - assets/images/avatars/Faces/face_4.png
     - assets/images/avatars/background.jpg
+    - assets/images/wallpaper/MainPageWallpaper-01.png
+    - assets/images/wallpaper/MainPageWallpaper.svg
+    - assets/images/wallpaper/ShopPageWallpaper-01.png
+    - assets/images/wallpaper/ShopPageWallpaper.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

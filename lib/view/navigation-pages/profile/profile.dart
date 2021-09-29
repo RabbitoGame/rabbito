@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
@@ -13,9 +14,10 @@ Widget profileMenu(BuildContext context) {
 
 class ProfileUI2 extends StatelessWidget {
   ProfileController _controller = Get.put(ProfileController());
-
+  AutoSizeGroup _group = AutoSizeGroup();
   @override
   Widget build(BuildContext context) {
+    AutoSizeGroup group = AutoSizeGroup();
     return Container(
       color: Colors.white,
       child: Container(
@@ -41,8 +43,12 @@ class ProfileUI2 extends StatelessWidget {
                 height: 60,
               ),
               Obx(() {
-                return Text(
-                  _controller._username.value,
+                return text(
+                  context: context,
+                  group: null,
+                  min: 15,
+                  partition: 2 / 3,
+                  text: _controller._username.value,
                   style: TextStyle(
                       fontSize: 25.0,
                       color: Colors.blueGrey,
@@ -54,42 +60,41 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return Text(
-                  _controller._stringDate.value,
+                return text(
+                  context: context,
+                  group: null,
+                  min: 12,
+                  partition: 1 / 2,
+                  text: _controller._stringDate.value,
                   style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black45,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w300),
+                    fontSize: 18.0,
+                    color: Colors.black45,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 );
               }),
               SizedBox(
                 height: 10,
               ),
               Obx(() {
-                return Text(
-                  "Learning ${_controller.learningLanguage.value}",
+                return text(
+                  context: context,
+                  group: null,
+                  min: 10,
+                  partition: 1,
+                  text: "Learning ${_controller.learningLanguage.value}",
                   style: TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black45,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w300),
+                    fontSize: 15.0,
+                    color: Colors.black45,
+                    letterSpacing: 2.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 );
               }),
               SizedBox(
                 height: 10,
               ),
-              Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                  elevation: 2.0,
-                  child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-                      child: Text(
-                        "Awards",
-                        style: TextStyle(
-                            letterSpacing: 2.0, fontWeight: FontWeight.w300),
-                      ))),
               SizedBox(
                 height: 10,
               ),
@@ -102,18 +107,27 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value);
+                return WordsLearned(_controller.wordsLearned.value , group);
               }),
               SizedBox(
                 height: 10,
               ),
-              InviteFriends(),
+              InviteFriends(group),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget text({text, style, context, min, group, partition}) {
+  return Container(
+    alignment: Alignment.center,
+    width: MediaQuery.of(context).size.width * partition,
+    child: AutoSizeText(text,
+        maxLines: 1, group: group, minFontSize: min, style: style),
+  );
 }
 
 class ProfileController extends GetxController {

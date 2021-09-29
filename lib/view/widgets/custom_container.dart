@@ -27,7 +27,6 @@ class CustomContainer extends StatelessWidget {
     return ClipPath(
       clipper: MyCustomClipper(x, 0),
       child: Container(
-
         constraints: BoxConstraints(minHeight: minHeight),
         color: outerColor,
         child: ClipPath(

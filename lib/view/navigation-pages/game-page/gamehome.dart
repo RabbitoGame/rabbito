@@ -1,29 +1,29 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
+  SizeConfig().init(context);
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(ImageStrings.backgroundBack1Asset),
+        image: AssetImage(ImageStrings.wallpaperMainPageAsset),
         // colorFilter: ColorFilter.,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       ),
     ),
     padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     child: Column(
       children: [
         Expanded(
-          flex: 3,
+          flex: SizeConfig.screenHeight > 500 ? 3 : 4,
           child: GameAppBar(),
-        ),
-        Expanded(
-          child: Container(),
         ),
         Expanded(
           flex: 8,
@@ -48,19 +48,26 @@ Widget gameMenu(BuildContext context) {
 }
 
 playButtons() {
+  AutoSizeGroup group = AutoSizeGroup();
   return Row(
     children: [
       Expanded(
         child: Container(
           width: double.maxFinite,
-          margin: EdgeInsets.fromLTRB(10, 0, 5, 10),
+          margin: EdgeInsets.fromLTRB(10, 0, 2, 10),
           child: CustomContainer(
-            child: Text(
-              "General League Game",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.manrope(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                "General League Game",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.manrope(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                minFontSize: 13,
+                group: group,
               ),
             ),
             onPressed: () {},
@@ -73,14 +80,20 @@ playButtons() {
       Expanded(
         child: Container(
           width: double.maxFinite,
-          margin: EdgeInsets.fromLTRB(5, 0, 10, 10),
+          margin: EdgeInsets.fromLTRB(2, 0, 10, 10),
           child: CustomContainer(
-            child: Text(
-              "Thematic Game",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.manrope(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                "Thematic Game",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.manrope(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                minFontSize: 13,
+                group: group,
               ),
             ),
             onPressed: () {},

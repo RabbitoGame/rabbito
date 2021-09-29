@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
@@ -12,6 +13,7 @@ import 'settings_widget.dart';
 
 class GameAppBar extends StatelessWidget {
   final GameAppBarController _controller = Get.put(GameAppBarController());
+  AutoSizeGroup group = AutoSizeGroup();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class GameAppBar extends StatelessWidget {
                   all: _controller.all.value,
                   part: _controller.part.value,
                   xpLevel: _controller.xpLevel.value,
+                  big: MediaQuery.of(context).size.width > 300,
                 );
               })),
               SizedBox(
@@ -78,13 +81,18 @@ class GameAppBar extends StatelessWidget {
                         Image.asset(
                           ImageStrings.gameHomeRouletteAsset,
                         ),
-                        Text(
-                          "TRY YOUR\nLUCK!",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.white),
+                        Expanded(
+                          child: AutoSizeText(
+                            "TRY YOUR LUCK!",
+                            textAlign: TextAlign.center,
+                            minFontSize: 7,
+                            maxLines: 2,
+                            group: group,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
@@ -118,13 +126,18 @@ class GameAppBar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Image.asset(ImageStrings.appbarCupAsset),
-                        Text(
-                          "YOUR\nRANK?!",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.white),
+                        Expanded(
+                          child: AutoSizeText(
+                            "YOUR RANK?!",
+                            group: group,
+                            textAlign: TextAlign.center,
+                            minFontSize: 7,
+                            maxLines: 2,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white),
+                          ),
                         ),
                       ],
                     ),

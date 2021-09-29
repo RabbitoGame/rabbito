@@ -124,7 +124,7 @@ class RankItem extends StatelessWidget {
                         ),
                         Positioned(
                           child: Image.asset(
-                            ImageStrings.gameHomeCarrot2sAsset,
+                            ImageStrings.rankingCarrotAsset,
                             width: 35,
                           ),
                           right: -20,

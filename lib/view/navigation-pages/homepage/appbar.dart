@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 
@@ -9,17 +10,18 @@ class FutureAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = 33;
+    SizeConfig().init(context);
     return Container(
-      height: 60.0,
+      height: SizeConfig.screenHeight > 500 ? 55.0 : 45,
       color: Colors.purple,
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 4.0, 10.0),
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child:
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Image(
               image: AssetImage(ImageStrings.appbarFlagAsset),
-              width: 45,
+              width: SizeConfig.screenHeight > 500 ? 45 : 45,
             ),
             Row(
               children: [
@@ -36,7 +38,7 @@ class FutureAppBar extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
                           fontFamily: 'Railway',
-                          fontSize: 16.0,
+                          fontSize: SizeConfig.screenHeight > 500 ? 16.0 : 12,
                         ),
                       );
                     }),
@@ -52,7 +54,7 @@ class FutureAppBar extends StatelessWidget {
                   image: AssetImage(
                     ImageStrings.rankingCarrotAsset,
                   ),
-                  width: 30,
+                  width: SizeConfig.screenHeight > 500 ? 30 : 20,
                 ),
                 Container(
                   child: Center(
@@ -63,7 +65,7 @@ class FutureAppBar extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
                           fontFamily: 'Railway',
-                          fontSize: 16.0,
+                          fontSize: SizeConfig.screenHeight > 500 ? 16.0 : 12,
                         ),
                       );
                     }),
@@ -87,7 +89,7 @@ class FutureAppBar extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
                           fontFamily: 'Railway',
-                          fontSize: 16.0,
+                          fontSize: SizeConfig.screenHeight > 500 ? 16.0 : 12,
                         ),
                       );
                     }),

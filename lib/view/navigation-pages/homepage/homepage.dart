@@ -1,6 +1,7 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/navigation-pages/profile/profile.dart';
@@ -19,10 +20,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 1;
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
+
+
     List<Widget> _menus = <Widget>[
       shopMenu(context),
       gameMenu(context),
@@ -42,17 +45,18 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildOriginDesign(),
+      bottomNavigationBar: _buildOriginDesign(context),
     );
   }
 
-  Widget _buildOriginDesign() {
+  Widget _buildOriginDesign(context) {
+    SizeConfig().init(context);
     return Container(
-      height: 65,
+      height: SizeConfig.screenHeight > 500 ? 60 : 45,
       child: CustomNavigationBar(
         elevation: 0,
         // borderRadius: Radius.elliptical(30,20),
-        iconSize: 60.0,
+        iconSize: SizeConfig.screenHeight > 500 ? 60.0 : 40,
         selectedColor: Colors.white,
         strokeColor: Colors.white,
         // unSelectedColor: Color(0xff6c788a),
@@ -72,7 +76,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   navItem({
     required String image,
     required String text,
@@ -89,17 +92,21 @@ class _HomePageState extends State<HomePage> {
           overflow: Overflow.visible,
           children: [
             Positioned(
-              top: -20,
+
+              top: SizeConfig.screenHeight > 500 ? -20 : -25,
+              left: SizeConfig.screenHeight>500?0:-4,
               child: Image.asset(
                 image,
-                width: 50,
+                width: SizeConfig.screenHeight > 500 ? 50 : 40,
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(
                 text,
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                style: TextStyle(
+                    fontSize: SizeConfig.screenHeight > 500 ? 16 : 10,
+                    color: Colors.white),
               ),
             )
           ],
@@ -107,9 +114,9 @@ class _HomePageState extends State<HomePage> {
       ),
       icon: Center(
           child: Image.asset(
-            image,
-            width: 40,
-          )),
+        image,
+        width: SizeConfig.screenHeight > 500 ? 40 : 35,
+      )),
     );
   }
 }
