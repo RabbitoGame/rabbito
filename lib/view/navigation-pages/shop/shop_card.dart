@@ -67,7 +67,7 @@ Widget shopCard(ShopItem item) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                  padding: EdgeInsets.fromLTRB(3, 2, 3, 0),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -89,7 +89,7 @@ Widget shopCard(ShopItem item) {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 2, 0, 4),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Text(
                 item.description,
                 style: TextStyle(
@@ -102,11 +102,11 @@ Widget shopCard(ShopItem item) {
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: double.infinity,
               child: CustomContainer(
                 child: Text(
-                  'Buy Now',
+                  item.price.toString() + '\$',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,

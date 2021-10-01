@@ -30,135 +30,135 @@ Widget shopMenu(BuildContext context) {
     padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
     child: SingleChildScrollView( child: Column(
       children: [
-        Padding(
-            padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
-            child: SizedBox(
-              height: 191,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  shopCard(new ShopItem(
-                      deepColor: deepGreen,
-                      shadowColor: shadowGreen,
-                      lightColor: lightGreen,
-                      width: 150, height: 185,
-                      name: '100 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0)),
-                  shopCard(new ShopItem(
-                      deepColor: deepGreen,
-                      shadowColor: shadowGreen,
-                      lightColor: lightGreen,
-                      width: 150, height: 185,
-                      name: '200 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0)),
-                  shopCard(new ShopItem(
-                      deepColor: deepGreen,
-                      shadowColor: shadowGreen,
-                      lightColor: lightGreen,
-                      width: 150, height: 185,
-                      name: '500 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0)),
-                  shopCard(new ShopItem(
-                      deepColor: deepYellow,
-                      shadowColor: shadowYellow,
-                      lightColor: lightYellow,
-                      width: 150, height: 185,
-                      name: '1000 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0)),
-                  shopCard(new ShopItem(
-                      deepColor: deepYellow,
-                      shadowColor: shadowYellow,
-                      lightColor: lightYellow,
-                      width: 150, height: 185,
-                      name: '5000 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0)),
-                  shopCard(new ShopItem(
-                      deepColor: deepYellow,
-                      shadowColor: shadowYellow,
-                      lightColor: lightYellow,
-                      width: 150, height: 185,
-                      name: '50000 Coins',
-                      description: '100 Coins package is a cool improvement!',
-                      imageURL: 'assets/images/appbar/coin.png',
-                      price: 100.0))
-                  ],
-              ),
-            )
+        // Padding(
+        //     padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
+        //     child: SizedBox(
+        //       height: 160,
+        //       child: ListView(
+        //         scrollDirection: Axis.horizontal,
+        //         children: [
+        //           shopCard(new ShopItem(
+        //               deepColor: deepGreen,
+        //               shadowColor: shadowGreen,
+        //               lightColor: lightGreen,
+        //               width: 150, height: 160,
+        //               name: '100 Coins',
+        //               description: '',
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0)),
+        //           shopCard(new ShopItem(
+        //               deepColor: deepGreen,
+        //               shadowColor: shadowGreen,
+        //               lightColor: lightGreen,
+        //               width: 150, height: 160,
+        //               name: '200 Coins',
+        //               description: '',
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0)),
+        //           shopCard(new ShopItem(
+        //               deepColor: deepGreen,
+        //               shadowColor: shadowGreen,
+        //               lightColor: lightGreen,
+        //               width: 150, height: 160,
+        //               name: '500 Coins',
+        //               description: '', //100 Coins package is a cool improvement!
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0)),
+        //           shopCard(new ShopItem(
+        //               deepColor: deepYellow,
+        //               shadowColor: shadowYellow,
+        //               lightColor: lightYellow,
+        //               width: 150, height: 160,
+        //               name: '1000 Coins',
+        //               description: '',
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0)),
+        //           shopCard(new ShopItem(
+        //               deepColor: deepYellow,
+        //               shadowColor: shadowYellow,
+        //               lightColor: lightYellow,
+        //               width: 150, height: 160,
+        //               name: '5000 Coins',
+        //               description: '',
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0)),
+        //           shopCard(new ShopItem(
+        //               deepColor: deepYellow,
+        //               shadowColor: shadowYellow,
+        //               lightColor: lightYellow,
+        //               width: 150, height: 160,
+        //               name: '50000 Coins',
+        //               description: '',
+        //               imageURL: 'assets/images/appbar/coin.png',
+        //               price: 100.0))
+        //           ],
+        //       ),
+        //     )
+        // ),
+        Row(
+          children: [
+            Expanded(child: shopCard(new ShopItem(
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 160,
+                name: '100 Coins',
+                description: '',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0)),),
+            Expanded(child:  shopCard(new ShopItem(
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 160,
+                name: '200 Coins',
+                description: '',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0)),),
+            Expanded(child:   shopCard(new ShopItem(
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 160,
+                name: '500 Coins',
+                description: '', //100 Coins package is a cool improvement!
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0)),),
+          ],
         ),
-        // Row(
-        //   children: [
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepGreen,
-        //         shadowColor: shadowGreen,
-        //         lightColor: lightGreen,
-        //         width: 145, height: 185,
-        //         name: '100 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepGreen,
-        //         shadowColor: shadowGreen,
-        //         lightColor: lightGreen,
-        //         width: 145, height: 185,
-        //         name: '200 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepGreen,
-        //         shadowColor: shadowGreen,
-        //         lightColor: lightGreen,
-        //         width: 145, height: 185,
-        //         name: '500 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //   ],
-        // ),
-        // Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
-        // Row(
-        //   children: [
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepYellow,
-        //         shadowColor: shadowYellow,
-        //         lightColor: lightYellow,
-        //         width: 145, height: 185,
-        //         name: '1000 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepYellow,
-        //         shadowColor: shadowYellow,
-        //         lightColor: lightYellow,
-        //         width: 145, height: 185,
-        //         name: '5000 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //     Expanded(child: shopCard(new ShopItem(
-        //         deepColor: deepYellow,
-        //         shadowColor: shadowYellow,
-        //         lightColor: lightYellow,
-        //         width: 145, height: 185,
-        //         name: '50000 Coins',
-        //         description: '100 Coins package is a cool improvement!',
-        //         imageURL: 'assets/images/appbar/coin.png',
-        //         price: 100.0))),
-        //   ],
-        // ),
-        // Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
+        Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
+        Row(
+          children: [
+            Expanded(child:  shopCard(new ShopItem(
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
+                width: 150, height: 160,
+                name: '1000 Coins',
+                description: '',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0)),),
+            Expanded(child:   shopCard(new ShopItem(
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
+                width: 150, height: 160,
+                name: '5000 Coins',
+                description: '',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0)),),
+            Expanded(child:   shopCard(new ShopItem(
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
+                width: 150, height: 160,
+                name: '50000 Coins',
+                description: '',
+                imageURL: 'assets/images/appbar/coin.png',
+                price: 100.0))),
+          ],
+        ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
         Row(
           children: [
             Expanded(child: shopCard(new ShopItem(
