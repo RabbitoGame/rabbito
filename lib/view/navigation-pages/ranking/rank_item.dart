@@ -1,16 +1,20 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 
 class RankItem extends StatelessWidget {
   var userState;
   int index;
   bool isRanking;
+  AutoSizeGroup itemGroup;
 
-  RankItem(this.userState, this.index, this.isRanking);
+  RankItem(this.userState, this.index, this.isRanking, this.itemGroup);
 
   @override
   Widget build(BuildContext context) {
-    if (index == 1) {
+    if (index == 1 && isRanking) {
       return ClipPath(
         child: item(40),
         clipper: MyCustomClipper(),
@@ -24,13 +28,14 @@ class RankItem extends StatelessWidget {
     if (isRanking) {
       return rankingItem(topPadding);
     } else {
-      return wordItem(topPadding);
+      return wordItem();
     }
   }
 
   rankingItem(double topPadding) {
     return Container(
-      padding: EdgeInsets.only(top: topPadding),
+      // padding: EdgeInsets.only(top: topPadding),
+      padding: EdgeInsets.fromLTRB(10, 10 + topPadding, 10, 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.elliptical(20, 30),
@@ -39,117 +44,119 @@ class RankItem extends StatelessWidget {
         color: Colors.white.withOpacity(0.4),
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-      child: ListTile(
-        // contentPadding: EdgeInsets.all(5),
-        horizontalTitleGap: 0,
-        leading: Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.elliptical(20, 30),
-              bottomRight: Radius.elliptical(20, 30),
-            ),
-            // color: Colors.lightBlueAccent,
-            color: Colors.green,
-          ),
-          child: Center(
-            child: Text(
-              index.toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Image.asset(ImageStrings.profileXpAsset, width: 40.0),
-                    Text(
-                      userState["xp"].toString(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              CircleAvatar(
-                child: Image.asset(userState["image"]),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                child: Text(userState["name"]),
-                flex: 5,
-              ),
-              Expanded(
-                flex: 4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Stack(
-                      overflow: Overflow.visible,
-                      alignment: Alignment.center,
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(minWidth: 50),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: 5, right: 10, top: 10, bottom: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.amber.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              userState["carrot"].toString(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          child: Image.asset(
-                            ImageStrings.rankingCarrotAsset,
-                            width: 35,
-                          ),
-                          right: -20,
-                        ),
-                      ],
+
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Container(
+                    // width: 30,
+                    padding: EdgeInsets.all(5),
+                    // constraints: BoxConstraints(minHeight: 25 , maxHeight: SizeConfig.blockSizeVertical*5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green,
                     ),
-                  ],
+                    // padding:EdgeInsets.all(4) ,
+                    child: Center(
+                      child: AutoSizeText(
+                        index.toString(),
+                        maxLines: 1,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
                 ),
-              )
-            ],
+                SizedBox(
+                  width: 2,
+                ),
+                Flexible(
+                  flex: 2,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(ImageStrings.profileXpAsset, width: 40.0),
+                      Text(
+                        userState["xp"].toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Flexible(
+                  flex: 2,
+                  child: CircleAvatar(
+                    child: Image.asset(userState["image"]),
+                  ),
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Flexible(
+                  flex: 3,
+                  child: AutoSizeText(
+                    userState["name"],
+                    maxLines: 1,
+                  ),
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+              ],
+            ),
           ),
-        ),
-        // subtitle: Text(item.cups.toString()),
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  // constraints: BoxConstraints.loose(ُ),
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AutoSizeText(
+                        userState["carrot"].toString(),
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        minFontSize: 8,
+                      ),
+                      Image.asset(
+                        ImageStrings.rankingCarrotAsset,
+                        width: SizeConfig.blockSizeHorizontal * 10,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
 
-  Widget wordItem(double topPadding) {
-    if(userState["word"] == null ){
-      print("null detected");
-    }
-    print(userState["word"]);
-    print(userState["translation"]);
+  Widget wordItem() {
     return Container(
-      padding: EdgeInsets.only(top: topPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.elliptical(20, 30),
@@ -159,10 +166,31 @@ class RankItem extends StatelessWidget {
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(userState["word"]),
-          Text(userState["translation"]),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                userState["word"],
+                maxLines: 1,
+                group: itemGroup,
+                maxFontSize: 12,
+                minFontSize: 7,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                userState["translation"],
+                maxLines: 1,
+                group: itemGroup,
+                maxFontSize: 12,
+                minFontSize: 7,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -8,12 +8,13 @@ import 'package:rabbito/global/strings/user_strings.dart';
 
 class UserStatistics extends StatelessWidget {
   const UserStatistics({Key? key}) : super(key: key);
-  final double dividerHeight =5;
+  final double dividerHeight = 5;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    // AutoSizeGroup group = AutoSizeGroup();
+    AutoSizeGroup group = AutoSizeGroup();
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -28,8 +29,8 @@ class UserStatistics extends StatelessWidget {
           ),
           Container(
             height: SizeConfig.screenHeight > 500
-                ? SizeConfig.screenHeight *(1/4)
-                : SizeConfig.screenHeight *(1/3),
+                ? SizeConfig.screenHeight * (1 / 4)
+                : SizeConfig.screenHeight * (1 / 3),
             decoration: BoxDecoration(
               color: Colors.indigoAccent,
               borderRadius: BorderRadius.circular(10),
@@ -44,16 +45,20 @@ class UserStatistics extends StatelessWidget {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Image.asset(
-                            ImageStrings.rankingLeagueBronze2Asset,
+                          child: Center(
+                            child: Image.asset(
+                              ImageStrings.rankingLeagueBronze2Asset,
+                            ),
                           ),
                         ),
                         Expanded(
                           flex: 1,
                           child: Center(
-                            child: Text(
-                              "rank 18th",
+                            child: AutoSizeText(
+                              "18th",
                               textAlign: TextAlign.center,
+                              minFontSize: 12,
+                              maxLines: 1,
                               style: TextStyle(
                                 fontSize: 17,
                                 // color: Color(0xffffb300),
@@ -70,6 +75,7 @@ class UserStatistics extends StatelessWidget {
                 VerticalDivider(
                   color: Colors.black,
                   thickness: 1,
+                  width: dividerHeight,
                 ),
                 SizedBox(
                   width: 5,
@@ -83,6 +89,7 @@ class UserStatistics extends StatelessWidget {
                         title: "correct matches",
                         number: "3521",
                         width: SizeConfig.screenWidth,
+                        group: group,
                       ),
                       Divider(
                         color: Colors.black,
@@ -93,6 +100,7 @@ class UserStatistics extends StatelessWidget {
                         title: "wrong matches",
                         number: "234",
                         width: SizeConfig.screenWidth,
+                        group: group,
                       ),
                       Divider(
                         color: Colors.black,
@@ -103,6 +111,7 @@ class UserStatistics extends StatelessWidget {
                         title: "victory",
                         number: "53",
                         width: SizeConfig.screenWidth,
+                        group: group,
                       ),
                       Divider(
                         color: Colors.black,
@@ -113,6 +122,7 @@ class UserStatistics extends StatelessWidget {
                         title: "vic ratio",
                         number: "53%",
                         width: SizeConfig.screenWidth,
+                        group: group,
                       ),
                       Divider(
                         color: Colors.black,
@@ -123,6 +133,7 @@ class UserStatistics extends StatelessWidget {
                         title: "wrong",
                         number: "53",
                         width: SizeConfig.screenWidth,
+                        group: group,
                       ),
                     ],
                   ),
@@ -135,21 +146,31 @@ class UserStatistics extends StatelessWidget {
     );
   }
 
-  SmallRow({required String title, required String number, width}) {
+  SmallRow({required String title, required String number, width, group}) {
     TextStyle style =
         TextStyle(color: Colors.white, fontSize: width > 300 ? 13 : 11);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: style,
-          maxLines: 1,
+        Expanded(
+          child: AutoSizeText(
+            title,
+            style: style,
+            maxLines: 1,
+            minFontSize: 8,
+            group: group,
+          ),
+          flex: 3,
         ),
-        Text(
-          number,
-          maxLines: 1,
-          style: style,
+        Expanded(
+          child: AutoSizeText(
+            number,
+            maxLines: 1,
+            style: style,
+            minFontSize: 8,
+            textAlign: TextAlign.end,
+            group: group,
+          ),
         )
       ],
     );

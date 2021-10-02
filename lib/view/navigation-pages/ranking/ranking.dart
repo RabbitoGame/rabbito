@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
@@ -15,6 +16,12 @@ class RankingMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double height = SizeConfig.screenHeight;
+    double width = SizeConfig.screenWidth;
+    double verticalBlock = SizeConfig.blockSizeVertical;
+    double horizontalBlock = SizeConfig.blockSizeHorizontal;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -24,8 +31,9 @@ class RankingMenu extends StatelessWidget {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  toolbarHeight: height > 500 ? 55 : 45,
                   backgroundColor: Color(0xff0b5a5a),
-                  expandedHeight: 200.0,
+                  expandedHeight: height > 500 ? verticalBlock * 25 : 100,
                   floating: false,
                   pinned: true,
                   shape: RoundedRectangleBorder(
@@ -34,18 +42,29 @@ class RankingMenu extends StatelessWidget {
                       bottomRight: Radius.elliptical(20, 30),
                     ),
                   ),
+
+                  leading: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: ()=> Navigator.of(context).pop(),
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: height > 500 ? 30 : 20,
+                      ),
+                    ),
+                  ),
+
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Text(
                       isRanking ? "Rankings!" : "Your Words!",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: height > 500 ? 16.0:12,
                       ),
                     ),
-                    collapseMode: CollapseMode.parallax,
+                    collapseMode: CollapseMode.pin,
                     background: Container(
-                      margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         color: Color(0xff0d7d7d),
                         borderRadius: BorderRadius.only(
@@ -55,7 +74,7 @@ class RankingMenu extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                         child: Image.asset(
                           isRanking
                               ? ImageStrings.appbarCupAsset
