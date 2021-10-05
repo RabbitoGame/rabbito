@@ -2,11 +2,120 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/view/navigation-pages/shop/avatar_card.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
+import 'package:rabbito/view/widgets/custom_container.dart';
 
 Widget AvatarsScreen(BuildContext context) {
   AvatarsController _controller = Get.put(AvatarsController());
 
-  return Scaffold(
+  Future<bool> _onWillPop() async {
+    return (await  showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              content: SizedBox(
+                height: 142,
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      right: -30.0,
+                      top: -30.0,
+                      child: InkResponse(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: CircleAvatar(
+                          child: Icon(Icons.close),
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 2, 0, 5),
+                                  child: Obx(() => Text('${_controller._totalCost.value} ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0
+                                    ),))
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 2, 0, 5),
+                                child: Image.asset('assets/images/appbar/coin.png', width: 30.0, height: 30.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 10.0)),
+                        Obx(() =>  Text(
+                          'Your bill costs ${_controller._totalCost.value} Coins. Do you want to pay it?!',
+                          style: TextStyle(
+                              fontSize: 16.0
+                          ),
+                        )),
+                        Padding(padding: EdgeInsets.only(top: 20.0)),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  padding: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                  width: double.infinity,
+                                  child: CustomContainer(
+                                    child: Text(
+                                      "Pay Bill",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    outerColor: Colors.orange,
+                                    innerColor: Colors.orangeAccent,
+                                    minHeight: 40,
+                                  )
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 10)),
+                            Expanded(
+                                child: Container(
+                                    padding: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                    width: double.infinity,
+                                    child: CustomContainer(
+                                      child: Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      outerColor: Colors.red,
+                                      innerColor: Colors.redAccent,
+                                      minHeight: 40,
+                                    )
+                                )
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )
+          );
+        })) ?? false;
+  }
+
+  return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
     appBar: AppBar(
       toolbarHeight: 60,
       backgroundColor: Colors.purple,
@@ -25,7 +134,9 @@ Widget AvatarsScreen(BuildContext context) {
               child: FlatButton(
                 minWidth: 25,
                 child: Icon(Icons.shopping_cart, size: 24, color: Colors.white),
-                onPressed: () {  },
+                onPressed: () {
+                 _onWillPop();
+                },
               )
           ),
           Positioned(
@@ -33,7 +144,7 @@ Widget AvatarsScreen(BuildContext context) {
               right: 0,
               child: Row(
                 children: [
-                  Obx(() => Text("${_controller._totalCost.value}")),
+                  Obx(() => Text("${_controller._totalCost.value} ")),
                   Image.asset('assets/images/appbar/coin.png', width: 20.0,)
                 ],
               )
@@ -287,7 +398,7 @@ Widget AvatarsScreen(BuildContext context) {
         )
       ],
     )
-  );
+  ));
 }
 
 class AvatarsController extends GetxController {

@@ -13,7 +13,7 @@ Widget gameMenu(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(ImageStrings.wallpaperMainPageAsset),
+        image: AssetImage('assets/images/wallpapers/MainPageWallpaper.png'),
         // colorFilter: ColorFilter.,
         fit: BoxFit.fill,
       ),
