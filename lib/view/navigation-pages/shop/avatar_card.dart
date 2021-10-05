@@ -6,11 +6,15 @@ class AvatarIcon {
   late String name;
   late String imageURL;
   late double price;
+  late var onClick;
+  late bool hasBought;
 
   AvatarIcon({
     required this.name,
     required this.imageURL,
     required this.price,
+    required this.onClick,
+    required this.hasBought
   });
 
 }
@@ -68,10 +72,10 @@ Widget avatarCard(AvatarIcon item) {
                       borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
                   child: Text(
-                    item.price.toString() + " \$",
+                    item.hasBought? "Has Bought" : item.price.toString() + " \$",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
+                        fontSize: item.hasBought? 14.0 : 17.0,
                         color: Colors.amber
                     ),
                   ),
@@ -85,15 +89,15 @@ Widget avatarCard(AvatarIcon item) {
               width: double.infinity,
               child: CustomContainer(
                 child: Text(
-                  "Buy Now",
+                  item.hasBought? "Select" : "Buy",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
-                onPressed: () {},
-                outerColor: Colors.green,
-                innerColor: Colors.lightGreen,
+                onPressed: item.onClick,
+                outerColor: item.hasBought? Colors.green : Colors.orange,
+                innerColor: item.hasBought? Colors.lightGreen : Colors.orangeAccent,
                 minHeight: 40,
               ))
         )
