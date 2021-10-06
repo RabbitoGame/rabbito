@@ -170,10 +170,12 @@ flutter:
     - assets/images/avatars/Faces/face_3.png
     - assets/images/avatars/Faces/face_4.png
     - assets/images/avatars/background.jpg
-    - assets/images/wallpaper/MainPageWallpaper-01.png
-    - assets/images/wallpaper/MainPageWallpaper.svg
-    - assets/images/wallpaper/ShopPageWallpaper-01.png
-    - assets/images/wallpaper/ShopPageWallpaper.svg
+    - assets/images/wallpapers/ShopPageWallpaper.png
+    - assets/images/wallpapers/MainPageWallpaper.png
+#    - assets/images/wallpaper/MainPageWallpaper-01.png
+#    - assets/images/wallpaper/MainPageWallpaper.svg
+#    - assets/images/wallpaper/ShopPageWallpaper-01.png
+#    - assets/images/wallpaper/ShopPageWallpaper.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

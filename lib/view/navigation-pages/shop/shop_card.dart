@@ -12,6 +12,7 @@ class ShopItem {
   late String description;
   late String imageURL;
   late double price;
+  late double value_added;
 
   ShopItem({
     required this.deepColor,
@@ -23,6 +24,7 @@ class ShopItem {
     required this.description,
     required this.imageURL,
     required this.price,
+    required this.value_added
   });
 
 }
@@ -31,7 +33,7 @@ Widget shopCard(ShopItem item) {
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-    padding: EdgeInsets.fromLTRB(5, 10, 5, 2),
+    padding: EdgeInsets.fromLTRB(5, 2, 5, 3),
       width: item.width,
       height: item.height,
       decoration: BoxDecoration(
@@ -50,7 +52,7 @@ Widget shopCard(ShopItem item) {
             alignment: Alignment.center,
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 2, 0, 5),
-              child: Image.asset(item.imageURL, width: 45.0, height:45.0),
+              child: Image.asset(item.imageURL, width: 40.0, height: 40.0),
             ),
           ),
           Padding(
@@ -76,10 +78,10 @@ Widget shopCard(ShopItem item) {
                       borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
                   child: Text(
-                    item.price.toString() + " \$",
+                    item.value_added.toString() + " VA",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Colors.amber
                     ),
                   ),
@@ -87,22 +89,22 @@ Widget shopCard(ShopItem item) {
               ],
             )
           ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Text(
-                item.description,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13.0,
-                    color: item.shadowColor
-                ),
-              ),
-            )
-          ),
+          // Center(
+          //   child: Padding(
+          //     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          //     child: Text(
+          //       item.description,
+          //       style: TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 13.0,
+          //           color: item.shadowColor
+          //       ),
+          //     ),
+          //   )
+          // ),
           Center(
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               width: double.infinity,
               child: CustomContainer(
                 child: Text(

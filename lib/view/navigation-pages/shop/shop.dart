@@ -5,6 +5,7 @@ import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
 
 import 'avatar_item.dart';
 import 'avatars.dart';
+import 'bundle_card.dart';
 
 Widget shopMenu(BuildContext context) {
 
@@ -23,6 +24,10 @@ Widget shopMenu(BuildContext context) {
   final deepPurple = const Color(0xff3c50dd);
   final shadowPurple = const Color(0xff8d92ea);
   final lightPurple = const Color(0xffedeeff);
+  //
+  final deepBlue = const Color(0xff2874A6);
+  final shadowBlue = const Color(0xff85C1E9);
+  final lightBlue = const Color(0xffD6EAF8);
   //
 
   return Container(
@@ -101,75 +106,90 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 160,
+                width: 150, height: 131,
                 name: '100 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0)),),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child:  shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 160,
+                width: 150, height: 131,
                 name: '200 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0)),),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child:   shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 160,
+                width: 150, height: 131,
                 name: '500 Coins',
                 description: '', //100 Coins package is a cool improvement!
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0)),),
+                price: 100.0,
+                value_added: 15
+            ))),
           ],
         ),
         Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
         Row(
           children: [
             Expanded(child:  shopCard(new ShopItem(
-                deepColor: deepYellow,
-                shadowColor: shadowYellow,
-                lightColor: lightYellow,
-                width: 150, height: 160,
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 131,
                 name: '1000 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0)),),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child:   shopCard(new ShopItem(
-                deepColor: deepYellow,
-                shadowColor: shadowYellow,
-                lightColor: lightYellow,
-                width: 150, height: 160,
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 131,
                 name: '5000 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0)),),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child:   shopCard(new ShopItem(
-                deepColor: deepYellow,
-                shadowColor: shadowYellow,
-                lightColor: lightYellow,
-                width: 150, height: 160,
+                deepColor: deepGreen,
+                shadowColor: shadowGreen,
+                lightColor: lightGreen,
+                width: 150, height: 131,
                 name: '50000 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0))),
+                price: 100.0,
+                value_added: 15
+            ))),
           ],
         ),
         Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
         Row(
           children: [
-            Expanded(child: shopCard(new ShopItem(
+            Expanded(child: bundleCard(new BundleItem(
                 deepColor: deepYellow,
                 shadowColor: shadowYellow,
                 lightColor: lightYellow,
-                width: 200, height: 170,
+                width: 200, height: 162,
                 name: 'Special Bundle for You',
                 description: 'Buy infinite heart to do anything in the game without any limits!',
                 imageURL: 'assets/images/appbar/cup.png',
-                price: 500.0)))
+                price: 500.0,
+                last_price: 600,
+                discount_percentage: 20
+            )))
           ],
         ),
         Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
@@ -179,29 +199,35 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 185,
+                width: 145, height: 131,
                 name: '3 Hearts',
-                description: '100 Coins package is a cool improvement!',
+                description: '',
                 imageURL: 'assets/images/appbar/heart.png',
-                price: 100.0))),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child: shopCard(new ShopItem(
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 185,
+                width: 145, height: 131,
                 name: 'Fill Hearts',
-                description: '100 Coins package is a cool improvement!',
+                description: '',
                 imageURL: 'assets/images/appbar/heart.png',
-                price: 100.0))),
+                price: 100.0,
+                value_added: 15
+            ))),
             Expanded(child: shopCard(new ShopItem(
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 185,
+                width: 145, height: 131,
                 name: 'Infinite',
-                description: '100 Coins package is a cool improvement!',
+                description: '',
                 imageURL: 'assets/images/appbar/infinite.png',
-                price: 100.0))),
+                price: 100.0,
+                value_added: 15
+            ))),
           ],
         ),
         Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
@@ -211,7 +237,7 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepPurple,
                 shadowColor: shadowPurple,
                 lightColor: lightPurple,
-                width: 200, height: 177,
+                width: 200, height: 150,
                 name: 'You Can Choose Your Avatar!!',
               onPressed: () {
                 Get.to(AvatarsScreen(context));
