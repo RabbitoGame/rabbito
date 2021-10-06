@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 
@@ -33,8 +34,8 @@ Widget shopCard(ShopItem item) {
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-    padding: EdgeInsets.fromLTRB(5, 2, 5, 3),
-      width: item.width,
+    padding: EdgeInsets.fromLTRB(3, 2, 3, 3),
+      // width: item.width,
       height: item.height,
       decoration: BoxDecoration(
           color: item.lightColor,
@@ -60,13 +61,16 @@ Widget shopCard(ShopItem item) {
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                AutoSizeText(
                   item.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
                       color: item.deepColor
                   ),
+                  maxFontSize: 16.0,
+                  minFontSize: 10.0,
+                  stepGranularity: 0.5,
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(3, 2, 3, 0),
@@ -77,13 +81,16 @@ Widget shopCard(ShopItem item) {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
-                  child: Text(
+                  child: AutoSizeText(
                     item.value_added.toString() + " VA",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
+                        fontSize: 12.5,
                         color: Colors.amber
                     ),
+                    maxFontSize: 12.5,
+                    minFontSize: 10.0,
+                    stepGranularity: 0.5,
                   ),
                 )
               ],
