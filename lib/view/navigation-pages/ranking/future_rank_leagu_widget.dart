@@ -16,14 +16,24 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   AutoSizeGroup titleGroup = AutoSizeGroup();
   AutoSizeGroup itemGroup = AutoSizeGroup();
+  var radius;
+  var lowPadding;
+  var highPadding;
+  var backButtonSize;
+  var iconWidth;
+  var height;
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double height = SizeConfig.screenHeight;
-    double width = SizeConfig.screenWidth;
-    double verticalBlock = SizeConfig.blockSizeVertical;
+    print("height inside wheel: " + SizeConfig.screenHeight.toString());
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
+    iconWidth = SizeConfig.blockSizeHorizontal * 12;
     double horizontalBlock = SizeConfig.blockSizeHorizontal;
+    height = SizeConfig.blockSizeVertical * 15;
     return Container(
       child: FutureBuilder(
         future: getRankPageInfo(),
@@ -31,7 +41,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             dynamic jsonData = convertToUsefulJson(data: snapshot.data);
             return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: lowPadding),
               child: ListView(children: makeChildren(jsonData)),
             );
           } else {
@@ -50,24 +60,26 @@ class FutureRankLeagueWidget extends StatelessWidget {
   Future<dynamic> getRankPageInfo() async {
     //todo get info from back
     if (isRanking) {
-      return Future.delayed(Duration(seconds: 1));
+      return Future.delayed(Duration(seconds: 0));
     } else {
-      return Future.delayed(Duration(seconds: 1));
+      return Future.delayed(Duration(seconds: 0));
     }
   }
 
-  ExpandableThemeData openableTheme = ExpandableThemeData(
-    hasIcon: true,
-    tapHeaderToExpand: true,
-    iconColor: Colors.orange,
-    iconSize: 30,
-    headerAlignment: ExpandablePanelHeaderAlignment.center,
-    iconRotationAngle: 50,
-    collapseIcon: Icons.close,
-    iconPadding: EdgeInsets.all(10),
-  );
+  ExpandableThemeData openableTheme() {
+    return ExpandableThemeData(
+      hasIcon: true,
+      tapHeaderToExpand: true,
+      iconColor: isRanking?Colors.orange: Colors.white,
+      iconSize: iconWidth,
+      headerAlignment: ExpandablePanelHeaderAlignment.center,
+      iconRotationAngle: 50,
+      collapseIcon: Icons.close,
+      iconPadding: EdgeInsets.all(lowPadding * 3),
+    );
+  }
 
-  buildRankingListElements(List competitors , int rank) {
+  buildRankingListElements(List competitors, int rank) {
     print("yasin list: " + competitors.toString());
     return Container(
       decoration: BoxDecoration(
@@ -75,8 +87,8 @@ class FutureRankLeagueWidget extends StatelessWidget {
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(0),
           topLeft: Radius.circular(0),
-          bottomRight: Radius.circular(30),
-          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(radius * 4),
+          bottomLeft: Radius.circular(radius * 4),
         ),
       ),
       child: isRanking
@@ -84,25 +96,29 @@ class FutureRankLeagueWidget extends StatelessWidget {
               overflow: Overflow.visible,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 4, right: 4, top: 4, bottom: 8),
+                  padding: EdgeInsets.only(
+                    left: lowPadding,
+                    right: lowPadding,
+                    top: lowPadding,
+                    bottom: lowPadding * 2,
+                  ),
                   child: RankWatch(rank),
                 ),
                 Column(
                   children: [
                     SizedBox(
-                      height: 90,
+                      height: height,
                     ),
                     ListView.builder(
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 4),
+                      padding: EdgeInsets.symmetric(
+                          vertical: lowPadding*2, horizontal: lowPadding),
                       itemCount: competitors.length,
                       itemBuilder: (context, index) {
                         print("words here:" + competitors[index].toString());
-                        return RankItem(
-                            competitors[index], index + 1, isRanking, itemGroup);
+                        return RankItem(competitors[index], index + 1,
+                            isRanking, itemGroup);
                       },
                     ),
                   ],
@@ -112,10 +128,14 @@ class FutureRankLeagueWidget extends StatelessWidget {
           : ListView.builder(
               physics: ClampingScrollPhysics(),
               shrinkWrap: true,
-              padding:  EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical*2, horizontal: SizeConfig.blockSizeHorizontal*2,),
+              padding: EdgeInsets.symmetric(
+                vertical: SizeConfig.blockSizeVertical * 2,
+                horizontal: SizeConfig.blockSizeHorizontal * 2,
+              ),
               itemCount: competitors.length,
               itemBuilder: (context, index) {
-                return RankItem(competitors[index], index + 1, isRanking , itemGroup);
+                return RankItem(
+                    competitors[index], index + 1, isRanking, itemGroup);
               },
             ),
     );
@@ -127,12 +147,13 @@ class FutureRankLeagueWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       elevation: 20,
-      color: Color(0xff3c2457),
+      color: isRanking?Color(0xff3c2457):Colors.green,
       child: widget,
     );
   }
 
-  openableLeague(String url, String name, bool right, List competitors , int rank) {
+  openableLeague(
+      String url, String name, bool right, List competitors, int rank) {
     return Padding(
       padding: right
           ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 5)
@@ -140,7 +161,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
       child: myCard(
         color: Colors.blueAccent,
         widget: ExpandablePanel(
-          theme: openableTheme,
+          theme: openableTheme(),
           header: Container(
             padding: EdgeInsets.fromLTRB(
                 SizeConfig.blockSizeHorizontal * 5,
@@ -175,7 +196,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
             ),
           ),
           collapsed: Container(),
-          expanded: buildRankingListElements(competitors , rank),
+          expanded: buildRankingListElements(competitors, rank),
         ),
       ),
     );
@@ -243,7 +264,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
         if (index == leagueIndex) {
           return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, competitors , rank);
+              leagueDetail.rightSide, competitors, rank);
         } else {
           return closeLeague(
               leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
@@ -256,7 +277,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
         if (index >= leagueIndex) {
           return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, jsonWords.elementAt(index)["words"],-1);
+              leagueDetail.rightSide, jsonWords.elementAt(index)["words"], -1);
         } else {
           return closeLeague(
               leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);

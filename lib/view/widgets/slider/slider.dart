@@ -12,9 +12,11 @@ class SliderWidget extends StatefulWidget {
   final Color inactiveTickColor;
   final Color thumbColor;
   final Widget widget;
+  final bool infiniteHeight;
 
   SliderWidget({
     this.sliderHeight = 48,
+    this.infiniteHeight = false,
     this.max = 10,
     this.min = 0,
     this.fullWidth = true,
@@ -23,7 +25,7 @@ class SliderWidget extends StatefulWidget {
       Color(0xFF0072ff),
     ],
     this.activeTickColor = Colors.white,
-    this.inactiveTickColor =  Colors.white,
+    this.inactiveTickColor = Colors.white,
     this.thumbColor = Colors.blue,
     required this.widget,
   });
@@ -45,7 +47,8 @@ class _SliderWidgetState extends State<SliderWidget> {
       width: this.widget.fullWidth
           ? double.infinity
           : (this.widget.sliderHeight) * 5.5,
-      height: (this.widget.sliderHeight),
+      height:
+          widget.infiniteHeight ? double.maxFinite : (this.widget.sliderHeight),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.all(
           Radius.circular((this.widget.sliderHeight * .3)),
@@ -92,11 +95,11 @@ class _SliderWidgetState extends State<SliderWidget> {
                       thumbRadius: this.widget.sliderHeight * 0.4,
                       min: this.widget.min,
                       max: this.widget.max,
-
                     ),
                     overlayColor: Colors.white.withOpacity(.4),
                     activeTickMarkColor: this.widget.activeTickColor,
-                    inactiveTickMarkColor: this.widget.inactiveTickColor.withOpacity(.7),
+                    inactiveTickMarkColor:
+                        this.widget.inactiveTickColor.withOpacity(.7),
                   ),
                   child: Slider(
                     value: _value,

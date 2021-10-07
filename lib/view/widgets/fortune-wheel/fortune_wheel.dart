@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/wheel.dart';
 import '../custom_container.dart';
@@ -10,14 +12,21 @@ class FortuneWheelPage extends StatelessWidget {
   StreamController<int> controller = StreamController<int>();
   Random _random = Random();
   int max = 10;
-
+  var radius ;
+  var lowPadding ;
+  var highPadding ;
+  var backButtonSize ;
   @override
   Widget build(BuildContext context) {
+     radius = SizeConfig.blockSizeHorizontal*1;
+     lowPadding =SizeConfig.blockSizeHorizontal*1;
+     highPadding =SizeConfig.blockSizeHorizontal*3;
+     backButtonSize =SizeConfig.blockSizeHorizontal*12;
     return Stack(
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(radius),
             gradient: LinearGradient(
               colors: [
                 Colors.deepPurple,
@@ -29,13 +38,13 @@ class FortuneWheelPage extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(lowPadding),
             child: Column(
               children: [
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(highPadding),
                     child: Column(
                       children: [
                         Expanded(
@@ -45,14 +54,17 @@ class FortuneWheelPage extends StatelessWidget {
                         Expanded(
                           child: Stack(
                             children: [
-                              Positioned(
+                              Align(
                                 child: Image.asset(
                                   ImageStrings.gameHomeRoulette2Asset,
-                                  width: 300,
+                                  // width: 300,
                                 ),
-                                top: 90,
+                                alignment: Alignment.center,
                               ),
-                              Wheel(controller),
+                              Align(
+                                child: Wheel(controller),
+                                alignment: Alignment.center,
+                              ),
                             ],
                           ),
                           flex: 6,
@@ -68,15 +80,16 @@ class FortuneWheelPage extends StatelessWidget {
             ),
           ),
         ),
-        Align(
+        Positioned(
           child: InkWell(
             child: Image.asset(
               ImageStrings.gameHomeClose2Asset,
-              width: 50,
+              width: backButtonSize,
             ),
             onTap: () => Navigator.of(context).pop(),
           ),
-          alignment: Alignment.topRight,
+          top: 0,
+          right: 0,
         ),
       ],
     );
@@ -85,31 +98,37 @@ class FortuneWheelPage extends StatelessWidget {
   watchAds() {
     return Material(
       color: Colors.blueGrey,
-      borderRadius: BorderRadius.circular(5),
-
+      borderRadius: BorderRadius.circular(radius*2),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           //todo call ads api
         },
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(lowPadding),
           child: Row(
             children: [
               Expanded(
-                child: Image.asset(
-                  ImageStrings.widgetsAd3Asset,
+                child: Padding(
+                  padding:  EdgeInsets.all(lowPadding),
+                  child: Image.asset(
+                    ImageStrings.widgetsAd3Asset,
                   ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text(
+                child: AutoSizeText(
                   "watch video for another try!",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
+                  minFontSize: 10,
+
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 1,
+
                 ),
               ),
             ],

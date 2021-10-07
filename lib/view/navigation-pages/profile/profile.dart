@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
@@ -15,6 +16,7 @@ Widget profileMenu(BuildContext context) {
 class ProfileUI2 extends StatelessWidget {
   ProfileController _controller = Get.put(ProfileController());
   AutoSizeGroup _group = AutoSizeGroup();
+  var height = SizeConfig.blockSizeVertical;
   @override
   Widget build(BuildContext context) {
     AutoSizeGroup group = AutoSizeGroup();
@@ -29,18 +31,19 @@ class ProfileUI2 extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.lightGreen),
                 child: Container(
                   width: double.infinity,
-                  height: 200,
+                  height: height*22,
                   child: Container(
-                    alignment: Alignment(0.0, 2.5),
+                    // alignment: Alignment(0.0, 5),
+                    alignment: Alignment(0,10),
                     child: CircleAvatar(
-                      child: Image.asset(ImageStrings.logoAsset, width: 120.0),
-                      radius: 60.0,
+                      child: Image.asset(ImageStrings.logoAsset, width: height*20),
+                      radius: height*10,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 60,
+                height: height*10,
               ),
               Obx(() {
                 return text(
@@ -107,7 +110,7 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value , group);
+                return WordsLearned(_controller.wordsLearned.value, group);
               }),
               SizedBox(
                 height: 10,
@@ -125,8 +128,13 @@ Widget text({text, style, context, min, group, partition}) {
   return Container(
     alignment: Alignment.center,
     width: MediaQuery.of(context).size.width * partition,
-    child: AutoSizeText(text,
-        maxLines: 1, group: group, minFontSize: min, style: style),
+    child: AutoSizeText(
+      text,
+      maxLines: 1,
+      group: group,
+      minFontSize: min,
+      style: style,
+    ),
   );
 }
 

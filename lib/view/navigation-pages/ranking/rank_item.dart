@@ -16,7 +16,7 @@ class RankItem extends StatelessWidget {
   Widget build(BuildContext context) {
     if (index == 1 && isRanking) {
       return ClipPath(
-        child: item(40),
+        child: item(SizeConfig.blockSizeVertical * 10),
         clipper: MyCustomClipper(),
       );
     } else {
@@ -34,34 +34,41 @@ class RankItem extends StatelessWidget {
 
   rankingItem(double topPadding) {
     return Container(
-      // padding: EdgeInsets.only(top: topPadding),
-      padding: EdgeInsets.fromLTRB(10, 10 + topPadding, 10, 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.elliptical(20, 30),
-          bottomRight: Radius.elliptical(20, 30),
-        ),
-        color: Colors.white.withOpacity(0.4),
+      padding: EdgeInsets.fromLTRB(
+        SizeConfig.padding1,
+        SizeConfig.padding1 + topPadding,
+        SizeConfig.padding1,
+        SizeConfig.padding1,
       ),
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-
+      height: SizeConfig.height1 + topPadding,
+      constraints: BoxConstraints(maxHeight: 100 + topPadding),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.elliptical(
+              SizeConfig.radius3,
+              SizeConfig.radius3 + SizeConfig.radius2,
+            ),
+            bottomRight: Radius.elliptical(
+              SizeConfig.radius3,
+              SizeConfig.radius3 + SizeConfig.radius2,
+            ),
+          ),
+          color: Colors.white.withOpacity(0.4),
+          ),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.padding1),
       child: Row(
         children: [
           Expanded(
             flex: 3,
             child: Row(
               children: [
-                Flexible(
+                Expanded(
                   flex: 2,
                   child: Container(
-                    // width: 30,
-                    padding: EdgeInsets.all(5),
-                    // constraints: BoxConstraints(minHeight: 25 , maxHeight: SizeConfig.blockSizeVertical*5),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.green,
                     ),
-                    // padding:EdgeInsets.all(4) ,
                     child: Center(
                       child: AutoSizeText(
                         index.toString(),
@@ -82,14 +89,20 @@ class RankItem extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Image.asset(ImageStrings.profileXpAsset, width: 40.0),
-                      Text(
-                        userState["xp"].toString(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      )
+                      Align(
+                        child: Image.asset(ImageStrings.profileXpAsset),
+                        alignment: Alignment.center,
+                      ),
+                      Align(
+                        child: Text(
+                          userState["xp"].toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
+                        ),
+                        alignment: Alignment.center,
+                      ),
                     ],
                   ),
                 ),
@@ -125,10 +138,10 @@ class RankItem extends StatelessWidget {
               children: [
                 Container(
                   // constraints: BoxConstraints.loose(ُ),
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(SizeConfig.padding1),
                   decoration: BoxDecoration(
                     color: Colors.amber.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(SizeConfig.radius1),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -159,17 +172,19 @@ class RankItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-          topRight: Radius.elliptical(20, 30),
-          bottomRight: Radius.elliptical(20, 30),
+          topRight: Radius.elliptical(
+              SizeConfig.radius3, SizeConfig.radius3 + SizeConfig.radius2),
+          bottomRight: Radius.elliptical(
+              SizeConfig.radius3, SizeConfig.radius3 + SizeConfig.radius2),
         ),
         color: Colors.white.withOpacity(0.4),
       ),
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.padding1),
       child: Row(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(SizeConfig.padding2),
               child: AutoSizeText(
                 userState["word"],
                 maxLines: 1,
@@ -181,7 +196,7 @@ class RankItem extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(SizeConfig.padding2),
               child: AutoSizeText(
                 userState["translation"],
                 maxLines: 1,

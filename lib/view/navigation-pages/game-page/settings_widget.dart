@@ -8,33 +8,48 @@ import 'package:rabbito/view/widgets/slider/slider.dart';
 class SettingsWidget extends StatelessWidget {
   SettingsWidget({Key? key}) : super(key: key);
   final AutoSizeGroup _group = AutoSizeGroup();
+  var radius;
+
+  var lowPadding;
+
+  var highPadding;
+
+  var backButtonSize;
 
   @override
   Widget build(BuildContext context) {
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
     SizeConfig().init(context);
     return Stack(children: [
       Card(
         color: Colors.amber,
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(highPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
+              Expanded(
+                flex: 3,
                 child: volumeWidget(
                   text: "Music",
                   asset: ImageStrings.gameHomeMusic2Asset,
                 ),
               ),
-              Flexible(
+              Spacer(),
+              Expanded(
+                flex: 3,
                 child: volumeWidget(
                   text: "Effects",
                   asset: ImageStrings.gameHomeSound2Asset,
                 ),
               ),
+              Spacer(),
               Expanded(
-                flex: 2,
+                flex: 7,
                 child: supportWidget(),
               ),
             ],
@@ -45,7 +60,7 @@ class SettingsWidget extends StatelessWidget {
         child: InkWell(
           child: Image.asset(
             ImageStrings.gameHomeClose2Asset,
-            width: SizeConfig.blockSizeHorizontal*10,
+            width: SizeConfig.blockSizeHorizontal * 10,
           ),
           onTap: () => Navigator.of(context).pop(),
         ),
@@ -57,25 +72,24 @@ class SettingsWidget extends StatelessWidget {
   volumeWidget({required text, required asset}) {
     return Column(
       children: [
-        AutoSizeText(
-          text,
-          group: _group,
-          style: TextStyle(
-              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+        Expanded(
+          child: AutoSizeText(
+            text,
+            group: _group,
+            style: TextStyle(
+                color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ),
-        SizedBox(
-          height: 5,
-        ),
-        SliderWidget(
-          sliderHeight: SizeConfig.blockSizeVertical * 8 > 35
-              ? 35
-              : SizeConfig.blockSizeVertical * 8,
-          widget: Image.asset(asset),
-          gradientColors: <Color>[
-            Colors.orangeAccent,
-            Colors.orange,
-          ],
-          thumbColor: Colors.orange,
+        Expanded(
+          child: SliderWidget(
+            infiniteHeight: true,
+            widget: Image.asset(asset),
+            gradientColors: <Color>[
+              Colors.orangeAccent,
+              Colors.orange,
+            ],
+            thumbColor: Colors.orange,
+          ),
         ),
       ],
     );
@@ -87,7 +101,7 @@ class SettingsWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: lowPadding),
             child: Row(
               children: [
                 Expanded(
@@ -107,26 +121,26 @@ class SettingsWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 5,
+          height: lowPadding,
         ),
         Expanded(
           flex: 2,
           child: CustomContainer(
             onPressed: () {},
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(lowPadding),
               child: Row(
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(lowPadding),
                       child: Image.asset(ImageStrings.gameHomeDonationsAsset),
                     ),
                   ),
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(lowPadding),
                       child: AutoSizeText(
                         "DONATE\nMONEY!",
                         textAlign: TextAlign.center,
@@ -134,7 +148,7 @@ class SettingsWidget extends StatelessWidget {
                         group: _group,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -154,12 +168,12 @@ class SettingsWidget extends StatelessWidget {
           child: CustomContainer(
             onPressed: () {},
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(lowPadding),
               child: Row(
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(lowPadding),
                       child: Image.asset(
                         ImageStrings.gameHomeShare1Asset,
                       ),
@@ -168,7 +182,7 @@ class SettingsWidget extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(lowPadding),
                       child: AutoSizeText(
                         "Share\nRabbito!",
                         group: _group,
@@ -176,7 +190,7 @@ class SettingsWidget extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

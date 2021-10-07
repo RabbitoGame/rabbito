@@ -25,14 +25,14 @@ class RankingMenu extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Color(0xff301b49),
+          color: isRanking?Color(0xff301b49):Colors.teal,
           child: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
                   toolbarHeight: height > 500 ? 55 : 45,
-                  backgroundColor: Color(0xff0b5a5a),
+                  backgroundColor: isRanking?Color(0xff0b5a5a):Colors.yellow.shade900,
                   expandedHeight: height > 500 ? verticalBlock * 25 : 100,
                   floating: false,
                   pinned: true,
@@ -66,7 +66,7 @@ class RankingMenu extends StatelessWidget {
                     collapseMode: CollapseMode.pin,
                     background: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xff0d7d7d),
+                        color: isRanking?Color(0xff0d7d7d):Colors.teal.shade700,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(20, 30),
                           bottomRight: Radius.elliptical(20, 30),

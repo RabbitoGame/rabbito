@@ -92,7 +92,7 @@ playButtons() {
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 2,
-                minFontSize: 13,
+                minFontSize: 10,
                 group: group,
               ),
             ),
