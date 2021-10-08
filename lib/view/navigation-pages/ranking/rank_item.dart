@@ -43,18 +43,18 @@ class RankItem extends StatelessWidget {
       height: SizeConfig.height1 + topPadding,
       constraints: BoxConstraints(maxHeight: 100 + topPadding),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.elliptical(
-              SizeConfig.radius3,
-              SizeConfig.radius3 + SizeConfig.radius2,
-            ),
-            bottomRight: Radius.elliptical(
-              SizeConfig.radius3,
-              SizeConfig.radius3 + SizeConfig.radius2,
-            ),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.elliptical(
+            SizeConfig.radius3,
+            SizeConfig.radius3 + SizeConfig.radius2,
           ),
-          color: Colors.white.withOpacity(0.4),
+          bottomRight: Radius.elliptical(
+            SizeConfig.radius3,
+            SizeConfig.radius3 + SizeConfig.radius2,
           ),
+        ),
+        color: Colors.white.withOpacity(0.4),
+      ),
       margin: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.padding1),
       child: Row(
         children: [
@@ -170,6 +170,7 @@ class RankItem extends StatelessWidget {
 
   Widget wordItem() {
     return Container(
+      height: SizeConfig.height1*0.8 ,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.elliptical(
@@ -177,7 +178,8 @@ class RankItem extends StatelessWidget {
           bottomRight: Radius.elliptical(
               SizeConfig.radius3, SizeConfig.radius3 + SizeConfig.radius2),
         ),
-        color: Colors.white.withOpacity(0.4),
+        // color: Colors.white.withOpacity(0.6),
+        color: Colors.white.withOpacity(0.7)
       ),
       margin: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.padding1),
       child: Row(
@@ -187,12 +189,17 @@ class RankItem extends StatelessWidget {
               padding: EdgeInsets.all(SizeConfig.padding2),
               child: AutoSizeText(
                 userState["word"],
+                textAlign: TextAlign.center,
                 maxLines: 1,
                 group: itemGroup,
-                maxFontSize: 12,
+                maxFontSize: 15,
                 minFontSize: 7,
               ),
             ),
+          ),
+          Padding(
+            padding:  EdgeInsets.all(SizeConfig.padding1),
+            child: Image.asset(ImageStrings.rankingTranslate1Asset),
           ),
           Expanded(
             child: Padding(
@@ -200,8 +207,9 @@ class RankItem extends StatelessWidget {
               child: AutoSizeText(
                 userState["translation"],
                 maxLines: 1,
+                textAlign: TextAlign.center,
                 group: itemGroup,
-                maxFontSize: 12,
+                maxFontSize: 15,
                 minFontSize: 7,
               ),
             ),
