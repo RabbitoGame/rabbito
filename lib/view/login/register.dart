@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/controller/login_register_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/view/login/login.dart';
@@ -144,12 +144,10 @@ class RegisterScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-
                                     child: FittedBox(
                                       child: Text(
                                         'SIGN UP',
                                         textAlign: TextAlign.end,
-
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16.0,
@@ -163,7 +161,7 @@ class RegisterScreen extends StatelessWidget {
                                   Icon(
                                     Icons.arrow_forward,
                                     color: Colors.white,
-                                    size: SizeConfig.width1*0.8,
+                                    size: SizeConfig.width1 * 0.8,
                                   )
                                 ],
                               ),
@@ -193,35 +191,42 @@ class RegisterScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: EdgeInsets.all(SizeConfig.padding3*2),
+                    padding: EdgeInsets.all(SizeConfig.padding3 * 2),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        FittedBox(
-                          child: Text(
-                            'Already have an account?',
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16.0),
+                        Expanded(
+                          flex: 2,
+                          child: FittedBox(
+                            child: Text(
+                              'Already have an account?',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.0),
+                            ),
+                            fit: BoxFit.scaleDown,
                           ),
-                          fit: BoxFit.scaleDown,
                         ),
-                        FlatButton(
-                          // splashColor: Colors.red,
-                          // color: const Color(0xffd4d2d2),
-                          // textColor: Colors.white,
-                          child: Text(
-                            ' Sign in',
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                                color: Colors.green),
+                        Expanded(
+                          flex: 2,
+                          child: FlatButton(
+                            child: Text(
+                              ' Sign in',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  color: Colors.green),
+                            ),
+                            onPressed: () {
+                              AppController
+                                      .appController.loginScreenStatus.value =
+                                  !AppController
+                                      .appController.loginScreenStatus.value;
+                              AppController.appController.update();
+                            },
                           ),
-                          onPressed: () {
-                            Get.to(LoginScreen());
-                          },
                         ),
                       ],
                     ),

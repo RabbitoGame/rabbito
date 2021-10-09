@@ -1,8 +1,11 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/view/login/login.dart';
+import 'package:rabbito/view/login/login_manager.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/navigation-pages/profile/profile.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
@@ -24,12 +27,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     List<Widget> _menus = <Widget>[
       shopMenu(context),
       gameMenu(context),
-      AppController.isLoggedIn() ? profileMenu(context) : RegisterScreen(),
+      AppController.isLoggedIn() ? profileMenu(context) : LoginManager(),
+
     ];
 
     return Scaffold(
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Container(
                 child: _menus[_currentIndex],
-              ),
+              )
             )
           ],
         ),
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             Positioned(
 
               top: SizeConfig.screenHeight > 500 ? -20 : -25,
-              left: SizeConfig.screenHeight>500?0:-4,
+              left: SizeConfig.screenHeight > 500 ? 0 : -4,
               child: Image.asset(
                 image,
                 width: SizeConfig.screenHeight > 500 ? 50 : 40,
@@ -114,9 +116,9 @@ class _HomePageState extends State<HomePage> {
       ),
       icon: Center(
           child: Image.asset(
-        image,
-        width: SizeConfig.screenHeight > 500 ? 40 : 35,
-      )),
+            image,
+            width: SizeConfig.screenHeight > 500 ? 40 : 35,
+          )),
     );
   }
 }

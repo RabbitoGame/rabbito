@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class AppController extends GetxController {
   static late AppController appController;
   Rx<bool> _firstEntrance = true.obs;
+  Rx<bool> _loginScreenStatus = false.obs;
   // Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
   Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
 
@@ -14,6 +15,8 @@ class AppController extends GetxController {
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
   Rx<Status> get registeredInStatus => _registeredInStatus;
   User? currUser;
+
+
 
   @override
   void onInit() async {
@@ -28,6 +31,13 @@ class AppController extends GetxController {
     _firstEntrance = value;
   }
 
+
+  Rx<bool> get loginScreenStatus => _loginScreenStatus;
+
+  set loginScreenStatus(Rx<bool> value) {
+    _loginScreenStatus = value;
+  }
+
   prefsOnInit() async {
     print('AppController::prefsOnInit');
     // await getUserFromPrefs();
@@ -36,6 +46,10 @@ class AppController extends GetxController {
   }
   static bool isLoggedIn(){
     return appController._loggedInStatus.value == Status.LoggedIn;
+  }
+
+  static bool isLoginScreen() {
+    return appController._loginScreenStatus.value;
   }
 
 
