@@ -175,7 +175,7 @@ class User {
 
     return await post(Uri.parse(AppUrl.register),
             body: json.encode(registrationData),
-            headers: {RequestStrings.contentType: RequestStrings.appJson})
+            headers: {RequestStrings.contentType: RequestStrings.appJson , RequestStrings.headerAccess: "*"})
         .then((e) => onValue(e, username, email))
         .catchError(onError);
   }
@@ -211,10 +211,10 @@ class User {
     return result;
   }
 
-  static Future<Map<String, dynamic>> getUserInfo() async {
+  static Future<Map<String, dynamic>> getUserDetails() async {
     var result;
     httpResponse.Response response = await get(
-      Uri.parse(AppUrl.userInfo),
+      Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
             AppController.appController.currUser!.accessToken!,
@@ -239,7 +239,7 @@ class User {
   }
 
   static onError(error) {
-    print("the error is $error.detail");
+    print("the error is ${error}");
     return {
       RequestStrings.status: false,
       RequestStrings.message: 'Unsuccessful Request',

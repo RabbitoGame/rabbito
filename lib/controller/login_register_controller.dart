@@ -15,17 +15,18 @@ class LoginRegisterController extends GetxController {
     try {
       checkUsername(username);
       checkPassword(password);
+      print("******* login checks passed *******");
       Map<String, dynamic> result = await User.login(username, password);
 
       if (result[RequestStrings.status]) {
         AppController.appController.currUser =
             (result[RequestStrings.data] as User);
         //todo login successful
-        _error.value="successful";
+        _error.value = RequestStrings.successful;
       } else {
         _error.value = result[RequestStrings.message];
       }
-      print("login_error: ${_error}");
+      print("login_error: $_error");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;
       print(e.cause);
@@ -40,6 +41,7 @@ class LoginRegisterController extends GetxController {
       checkUsername(username);
       checkPassword(password);
       checkEmail(email);
+      print("******* register checks passed *******");
       Map<String, dynamic> result =
           await User.register(username, password, email);
       if (result[RequestStrings.status]) {
@@ -90,6 +92,7 @@ class LoginRegisterController extends GetxController {
   }
 
   void checkUsername(String username) {
+    // char and digits allowed,
     Pattern pattern = r'^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(username))
@@ -102,6 +105,8 @@ class LoginRegisterController extends GetxController {
   }
 
   void checkPassword(String password) {
+    // must be at least 6 char and must have one digit and one char without space
+    // sdsd2d -> correct
     Pattern pattern = r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(password))

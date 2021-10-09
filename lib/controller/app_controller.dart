@@ -17,6 +17,9 @@ class AppController extends GetxController {
   User? currUser;
 
 
+  set loggedInStatus(Rx<Status> value) {
+    _loggedInStatus = value;
+  }
 
   @override
   void onInit() async {
@@ -52,7 +55,9 @@ class AppController extends GetxController {
     return appController._loginScreenStatus.value;
   }
 
-
+  set registeredInStatus(Rx<Status> value) {
+    _registeredInStatus = value;
+  }
 }
 
 enum Status {

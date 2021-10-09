@@ -30,8 +30,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> _menus = <Widget>[
       shopMenu(context),
       gameMenu(context),
-      AppController.isLoggedIn() ? profileMenu(context) : LoginManager(),
-
+    LoginManager(),
     ];
 
     return Scaffold(
