@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _usernameC = TextEditingController();
   TextEditingController _passwordC = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var radius = SizeConfig.radius3 * 3;
@@ -23,7 +24,7 @@ class LoginScreen extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-
+            Image.network("https://www.gstatic.com/webp/gallery3/1.png"),
             Expanded(
               flex: 3,
               child: Stack(
@@ -49,7 +50,8 @@ class LoginScreen extends StatelessWidget {
                                 'Login',
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 35.0),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 35.0),
                               ),
                             ),
                           ),
@@ -91,8 +93,6 @@ class LoginScreen extends StatelessWidget {
   fields(radius) {
     var bottomFlex = 10;
 
-
-
     return Column(
       children: [
         Expanded(
@@ -121,7 +121,6 @@ class LoginScreen extends StatelessWidget {
             enableSuggestions: false,
             autocorrect: false,
             decoration: InputDecoration(
-
               labelText: "Password",
               filled: true,
               fillColor: Colors.white,
@@ -131,7 +130,6 @@ class LoginScreen extends StatelessWidget {
               ),
               //fillColor: Colors.green
             ),
-
             keyboardType: TextInputType.emailAddress,
           ),
         ),
@@ -233,9 +231,12 @@ class LoginScreen extends StatelessWidget {
   }
 
   void loginProcess() {
-    print("controller: "+ _usernameC.value.text +" /// "+_passwordC.value.text);
-    _controller.login(_usernameC.value.text.trim(), _passwordC.value.text.trim());
-    String result =_controller.error.value;
-    Get.snackbar("result", result);
+    _controller.login(
+        _usernameC.value.text.trim(), _passwordC.value.text.trim());
+    String result = _controller.error.value;
+    if (result == RequestStrings.successful) {
+      AppController.appController.loggedInStatus.value = Status.LoggedIn;
+      Get.snackbar("result", result);
+    }
   }
 }

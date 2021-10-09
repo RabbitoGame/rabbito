@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/controller/login_register_controller.dart';
 import 'package:rabbito/global/size_config.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/view/login/login.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -35,7 +36,10 @@ class RegisterScreen extends StatelessWidget {
       _emailC.value.text.trim(),
     );
     String result = _controller.error.value;
-    Get.snackbar("result", result);
+    if (result == RequestStrings.successful) {
+      AppController.appController.loggedInStatus.value = Status.LoggedIn;
+      Get.snackbar("result", result);
+    }
   }
 
   bottomStack() {

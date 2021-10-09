@@ -53,7 +53,7 @@ class LoginRegisterController extends GetxController {
       } else {
         _error.value = result[RequestStrings.message];
       }
-      print(result.toString());
+      print("inside register result: "+result.toString());
       print("error: $_error");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;

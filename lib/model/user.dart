@@ -71,13 +71,12 @@ class User {
         refreshToken: responseData[UserStrings.refreshToken]);
   }
 
-
   static Future getAccessToken() async {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
     var refreshData = {
-      UserStrings.refreshToken : AppController.appController.currUser!.refreshToken,
-
+      UserStrings.refreshToken:
+          AppController.appController.currUser!.refreshToken,
     };
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
@@ -111,6 +110,15 @@ class User {
     }
     print(result.toString());
     return result;
+  }
+
+  @override
+  String toString() {
+    return "\nuser{\n\tcarrot: ${this.carrot}\n" +
+        "\tcoin: ${this.coin}\n\tusername: ${this.username}\n" +
+        "\temail: ${this.email}\n\thearts: ${this.hearts}\n" +
+        "\taccess token: ${this.accessToken}\n" +
+        "\trefresh token: ${this.refreshToken}\n}";
   }
 
   static Future<Map<String, dynamic>> login(
@@ -174,10 +182,11 @@ class User {
     AppController.appController.registeredInStatus.value = Status.Registering;
 
     return await post(Uri.parse(AppUrl.register),
-            body: json.encode(registrationData),
-            headers: {RequestStrings.contentType: RequestStrings.appJson , RequestStrings.headerAccess: "*"})
-        .then((e) => onValue(e, username, email))
-        .catchError(onError);
+        body: json.encode(registrationData),
+        headers: {
+          RequestStrings.contentType: RequestStrings.appJson,
+          RequestStrings.headerAccess: "*"
+        }).then((e) => onValue(e, username, email)).catchError(onError);
   }
 
   static Future<Map<String, dynamic>> onValue(
@@ -189,9 +198,6 @@ class User {
     final Map<String, dynamic> responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      // print("inside : ${responseData[RequestStrings.data]}");
-      // var userData = responseData[RequestStrings.data];
-
       User authUser = User.zeroUser(responseData, username);
 
       UserPreferences().saveUser(authUser);
