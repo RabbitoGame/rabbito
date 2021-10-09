@@ -23,6 +23,8 @@ class SizeConfig {
   static late double width1;
   static late double width2;
   static late double width3;
+  static late double width4;
+  static late double width5;
   static late double height1;
   static late double height2;
   static late double height3;
@@ -50,8 +52,15 @@ class SizeConfig {
     iconWidth1 = SizeConfig.blockSizeHorizontal * 5;
     iconWidth2 = SizeConfig.blockSizeHorizontal * 10;
     iconWidth3 = SizeConfig.blockSizeHorizontal * 15;
+
     height1 = SizeConfig.blockSizeVertical * 10;
     height2 = SizeConfig.blockSizeVertical * 15;
     height3 = SizeConfig.blockSizeVertical * 25;
+
+    width1=SizeConfig.blockSizeHorizontal * 10;
+    width2=SizeConfig.blockSizeHorizontal * 15;
+    width3=SizeConfig.blockSizeHorizontal * 25;
+    width4=SizeConfig.blockSizeHorizontal * 35;
+    width5=SizeConfig.blockSizeHorizontal * 45;
   }
 }

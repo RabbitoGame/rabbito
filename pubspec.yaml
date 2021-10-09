@@ -79,6 +79,7 @@ flutter:
     - assets/images/ranking/
     - assets/images/ranking/league/
     - assets/images/game-home/
+    - assets/images/game-home/wheel/
     - assets/images/profile/
     - assets/images/widgets/
     - assets/images/rabbit/
@@ -90,6 +91,7 @@ flutter:
     - assets/images/avatars/Mouths/
     - assets/images/avatars/Specials/
     - assets/images/avatars/
+    - assets/images/wallpapers/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

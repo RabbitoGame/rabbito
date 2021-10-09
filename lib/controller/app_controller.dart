@@ -8,7 +8,7 @@ class AppController extends GetxController {
   static late AppController appController;
   Rx<bool> _firstEntrance = true.obs;
   // Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
-  Rx<Status> _loggedInStatus = Status.LoggedIn.obs;
+  Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
 
   Rx<Status> get loggedInStatus => _loggedInStatus;
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
