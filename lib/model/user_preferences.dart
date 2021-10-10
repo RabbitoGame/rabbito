@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 class UserPreferences {
-  Future<bool> saveUser(User user) async {
+  static Future saveUser(User user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString(UserStrings.username, user.username!);
@@ -20,14 +20,19 @@ class UserPreferences {
     await _storage.write(
         key: UserStrings.refreshToken, value: user.refreshToken);
 
-    return prefs.commit();
+    if(prefs.containsKey(UserStrings.username)){
+      print("shared prefs: "+ prefs.getString(UserStrings.username)!);
+    }else{
+      print("shared prefs: not contains ");
+    }
+
+
   }
 
-  Future<User> getUser() async {
+  static Future<User> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? username = prefs.getString(UserStrings.username);
-    String? email = prefs.getString(UserStrings.email);
     int? hearts = prefs.getInt(UserStrings.hearts);
     int? carrot = prefs.getInt(UserStrings.carrot);
     int? coin = prefs.getInt(UserStrings.coin);
@@ -48,7 +53,7 @@ class UserPreferences {
     );
   }
 
-  void removeUser() async {
+  static void removeUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.remove(UserStrings.username);
@@ -59,7 +64,7 @@ class UserPreferences {
     prefs.remove(UserStrings.hearts);
   }
 
-  Future<String?> getRefreshToken() async {
+  static Future<String?> getRefreshToken() async {
     //todo change it with secure storage
     FlutterSecureStorage _storage = FlutterSecureStorage();
     String? refreshToken = await _storage.read(key: UserStrings.refreshToken);

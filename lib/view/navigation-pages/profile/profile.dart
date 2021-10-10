@@ -49,7 +49,7 @@ class ProfileUI2 extends StatelessWidget {
                 return text(
                   context: context,
                   group: null,
-                  min: 15,
+                  min: 15.0,
                   partition: 2 / 3,
                   text: _controller._username.value,
                   style: TextStyle(
@@ -66,7 +66,7 @@ class ProfileUI2 extends StatelessWidget {
                 return text(
                   context: context,
                   group: null,
-                  min: 12,
+                  min: 12.0,
                   partition: 1 / 2,
                   text: _controller._stringDate.value,
                   style: TextStyle(
@@ -84,7 +84,7 @@ class ProfileUI2 extends StatelessWidget {
                 return text(
                   context: context,
                   group: null,
-                  min: 10,
+                  min: 10.0,
                   partition: 1,
                   text: "Learning ${_controller.learningLanguage.value}",
                   style: TextStyle(

@@ -30,19 +30,19 @@ class _HomePageState extends State<HomePage> {
     List<Widget> _menus = <Widget>[
       shopMenu(context),
       gameMenu(context),
-    LoginManager(),
+      LoginManager(),
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [
             FutureAppBar(),
             Expanded(
-              child: Container(
-                child: _menus[_currentIndex],
-              )
-            )
+                child: Container(
+              child: _menus[_currentIndex],
+            ))
           ],
         ),
       ),
@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
           overflow: Overflow.visible,
           children: [
             Positioned(
-
               top: SizeConfig.screenHeight > 500 ? -20 : -25,
               left: SizeConfig.screenHeight > 500 ? 0 : -4,
               child: Image.asset(
@@ -115,9 +114,9 @@ class _HomePageState extends State<HomePage> {
       ),
       icon: Center(
           child: Image.asset(
-            image,
-            width: SizeConfig.screenHeight > 500 ? 40 : 35,
-          )),
+        image,
+        width: SizeConfig.screenHeight > 500 ? 40 : 35,
+      )),
     );
   }
 }

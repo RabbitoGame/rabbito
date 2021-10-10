@@ -148,7 +148,7 @@ class User {
 
       User authUser = User.fromJson(responseData, username);
 
-      UserPreferences().saveUser(authUser);
+      UserPreferences.saveUser(authUser);
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
 
@@ -200,7 +200,7 @@ class User {
     if (response.statusCode == 200) {
       User authUser = User.zeroUser(responseData, username);
 
-      UserPreferences().saveUser(authUser);
+      UserPreferences.saveUser(authUser);
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successfully registered',

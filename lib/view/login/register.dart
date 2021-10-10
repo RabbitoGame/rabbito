@@ -17,9 +17,9 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     flex = 10;
     radius = SizeConfig.radius3 * 3;
-    return Scaffold(
-      backgroundColor: const Color(0xffd4d2d2),
-      body: Column(
+    return Container(
+      color: const Color(0xffd4d2d2),
+      child: Column(
         children: [
           Expanded(flex: 2, child: createAccount()),
           Expanded(flex: 5, child: registerForm()),
