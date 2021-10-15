@@ -1,6 +1,7 @@
 class GifStrings{
   static const String rabittoStarterGif = 'assets/gifs/Rabitto_Starter.gif';
   static const String rabittoWavingGif = 'assets/gifs/Rabitto_waving.gif';
+  static const String rabittoLastFrameGif = 'assets/gifs/Rabitto_LastFrame.png';
 
 }
 class SoundStrings{

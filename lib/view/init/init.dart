@@ -79,7 +79,19 @@ class Init {
         UserPreferences.removeUser();
       }
     });
+    WidgetsBinding.instance!.addObserver(new _Handler());
+
 
     await Future.delayed(Duration(seconds: 0));
+  }
+}
+class _Handler extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      AppController.appController.menuMusicAudioPlayer.resume(); // Audio player is a custom class with resume and pause static methods
+    } else {
+      AppController.appController.menuMusicAudioPlayer.pause();
+    }
   }
 }
