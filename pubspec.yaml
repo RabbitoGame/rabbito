@@ -92,6 +92,9 @@ flutter:
     - assets/images/avatars/Specials/
     - assets/images/avatars/
     - assets/images/wallpapers/
+    - assets/gifs/
+    - assets/sounds/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
