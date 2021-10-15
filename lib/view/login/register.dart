@@ -8,11 +8,10 @@ import 'package:rabbito/view/login/login.dart';
 
 class RegisterScreen extends StatelessWidget {
   LoginRegisterController _controller = Get.put(LoginRegisterController());
-  TextEditingController _usernameC = TextEditingController();
-  TextEditingController _passwordC = TextEditingController();
-  TextEditingController _emailC = TextEditingController();
-  var flex ;
-  var radius ;
+  var flex;
+
+  var radius;
+
   @override
   Widget build(BuildContext context) {
     flex = 10;
@@ -29,11 +28,11 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  void registerProcess()async {
+  void registerProcess() async {
     await _controller.register(
-      _usernameC.value.text.trim(),
-      _passwordC.value.text.trim(),
-      _emailC.value.text.trim(),
+      _controller.rUsernameC.value.text.trim(),
+      _controller.rPasswordC.value.text.trim(),
+      _controller.rEmailC.value.text.trim(),
     );
     String result = _controller.error.value;
     if (result == RequestStrings.successful) {
@@ -87,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       AppController.appController.loginScreenStatus.value =
-                          !AppController.appController.loginScreenStatus.value;
+                      !AppController.appController.loginScreenStatus.value;
                       AppController.appController.update();
                     },
                   ),
@@ -119,6 +118,8 @@ class RegisterScreen extends StatelessWidget {
   }
 
   registerForm() {
+    GlobalKey<FormState> _loginScreenFormKey = GlobalKey<FormState>();
+
     return Padding(
       padding: EdgeInsets.only(
           top: SizeConfig.padding3,
@@ -130,79 +131,85 @@ class RegisterScreen extends StatelessWidget {
         children: [
           Expanded(
             flex: flex,
-            child: TextFormField(
-              controller: _usernameC,
-              decoration: InputDecoration(
-                labelText: "Username",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(radius),
-                  borderSide: BorderSide(),
+            child: Obx(() {
+              return TextField(
+                controller: _controller.rUsernameC.value,
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(radius),
+                    borderSide: BorderSide(),
+                  ),
                 ),
-              ),
-              validator: (val) {
-                if (val!.length == 0) {
-                  return "Username cannot be empty";
-                } else {
-                  return null;
-                }
-              },
-              keyboardType: TextInputType.emailAddress,
-            ),
+                // validator: (val) {
+                //   if (val!.length == 0) {
+                //     return "Username cannot be empty";
+                //   } else {
+                //     return null;
+                //   }
+                // },
+                keyboardType: TextInputType.emailAddress,
+              );
+            }),
           ),
           Spacer(),
           Expanded(
-            child: TextFormField(
-              controller: _passwordC,
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: InputDecoration(
-                labelText: "Password",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(radius),
-                  borderSide: BorderSide(),
+            child: Obx(() {
+              return TextFormField(
+                controller: _controller.rPasswordC.value,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(radius),
+                    borderSide: BorderSide(),
+                  ),
+                  //fillColor: Colors.green
                 ),
-                //fillColor: Colors.green
-              ),
-              validator: (val) {
-                if (val!.length == 0) {
-                  return "Password cannot be empty";
-                } else {
-                  return null;
-                }
-              },
-              keyboardType: TextInputType.emailAddress,
-            ),
+                validator: (val) {
+                  if (val!.length == 0) {
+                    return "Password cannot be empty";
+                  } else {
+                    return null;
+                  }
+                },
+                keyboardType: TextInputType.emailAddress,
+              );
+            }),
             flex: flex,
           ),
           Spacer(),
           Expanded(
             flex: flex,
-            child: TextFormField(
-              controller: _emailC,
-              decoration: InputDecoration(
-                labelText: "Email",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(radius),
-                  borderSide: BorderSide(),
+            child: Obx(() {
+              return TextFormField(
+                controller: _controller.rEmailC.value,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(radius),
+                    borderSide: BorderSide(),
+                  ),
+                  //fillColor: Colors.green
                 ),
-                //fillColor: Colors.green
-              ),
-              validator: (val) {
-                if (val!.length == 0) {
-                  return "Email cannot be empty";
-                } else {
-                  return null;
-                }
-              },
-              keyboardType: TextInputType.emailAddress,
-            ),
+                validator: (val) {
+                  if (val!.length == 0) {
+                    return "Email cannot be empty";
+                  } else {
+                    return null;
+                  }
+                },
+                keyboardType: TextInputType.emailAddress,
+              );
+            }),
           ),
           Spacer(),
           Expanded(
@@ -216,7 +223,7 @@ class RegisterScreen extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
+                            (Set<MaterialState> states) {
                           if (states.contains(MaterialState.pressed))
                             return Colors.green;
                           return Colors.green; // Use the component's default.

@@ -59,7 +59,7 @@ class UserPreferences {
     int? xpLevel = prefs.getInt(UserStrings.xpLevel);
 
     //todo read refresh token by secure storage
-    Future<String?> refreshToken = getRefreshToken();
+    String? refreshToken = await getRefreshToken();
 
     return User(
       xp: xp,
@@ -68,7 +68,7 @@ class UserPreferences {
       hearts: hearts,
       username: username,
       xpLevel: xpLevel,
-      refreshToken: (refreshToken as String?),
+      refreshToken: refreshToken ,
     );
   }
 

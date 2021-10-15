@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user.dart';
 import 'package:rabbito/model/user_preferences.dart';
@@ -70,26 +71,36 @@ class Init {
       // check if user exists and then try to log in
       print("inside init prefs");
       if (sharedPref.containsKey(UserStrings.username)) {
+        print("before in in");
         User user = await UserPreferences.getUser();
         print("in in");
         print(user.toString());
-        AppController.appController.currUser = user;
-        await User.getAccessToken();
+        var result = await User.getAccessToken(
+          refreshToken: user.refreshToken!,
+        );
+        if (result[RequestStrings.status]) {
+          user.refreshToken = result[UserStrings.refreshToken];
+          user.accessToken = result[UserStrings.accessToken];
+          AppController.appController.currUser = user;
+        } else {
+          UserPreferences.removeUser();
+        }
       } else {
         UserPreferences.removeUser();
       }
     });
     WidgetsBinding.instance!.addObserver(new _Handler());
 
-
     await Future.delayed(Duration(seconds: 0));
   }
 }
+
 class _Handler extends WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      AppController.appController.menuMusicAudioPlayer.resume(); // Audio player is a custom class with resume and pause static methods
+      AppController.appController.menuMusicAudioPlayer
+          .resume(); // Audio player is a custom class with resume and pause static methods
     } else {
       AppController.appController.menuMusicAudioPlayer.pause();
       UserPreferences.saveMusic();

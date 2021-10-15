@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
@@ -17,6 +18,7 @@ class ProfileUI2 extends StatelessWidget {
   ProfileController _controller = Get.put(ProfileController());
   AutoSizeGroup _group = AutoSizeGroup();
   var height = SizeConfig.blockSizeVertical;
+
   @override
   Widget build(BuildContext context) {
     AutoSizeGroup group = AutoSizeGroup();
@@ -31,19 +33,20 @@ class ProfileUI2 extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.lightGreen),
                 child: Container(
                   width: double.infinity,
-                  height: height*22,
+                  height: height * 22,
                   child: Container(
                     // alignment: Alignment(0.0, 5),
-                    alignment: Alignment(0,10),
+                    alignment: Alignment(0, 10),
                     child: CircleAvatar(
-                      child: Image.asset(ImageStrings.logoAsset, width: height*20),
-                      radius: height*10,
+                      child: Image.asset(ImageStrings.logoAsset,
+                          width: height * 20),
+                      radius: height * 10,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: height*10,
+                height: height * 10,
               ),
               Obx(() {
                 return text(
@@ -116,6 +119,12 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               InviteFriends(group),
+              ElevatedButton(
+                onPressed: () {
+                  User.logOut();
+                },
+                child: Text("logout"),
+              ),
             ],
           ),
         ),

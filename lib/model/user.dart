@@ -70,13 +70,17 @@ class User {
         accessToken: responseData[UserStrings.accessToken],
         refreshToken: responseData[UserStrings.refreshToken]);
   }
+  static logOut(){
+    AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
+    UserPreferences.removeUser();
+  }
 
-  static Future getAccessToken() async {
+  static Future getAccessToken({required String refreshToken}) async {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
     var refreshData = {
       UserStrings.refreshToken:
-          AppController.appController.currUser!.refreshToken,
+          refreshToken,
     };
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
@@ -85,24 +89,26 @@ class User {
         RequestStrings.contentType: RequestStrings.appJson,
       },
     );
-
+    print("getAccessToken: before checking status code");
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
       var accessToken = responseData[UserStrings.accessToken];
       var refreshToken = responseData[UserStrings.refreshToken];
-      AppController.appController.currUser!.accessToken = accessToken;
-      AppController.appController.currUser!.refreshToken = refreshToken;
+      // AppController.appController.currUser!.accessToken = accessToken;
+      // AppController.appController.currUser!.refreshToken = refreshToken;
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
-
+      print("getAccessToken: before true result");
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',
+        UserStrings.accessToken: accessToken,
+        UserStrings.refreshToken: refreshToken,
       };
     } else {
       AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
-
+      print("getAccessToken: before false result");
       result = {
         RequestStrings.status: false,
         RequestStrings.message: json.decode(response.body)['error'],

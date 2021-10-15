@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/exceptions.dart';
@@ -10,7 +11,12 @@ class LoginRegisterController extends GetxController {
   RxString _password = "".obs;
   RxString _email = "".obs;
   RxString _error = "".obs;
+  Rx<TextEditingController> rUsernameC = TextEditingController().obs;
+  Rx<TextEditingController> rPasswordC = TextEditingController().obs;
+  Rx<TextEditingController> rEmailC = TextEditingController().obs;
 
+  Rx<TextEditingController> lUsernameC = TextEditingController().obs;
+  Rx<TextEditingController> lPasswordC = TextEditingController().obs;
   login(String username, String password) async {
     try {
       checkUsername(username);

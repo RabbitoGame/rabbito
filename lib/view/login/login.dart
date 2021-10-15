@@ -10,8 +10,6 @@ import 'package:rabbito/global/strings/request_strings.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginRegisterController _controller = Get.put(LoginRegisterController());
-  TextEditingController _usernameC = TextEditingController();
-  TextEditingController _passwordC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +44,7 @@ class LoginScreen extends StatelessWidget {
                               'Login',
                               textAlign: TextAlign.end,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 35.0),
+                                  fontWeight: FontWeight.bold, fontSize: 35.0),
                             ),
                           ),
                         ),
@@ -93,7 +90,7 @@ class LoginScreen extends StatelessWidget {
         Expanded(
           flex: bottomFlex,
           child: TextFormField(
-            controller: _usernameC,
+            controller: _controller.lUsernameC.value,
             decoration: InputDecoration(
               labelText: "Username",
               filled: true,
@@ -111,7 +108,7 @@ class LoginScreen extends StatelessWidget {
         Expanded(
           flex: bottomFlex,
           child: TextFormField(
-            controller: _passwordC,
+            controller: _controller.lPasswordC.value,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
@@ -227,7 +224,9 @@ class LoginScreen extends StatelessWidget {
 
   void loginProcess() {
     _controller.login(
-        _usernameC.value.text.trim(), _passwordC.value.text.trim());
+      _controller.lUsernameC.value.text.trim(),
+      _controller.lPasswordC.value.text.trim(),
+    );
     String result = _controller.error.value;
     if (result == RequestStrings.successful) {
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
