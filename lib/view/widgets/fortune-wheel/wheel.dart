@@ -170,6 +170,7 @@ class Wheel extends StatelessWidget {
   }
 
   void onAnimationEnd(context) {
+    var flex = 3;
     showDialog(
       context: context,
       builder: (_) => Dialog(
@@ -184,53 +185,66 @@ class Wheel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               confetti(),
-              AutoSizeText(
-                "CONGRATULATIONS!!!",
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                minFontSize: 12,
+              Expanded(
+                flex: flex,
+                child: Center(
+                  child: AutoSizeText(
+                    "CONGRATULATIONS!!!",
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    minFontSize: 12,
+                  ),
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
+              Expanded(
+                flex: flex,
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: SizeConfig.padding1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: AutoSizeText(
+                          "you won 13 ",
+                          textAlign: TextAlign.end,
+                          minFontSize: 10,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Image.asset(
+                        ImageStrings.appbarHeartAsset,
+                        width: iconWidth,
+                        // width: 40,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Expanded(
+                flex: flex,
+                child: CustomContainer(
+                  // minHeight: iconWidth * 1.2,
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Padding(
+                    padding: EdgeInsets.all(lowPadding),
                     child: AutoSizeText(
-                      "you won 13 ",
-                      textAlign: TextAlign.center,
-                      minFontSize: 10,
+                      "OK",
                       maxLines: 1,
+                      minFontSize: 10,
                       style: TextStyle(
                           color: Colors.white,
+
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Image.asset(
-                    ImageStrings.appbarHeartAsset,
-                    width: iconWidth,
-                    // width: 40,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: iconWidth * 0.2,
-              ),
-              CustomContainer(
-                minHeight: iconWidth * 1.2,
-                onPressed: () => Navigator.of(context).pop(),
-                child: Padding(
-                  padding: EdgeInsets.all(lowPadding),
-                  child: AutoSizeText(
-                    "OK",
-                    maxLines: 1,
-                    minFontSize: 10,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  innerColor: Colors.deepPurple,
+                  outerColor: Colors.brown,
                 ),
-                innerColor: Colors.deepPurple,
-                outerColor: Colors.brown,
               ),
             ],
           ),
