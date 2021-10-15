@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabbito/controller/app_controller.dart';
 
 import 'custom_slider_thumb_circle.dart';
 
@@ -12,9 +13,12 @@ class SliderWidget extends StatefulWidget {
   final Color inactiveTickColor;
   final Color thumbColor;
   final Widget widget;
+  final bool infiniteHeight;
+  final bool isMusic;
 
   SliderWidget({
     this.sliderHeight = 48,
+    this.infiniteHeight = false,
     this.max = 10,
     this.min = 0,
     this.fullWidth = true,
@@ -23,9 +27,10 @@ class SliderWidget extends StatefulWidget {
       Color(0xFF0072ff),
     ],
     this.activeTickColor = Colors.white,
-    this.inactiveTickColor =  Colors.white,
+    this.inactiveTickColor = Colors.white,
     this.thumbColor = Colors.blue,
     required this.widget,
+    required this.isMusic,
   });
 
   @override
@@ -34,6 +39,7 @@ class SliderWidget extends StatefulWidget {
 
 class _SliderWidgetState extends State<SliderWidget> {
   double _value = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,8 @@ class _SliderWidgetState extends State<SliderWidget> {
       width: this.widget.fullWidth
           ? double.infinity
           : (this.widget.sliderHeight) * 5.5,
-      height: (this.widget.sliderHeight),
+      height:
+          widget.infiniteHeight ? double.maxFinite : (this.widget.sliderHeight),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.all(
           Radius.circular((this.widget.sliderHeight * .3)),
@@ -92,17 +99,27 @@ class _SliderWidgetState extends State<SliderWidget> {
                       thumbRadius: this.widget.sliderHeight * 0.4,
                       min: this.widget.min,
                       max: this.widget.max,
-
                     ),
                     overlayColor: Colors.white.withOpacity(.4),
                     activeTickMarkColor: this.widget.activeTickColor,
-                    inactiveTickMarkColor: this.widget.inactiveTickColor.withOpacity(.7),
+                    inactiveTickMarkColor:
+                        this.widget.inactiveTickColor.withOpacity(.7),
                   ),
                   child: Slider(
                     value: _value,
-                    onChanged: (value) {
+                    onChanged: (value) async {
+                      if(widget.isMusic){
+                        AppController.appController.musicVolume = value;
+                        await AppController.appController.menuMusicAudioPlayer.setVolume(value);
+                      }else{
+                        AppController.appController.soundEffectsVolume = value;
+                        await AppController.appController.effectsAudioPlayer.setVolume(value);
+                      }
+                      print(value);
                       setState(() {
                         _value = value;
+
+
                       });
                     },
                     divisions: 10,
@@ -126,5 +143,15 @@ class _SliderWidgetState extends State<SliderWidget> {
         ),
       ),
     );
+  }
+  @override
+  void initState() {
+    if(widget.isMusic){
+      _value = AppController.appController.musicVolume;
+    }else{
+      _value = AppController.appController.soundEffectsVolume;
+    }
+
+    super.initState();
   }
 }

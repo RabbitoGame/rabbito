@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
+import 'package:rabbito/global/strings/gif_strings.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'game_page_appbar.dart';
@@ -27,16 +30,19 @@ Widget gameMenu(BuildContext context) {
         ),
         Expanded(
           flex: 8,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            width: double.maxFinite,
-            child: Center(
-              child: Image.asset(ImageStrings.logoAsset),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(),
+          child: Obx(() {
+            String asset = "";
+            var x = AppController.appController.gifStatus.value;
+            asset = x == GifStatus.Gif1
+                ? GifStrings.rabittoStarterGif
+                : x == GifStatus.Gif2
+                    ? GifStrings.rabittoWavingGif
+                    : GifStrings.rabittoLastFrameGif;
+            return Image.asset(
+              asset,
+              fit: BoxFit.cover,
+            );
+          }),
         ),
         Expanded(
           flex: 3,
@@ -92,7 +98,7 @@ playButtons() {
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 2,
-                minFontSize: 13,
+                minFontSize: 10,
                 group: group,
               ),
             ),

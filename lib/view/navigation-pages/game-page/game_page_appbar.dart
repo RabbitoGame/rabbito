@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
@@ -48,8 +49,10 @@ class GameAppBar extends StatelessWidget {
                       builder: (_) {
                         return myDialog(
                             widget: SettingsWidget(),
-                            horizontal: 20,
-                            vertical: 60);
+
+                          vertical: SizeConfig.screenHeight*0.1,
+                          horizontal: SizeConfig.screenWidth * 0.05,
+                        );
                       },
                     );
                   },
@@ -105,9 +108,11 @@ class GameAppBar extends StatelessWidget {
                       context: context,
                       builder: (_) {
                         return myDialog(
-                            widget: FortuneWheelPage(),
-                            vertical: 60,
-                            horizontal: 20);
+                          widget: FortuneWheelPage(),
+
+                          vertical: SizeConfig.screenHeight*0.1,
+                          horizontal: SizeConfig.screenWidth * 0.05,
+                        );
                       },
                     );
                   },

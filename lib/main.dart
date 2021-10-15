@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rabbito/view/init/init.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(App());
 }
 

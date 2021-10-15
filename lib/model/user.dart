@@ -70,14 +70,17 @@ class User {
         accessToken: responseData[UserStrings.accessToken],
         refreshToken: responseData[UserStrings.refreshToken]);
   }
+  static logOut(){
+    AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
+    UserPreferences.removeUser();
+  }
 
-
-  static Future getAccessToken() async {
+  static Future getAccessToken({required String refreshToken}) async {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
     var refreshData = {
-      UserStrings.refreshToken : AppController.appController.currUser!.refreshToken,
-
+      UserStrings.refreshToken:
+          refreshToken,
     };
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
@@ -86,24 +89,26 @@ class User {
         RequestStrings.contentType: RequestStrings.appJson,
       },
     );
-
+    print("getAccessToken: before checking status code");
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
       var accessToken = responseData[UserStrings.accessToken];
       var refreshToken = responseData[UserStrings.refreshToken];
-      AppController.appController.currUser!.accessToken = accessToken;
-      AppController.appController.currUser!.refreshToken = refreshToken;
+      // AppController.appController.currUser!.accessToken = accessToken;
+      // AppController.appController.currUser!.refreshToken = refreshToken;
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
-
+      print("getAccessToken: before true result");
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',
+        UserStrings.accessToken: accessToken,
+        UserStrings.refreshToken: refreshToken,
       };
     } else {
       AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
-
+      print("getAccessToken: before false result");
       result = {
         RequestStrings.status: false,
         RequestStrings.message: json.decode(response.body)['error'],
@@ -111,6 +116,15 @@ class User {
     }
     print(result.toString());
     return result;
+  }
+
+  @override
+  String toString() {
+    return "\nuser{\n\tcarrot: ${this.carrot}\n" +
+        "\tcoin: ${this.coin}\n\tusername: ${this.username}\n" +
+        "\temail: ${this.email}\n\thearts: ${this.hearts}\n" +
+        "\taccess token: ${this.accessToken}\n" +
+        "\trefresh token: ${this.refreshToken}\n}";
   }
 
   static Future<Map<String, dynamic>> login(
@@ -140,7 +154,7 @@ class User {
 
       User authUser = User.fromJson(responseData, username);
 
-      UserPreferences().saveUser(authUser);
+      UserPreferences.saveUser(authUser);
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
 
@@ -174,10 +188,11 @@ class User {
     AppController.appController.registeredInStatus.value = Status.Registering;
 
     return await post(Uri.parse(AppUrl.register),
-            body: json.encode(registrationData),
-            headers: {RequestStrings.contentType: RequestStrings.appJson})
-        .then((e) => onValue(e, username, email))
-        .catchError(onError);
+        body: json.encode(registrationData),
+        headers: {
+          RequestStrings.contentType: RequestStrings.appJson,
+          RequestStrings.headerAccess: "*"
+        }).then((e) => onValue(e, username, email)).catchError(onError);
   }
 
   static Future<Map<String, dynamic>> onValue(
@@ -189,12 +204,9 @@ class User {
     final Map<String, dynamic> responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      // print("inside : ${responseData[RequestStrings.data]}");
-      // var userData = responseData[RequestStrings.data];
-
       User authUser = User.zeroUser(responseData, username);
 
-      UserPreferences().saveUser(authUser);
+      UserPreferences.saveUser(authUser);
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successfully registered',
@@ -211,10 +223,10 @@ class User {
     return result;
   }
 
-  static Future<Map<String, dynamic>> getUserInfo() async {
+  static Future<Map<String, dynamic>> getUserDetails() async {
     var result;
     httpResponse.Response response = await get(
-      Uri.parse(AppUrl.userInfo),
+      Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
             AppController.appController.currUser!.accessToken!,
@@ -239,7 +251,7 @@ class User {
   }
 
   static onError(error) {
-    print("the error is $error.detail");
+    print("the error is ${error}");
     return {
       RequestStrings.status: false,
       RequestStrings.message: 'Unsuccessful Request',

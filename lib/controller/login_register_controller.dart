@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/exceptions.dart';
@@ -10,22 +11,28 @@ class LoginRegisterController extends GetxController {
   RxString _password = "".obs;
   RxString _email = "".obs;
   RxString _error = "".obs;
+  Rx<TextEditingController> rUsernameC = TextEditingController().obs;
+  Rx<TextEditingController> rPasswordC = TextEditingController().obs;
+  Rx<TextEditingController> rEmailC = TextEditingController().obs;
 
+  Rx<TextEditingController> lUsernameC = TextEditingController().obs;
+  Rx<TextEditingController> lPasswordC = TextEditingController().obs;
   login(String username, String password) async {
     try {
       checkUsername(username);
       checkPassword(password);
+      print("******* login checks passed *******");
       Map<String, dynamic> result = await User.login(username, password);
 
       if (result[RequestStrings.status]) {
         AppController.appController.currUser =
             (result[RequestStrings.data] as User);
         //todo login successful
-        _error.value="successful";
+        _error.value = RequestStrings.successful;
       } else {
         _error.value = result[RequestStrings.message];
       }
-      print("login_error: ${_error}");
+      print("login_error: $_error");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;
       print(e.cause);
@@ -40,6 +47,7 @@ class LoginRegisterController extends GetxController {
       checkUsername(username);
       checkPassword(password);
       checkEmail(email);
+      print("******* register checks passed *******");
       Map<String, dynamic> result =
           await User.register(username, password, email);
       if (result[RequestStrings.status]) {
@@ -51,7 +59,7 @@ class LoginRegisterController extends GetxController {
       } else {
         _error.value = result[RequestStrings.message];
       }
-      print(result.toString());
+      print("inside register result: "+result.toString());
       print("error: $_error");
     } on InvalidUsernameException catch (e) {
       _error.value = e.cause;
@@ -90,6 +98,7 @@ class LoginRegisterController extends GetxController {
   }
 
   void checkUsername(String username) {
+    // char and digits allowed,
     Pattern pattern = r'^[A-Za-z0-9]+(?:[_][A-Za-z0-9]+)*$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(username))
@@ -102,6 +111,8 @@ class LoginRegisterController extends GetxController {
   }
 
   void checkPassword(String password) {
+    // must be at least 6 char and must have one digit and one char without space
+    // sdsd2d -> correct
     Pattern pattern = r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$';
     RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(password))

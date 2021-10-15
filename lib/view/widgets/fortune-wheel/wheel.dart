@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 
 import '../custom_container.dart';
@@ -16,15 +18,55 @@ class Wheel extends StatelessWidget {
 
   Wheel(this.controller);
 
+  var radius;
+  AutoSizeGroup group = AutoSizeGroup();
+  var lowPadding;
+
+  var highPadding;
+
+  var backButtonSize;
+
+  var iconWidth;
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    print("height inside wheel: " + SizeConfig.screenHeight.toString());
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
+    iconWidth = SizeConfig.blockSizeHorizontal * 20;
+
     double width = 47;
 
     return FortuneWheel(
       onAnimationEnd: () => onAnimationEnd(context),
       animateFirst: false,
+      indicators: [
+        FortuneIndicator(
+          child: Stack(
+            children: [
+              Positioned(
+                top: -SizeConfig.padding3,
+                right: 0,
+                left: 0,
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent.withOpacity(0.5),
+                  child: Icon(
+                    Icons.keyboard_arrow_down_sharp,
+                    size: iconWidth,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          alignment: Alignment.topCenter,
+        )
+      ],
       physics: NoPanPhysics(),
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 0),
       selected: controller.stream,
       items: [
         myItem(
@@ -121,70 +163,96 @@ class Wheel extends StatelessWidget {
       required Color color,
       required Color borderColor}) {
     return FortuneItem(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(),
-          widget,
-        ],
-      ),
+      child: widget,
       style: FortuneItemStyle(
           color: color, borderColor: borderColor, borderWidth: 5),
     );
   }
 
   void onAnimationEnd(context) {
+    var flex = 3;
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: Colors.amber,
-        title: Column(
-          children: [
-            confetti(),
-            Text(
-              "CONGRATULATIONS!!!",
-              textAlign: TextAlign.center,
-            ),
-          ],
+      builder: (_) => Dialog(
+        insetPadding: EdgeInsets.symmetric(
+          vertical: SizeConfig.height3 * 1.3,
+          horizontal: SizeConfig.width3,
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "you won 13 ",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.padding2, vertical: SizeConfig.padding3),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              confetti(),
+              Expanded(
+                flex: flex,
+                child: Center(
+                  child: AutoSizeText(
+                    "CONGRATULATIONS!!!",
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    minFontSize: 12,
+                  ),
                 ),
-                Image.asset(
-                  ImageStrings.appbarHeartAsset,
-                  width: 40,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            CustomContainer(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "OK",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
               ),
-              innerColor: Colors.deepPurple,
-              outerColor: Colors.brown,
-            ),
-          ],
+              Expanded(
+                flex: flex,
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: SizeConfig.padding1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: AutoSizeText(
+                          "you won 13 ",
+                          textAlign: TextAlign.end,
+                          minFontSize: 10,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Image.asset(
+                        ImageStrings.appbarHeartAsset,
+                        width: iconWidth,
+                        // width: 40,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Expanded(
+                flex: flex,
+                child: CustomContainer(
+                  // minHeight: iconWidth * 1.2,
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Padding(
+                    padding: EdgeInsets.all(lowPadding),
+                    child: AutoSizeText(
+                      "OK",
+                      maxLines: 1,
+                      minFontSize: 10,
+                      style: TextStyle(
+                          color: Colors.white,
+
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  innerColor: Colors.deepPurple,
+                  outerColor: Colors.brown,
+                ),
+              ),
+            ],
+          ),
         ),
+        shape: BeveledRectangleBorder(
+          borderRadius: BorderRadius.circular(radius * 3),
+        ),
+        backgroundColor: Colors.amber,
       ),
     );
     _wheelController._controller.value.play();
@@ -197,21 +265,34 @@ class Wheel extends StatelessWidget {
       required Color color}) {
     return item(
       widget: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            prize,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          Spacer(
+            flex: 2,
+          ),
+          Expanded(
+            child: AutoSizeText(
+              prize,
+              // "1",
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+              minFontSize: 8,
+              group: group,
+              maxLines: 1,
             ),
           ),
-          SizedBox(
-            width: 5,
-          ),
-          Image.asset(
-            image,
-            width: width - 5,
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: EdgeInsets.all(highPadding),
+              child: Image.asset(
+                image,
+                // width: width - 5,
+              ),
+            ),
           ),
         ],
       ),

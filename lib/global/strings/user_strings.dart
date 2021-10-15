@@ -14,4 +14,6 @@ class UserStrings {
   static const String accessToken = "access";
   static const String refreshToken = "refresh";
   static const String emptyInfo = "--";
+  static const String musicLevel = "music-level";
+  static const String soundEffectsLevel = "sound-effects-level";
 }

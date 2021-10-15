@@ -50,6 +50,26 @@ class RankingStatics {
       {
         "index": 3,
         "words": words,
+      },
+      {
+        "index": 4,
+        "words": words,
+      },
+      {
+        "index": 5,
+        "words": words,
+      },
+      {
+        "index": 3,
+        "words": words,
+      },
+      {
+        "index": 4,
+        "words": words,
+      },
+      {
+        "index": 5,
+        "words": words,
       }
     ]
   };

@@ -28,6 +28,8 @@ class ImageStrings {
   static const String leagueCopperAsset = 'assets/images/leagues/copper.png';
   static const String leagueIronAsset = 'assets/images/leagues/iron.png';
   static const String rankingCarrotAsset = 'assets/images/ranking/carrot2.png';
+  static const String rankingTranslate1Asset = 'assets/images/ranking/translate1.png';
+  static const String rankingTranslate2Asset = 'assets/images/ranking/translate2.png';
   static const String rankingProgressAsset =
       'assets/images/ranking/progress.png';
   static const String rankingBadgeAsset = 'assets/images/ranking/badge.png';

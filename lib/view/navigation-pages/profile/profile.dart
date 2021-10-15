@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
@@ -15,6 +17,8 @@ Widget profileMenu(BuildContext context) {
 class ProfileUI2 extends StatelessWidget {
   ProfileController _controller = Get.put(ProfileController());
   AutoSizeGroup _group = AutoSizeGroup();
+  var height = SizeConfig.blockSizeVertical;
+
   @override
   Widget build(BuildContext context) {
     AutoSizeGroup group = AutoSizeGroup();
@@ -29,24 +33,26 @@ class ProfileUI2 extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.lightGreen),
                 child: Container(
                   width: double.infinity,
-                  height: 200,
+                  height: height * 22,
                   child: Container(
-                    alignment: Alignment(0.0, 2.5),
+                    // alignment: Alignment(0.0, 5),
+                    alignment: Alignment(0, 10),
                     child: CircleAvatar(
-                      child: Image.asset(ImageStrings.logoAsset, width: 120.0),
-                      radius: 60.0,
+                      child: Image.asset(ImageStrings.logoAsset,
+                          width: height * 20),
+                      radius: height * 10,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 60,
+                height: height * 10,
               ),
               Obx(() {
                 return text(
                   context: context,
                   group: null,
-                  min: 15,
+                  min: 15.0,
                   partition: 2 / 3,
                   text: _controller._username.value,
                   style: TextStyle(
@@ -63,7 +69,7 @@ class ProfileUI2 extends StatelessWidget {
                 return text(
                   context: context,
                   group: null,
-                  min: 12,
+                  min: 12.0,
                   partition: 1 / 2,
                   text: _controller._stringDate.value,
                   style: TextStyle(
@@ -81,7 +87,7 @@ class ProfileUI2 extends StatelessWidget {
                 return text(
                   context: context,
                   group: null,
-                  min: 10,
+                  min: 10.0,
                   partition: 1,
                   text: "Learning ${_controller.learningLanguage.value}",
                   style: TextStyle(
@@ -107,12 +113,18 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value , group);
+                return WordsLearned(_controller.wordsLearned.value, group);
               }),
               SizedBox(
                 height: 10,
               ),
               InviteFriends(group),
+              ElevatedButton(
+                onPressed: () {
+                  User.logOut();
+                },
+                child: Text("logout"),
+              ),
             ],
           ),
         ),
@@ -125,8 +137,13 @@ Widget text({text, style, context, min, group, partition}) {
   return Container(
     alignment: Alignment.center,
     width: MediaQuery.of(context).size.width * partition,
-    child: AutoSizeText(text,
-        maxLines: 1, group: group, minFontSize: min, style: style),
+    child: AutoSizeText(
+      text,
+      maxLines: 1,
+      group: group,
+      minFontSize: min,
+      style: style,
+    ),
   );
 }
 

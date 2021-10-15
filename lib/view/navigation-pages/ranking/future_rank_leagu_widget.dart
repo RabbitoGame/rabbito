@@ -1,7 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
 import 'package:rabbito/view/navigation-pages/ranking/statics.dart';
@@ -10,10 +11,29 @@ import 'package:rabbito/view/widgets/loading.dart';
 class FutureRankLeagueWidget extends StatelessWidget {
   int leagueNum = 5;
   bool isRanking;
+
   FutureRankLeagueWidget(this.isRanking);
+
+  AutoSizeGroup titleGroup = AutoSizeGroup();
+  AutoSizeGroup itemGroup = AutoSizeGroup();
+  var radius;
+  var lowPadding;
+  var highPadding;
+  var backButtonSize;
+  var iconWidth;
+  var height;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    print("height inside wheel: " + SizeConfig.screenHeight.toString());
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
+    iconWidth = SizeConfig.blockSizeHorizontal * 12;
+    double horizontalBlock = SizeConfig.blockSizeHorizontal;
+    height = SizeConfig.blockSizeVertical * 15;
     return Container(
       child: FutureBuilder(
         future: getRankPageInfo(),
@@ -21,13 +41,13 @@ class FutureRankLeagueWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             dynamic jsonData = convertToUsefulJson(data: snapshot.data);
             return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: lowPadding),
               child: ListView(children: makeChildren(jsonData)),
             );
           } else {
             return Center(
               child: Container(
-                width: 200,
+                width: horizontalBlock * 30,
                 child: LoadingWidget(Indicator.ballBeat),
               ),
             );
@@ -39,111 +59,144 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   Future<dynamic> getRankPageInfo() async {
     //todo get info from back
-    if(isRanking){
-      return Future.delayed(Duration(seconds: 1));
-    }else{
-      return Future.delayed(Duration(seconds: 1));
+    if (isRanking) {
+      return Future.delayed(Duration(seconds: 0));
+    } else {
+      return Future.delayed(Duration(seconds: 0));
     }
-
   }
 
-  ExpandableThemeData openableTheme = ExpandableThemeData(
-    hasIcon: true,
-    tapHeaderToExpand: true,
-    iconColor: Colors.orange,
-    iconSize: 30,
-    headerAlignment: ExpandablePanelHeaderAlignment.center,
-    iconRotationAngle: 50,
-    collapseIcon: Icons.close,
-    iconPadding: EdgeInsets.all(10),
-  );
+  ExpandableThemeData openableTheme() {
+    return ExpandableThemeData(
+      hasIcon: true,
+      tapHeaderToExpand: true,
+      iconColor: isRanking?Colors.orange: Colors.white,
+      iconSize: iconWidth,
+      headerAlignment: ExpandablePanelHeaderAlignment.center,
+      iconRotationAngle: 50,
+      collapseIcon: Icons.close,
+      iconPadding: EdgeInsets.all(lowPadding * 3),
+    );
+  }
 
-  buildRankingListElements(List competitors) {
-    print("yasin list: "+competitors.toString());
+  buildRankingListElements(List competitors, int rank) {
+    print("yasin list: " + competitors.toString());
     return Container(
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(0),
           topLeft: Radius.circular(0),
-          bottomRight: Radius.circular(30),
-          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(radius * 4),
+          bottomLeft: Radius.circular(radius * 4),
         ),
       ),
-      child: Stack(
-        overflow: Overflow.visible,
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 8),
-            child: RankWatch(),
-          ),
-          Column(
-            children: [
-              SizedBox(
-                height: 90,
+      child: isRanking
+          ? Stack(
+              overflow: Overflow.visible,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: lowPadding,
+                    right: lowPadding,
+                    top: lowPadding,
+                    bottom: lowPadding * 2,
+                  ),
+                  child: RankWatch(rank),
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: height,
+                    ),
+                    ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(
+                          vertical: lowPadding*2, horizontal: lowPadding),
+                      itemCount: competitors.length,
+                      itemBuilder: (context, index) {
+                        print("words here:" + competitors[index].toString());
+                        return RankItem(competitors[index], index + 1,
+                            isRanking, itemGroup);
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            )
+          : ListView.builder(
+              physics: ClampingScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(
+                vertical: SizeConfig.blockSizeVertical * 2,
+                horizontal: SizeConfig.blockSizeHorizontal * 2,
               ),
-              ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                itemCount: competitors.length,
-                itemBuilder: (context, index) {
-                  print("words here:"+ competitors[index].toString());
-                  return RankItem(competitors[index], index + 1 ,isRanking);
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
+              itemCount: competitors.length,
+              itemBuilder: (context, index) {
+                return RankItem(
+                    competitors[index], index + 1, isRanking, itemGroup);
+              },
+            ),
     );
   }
 
   myCard({required Widget widget, required Color color}) {
     return Card(
-// color: Colors.white,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
       elevation: 20,
-
-      color: Color(0xff3c2457),
+      color: isRanking?Color(0xff3c2457):Colors.green,
       child: widget,
     );
   }
 
-  openableLeague(String url, String name, bool right, List competitors) {
+  openableLeague(
+      String url, String name, bool right, List competitors, int rank) {
     return Padding(
-      padding:
-          right ? EdgeInsets.only(right: 30.0) : EdgeInsets.only(left: 30.0),
+      padding: right
+          ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 5)
+          : EdgeInsets.only(left: SizeConfig.blockSizeHorizontal * 5),
       child: myCard(
         color: Colors.blueAccent,
         widget: ExpandablePanel(
-          theme: openableTheme,
+          theme: openableTheme(),
           header: Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+            padding: EdgeInsets.fromLTRB(
+                SizeConfig.blockSizeHorizontal * 5,
+                SizeConfig.blockSizeHorizontal * 3,
+                0,
+                SizeConfig.blockSizeHorizontal * 3),
             child: Row(
               children: [
-                Container(
-                  child: Image.asset(url, width: 60.0),
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                Expanded(
+                  child: Container(
+                    child: Image.asset(url),
+                    padding: EdgeInsets.fromLTRB(
+                        0, 0, SizeConfig.blockSizeHorizontal * 2, 0),
+                  ),
                 ),
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily: 'Railway',
-                    fontSize: 20.0,
+                Expanded(
+                  flex: 2,
+                  child: AutoSizeText(
+                    name,
+                    group: titleGroup,
+                    maxLines: 1,
+                    minFontSize: 12,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'Railway',
+                      fontSize: 18.0,
+                    ),
                   ),
                 )
               ],
             ),
           ),
           collapsed: Container(),
-          expanded: buildRankingListElements(competitors),
+          expanded: buildRankingListElements(competitors, rank),
         ),
       ),
     );
@@ -151,27 +204,41 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   closeLeague(String url, String name, bool right) {
     return Padding(
-      padding:
-          right ? EdgeInsets.only(right: 30.0) : EdgeInsets.only(left: 30.0),
+      padding: right
+          ? EdgeInsets.only(right: SizeConfig.blockSizeHorizontal * 5)
+          : EdgeInsets.only(left: SizeConfig.blockSizeHorizontal * 5),
       child: myCard(
         color: Colors.amber,
         widget: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 3),
           child: Row(
             children: [
-              Container(
-                child: Image.asset(url, width: 60.0),
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Railway',
-                  fontSize: 20.0,
+              Expanded(
+                child: Container(
+                  child: Image.asset(
+                    url,
+                    fit: BoxFit.fill,
+                  ),
+                  padding: EdgeInsets.fromLTRB(
+                      0, 0, SizeConfig.blockSizeHorizontal * 2, 0),
                 ),
-              )
+              ),
+              Expanded(
+                flex: 2,
+                child: AutoSizeText(
+                  name,
+                  group: titleGroup,
+                  minFontSize: 12,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Railway',
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              Expanded(child: Container())
             ],
           ),
         ),
@@ -181,16 +248,15 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   convertToUsefulJson({data}) {
     //todo compete data conversion
-    if(isRanking){
+    if (isRanking) {
       return RankingStatics.rankingResponse;
-    }else{
+    } else {
       return RankingStatics.wordResponse;
     }
-
   }
 
   List<Widget> makeChildren(jsonData) {
-    if(isRanking){
+    if (isRanking) {
       int leagueIndex = jsonData["league"];
       int rank = jsonData["rank"];
       List competitors = jsonData["competitors"];
@@ -198,29 +264,25 @@ class FutureRankLeagueWidget extends StatelessWidget {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
         if (index == leagueIndex) {
           return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, competitors);
+              leagueDetail.rightSide, competitors, rank);
         } else {
           return closeLeague(
               leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
         }
       }).toList();
-    }else{
+    } else {
       int leagueIndex = jsonData["league"];
       List jsonWords = jsonData["league-details"];
       return List<Widget>.generate(leagueNum, (index) {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
-        if (index <= leagueIndex) {
+        if (index >= leagueIndex) {
           return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, jsonWords.elementAt(index)["words"]);
+              leagueDetail.rightSide, jsonWords.elementAt(index)["words"], -1);
         } else {
           return closeLeague(
               leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
         }
       }).toList();
     }
-
   }
-
-
 }
-

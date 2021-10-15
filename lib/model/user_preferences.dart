@@ -1,11 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/main.dart';
 import 'package:rabbito/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 class UserPreferences {
-  Future<bool> saveUser(User user) async {
+  static Future saveUser(User user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString(UserStrings.username, user.username!);
@@ -20,14 +22,36 @@ class UserPreferences {
     await _storage.write(
         key: UserStrings.refreshToken, value: user.refreshToken);
 
-    return prefs.commit();
+    if(prefs.containsKey(UserStrings.username)){
+      print("shared prefs: "+ prefs.getString(UserStrings.username)!);
+    }else{
+      print("shared prefs: not contains ");
+    }
+
+
   }
 
-  Future<User> getUser() async {
+  static Future saveMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setDouble(UserStrings.musicLevel, AppController.appController.musicVolume);
+    prefs.setDouble(UserStrings.soundEffectsLevel, AppController.appController.soundEffectsVolume);
+  }
+  static Future readMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey(UserStrings.musicLevel)){
+      AppController.appController.musicVolume = prefs.getDouble(UserStrings.musicLevel)!;
+      AppController.appController.soundEffectsVolume = prefs.getDouble(UserStrings.soundEffectsLevel)!;
+    }
+    AppController.appController.menuMusicAudioPlayer.setVolume(AppController.appController.musicVolume);
+    AppController.appController.effectsAudioPlayer.setVolume(AppController.appController.soundEffectsVolume);
+
+  }
+
+  static Future<User> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? username = prefs.getString(UserStrings.username);
-    String? email = prefs.getString(UserStrings.email);
     int? hearts = prefs.getInt(UserStrings.hearts);
     int? carrot = prefs.getInt(UserStrings.carrot);
     int? coin = prefs.getInt(UserStrings.coin);
@@ -35,7 +59,7 @@ class UserPreferences {
     int? xpLevel = prefs.getInt(UserStrings.xpLevel);
 
     //todo read refresh token by secure storage
-    Future<String?> refreshToken = getRefreshToken();
+    String? refreshToken = await getRefreshToken();
 
     return User(
       xp: xp,
@@ -44,11 +68,11 @@ class UserPreferences {
       hearts: hearts,
       username: username,
       xpLevel: xpLevel,
-      refreshToken: (refreshToken as String?),
+      refreshToken: refreshToken ,
     );
   }
 
-  void removeUser() async {
+  static void removeUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.remove(UserStrings.username);
@@ -59,7 +83,7 @@ class UserPreferences {
     prefs.remove(UserStrings.hearts);
   }
 
-  Future<String?> getRefreshToken() async {
+  static Future<String?> getRefreshToken() async {
     //todo change it with secure storage
     FlutterSecureStorage _storage = FlutterSecureStorage();
     String? refreshToken = await _storage.read(key: UserStrings.refreshToken);
