@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabbito/controller/app_controller.dart';
 
 import 'custom_slider_thumb_circle.dart';
 
@@ -13,6 +14,7 @@ class SliderWidget extends StatefulWidget {
   final Color thumbColor;
   final Widget widget;
   final bool infiniteHeight;
+  final bool isMusic;
 
   SliderWidget({
     this.sliderHeight = 48,
@@ -28,6 +30,7 @@ class SliderWidget extends StatefulWidget {
     this.inactiveTickColor = Colors.white,
     this.thumbColor = Colors.blue,
     required this.widget,
+    required this.isMusic,
   });
 
   @override
@@ -36,6 +39,7 @@ class SliderWidget extends StatefulWidget {
 
 class _SliderWidgetState extends State<SliderWidget> {
   double _value = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +107,19 @@ class _SliderWidgetState extends State<SliderWidget> {
                   ),
                   child: Slider(
                     value: _value,
-                    onChanged: (value) {
+                    onChanged: (value) async {
+                      if(widget.isMusic){
+                        AppController.appController.musicVolume = value;
+                        await AppController.appController.menuMusicAudioPlayer.setVolume(value);
+                      }else{
+                        AppController.appController.soundEffectsVolume = value;
+                        await AppController.appController.effectsAudioPlayer.setVolume(value);
+                      }
+                      print(value);
                       setState(() {
                         _value = value;
+
+
                       });
                     },
                     divisions: 10,
@@ -129,5 +143,15 @@ class _SliderWidgetState extends State<SliderWidget> {
         ),
       ),
     );
+  }
+  @override
+  void initState() {
+    if(widget.isMusic){
+      _value = AppController.appController.musicVolume;
+    }else{
+      _value = AppController.appController.soundEffectsVolume;
+    }
+
+    super.initState();
   }
 }

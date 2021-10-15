@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/main.dart';
 import 'package:rabbito/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -26,6 +28,23 @@ class UserPreferences {
       print("shared prefs: not contains ");
     }
 
+
+  }
+
+  static Future saveMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setDouble(UserStrings.musicLevel, AppController.appController.musicVolume);
+    prefs.setDouble(UserStrings.soundEffectsLevel, AppController.appController.soundEffectsVolume);
+  }
+  static Future readMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey(UserStrings.musicLevel)){
+      AppController.appController.musicVolume = prefs.getDouble(UserStrings.musicLevel)!;
+      AppController.appController.soundEffectsVolume = prefs.getDouble(UserStrings.soundEffectsLevel)!;
+    }
+    AppController.appController.menuMusicAudioPlayer.setVolume(AppController.appController.musicVolume);
+    AppController.appController.effectsAudioPlayer.setVolume(AppController.appController.soundEffectsVolume);
 
   }
 

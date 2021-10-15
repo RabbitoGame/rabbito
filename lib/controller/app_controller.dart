@@ -6,6 +6,7 @@ import 'dart:math';
 // import 'package:just_audio/just_audio.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
+import 'package:rabbito/model/user_preferences.dart';
 
 import '../model/user.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,10 @@ class AppController extends GetxController {
   late AudioPlayer menuMusicAudioPlayer;
 
   late AudioCache menuMusicAudioCache;
+  late AudioPlayer effectsAudioPlayer;
+  late double musicVolume=0.5;
+  late double soundEffectsVolume=0.5;
+  late AudioCache effectsAudioCache;
   Rx<Status> get loggedInStatus => _loggedInStatus;
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
   Rx<Status> get registeredInStatus => _registeredInStatus;
@@ -99,12 +104,15 @@ class AppController extends GetxController {
   }
 
   setMusic() async{
+
     menuMusicAudioPlayer = AudioPlayer();
+    effectsAudioPlayer = AudioPlayer();
     menuMusicAudioCache = AudioCache(
       prefix: 'assets/sounds/',
       fixedPlayer: menuMusicAudioPlayer,
     );
     await menuMusicAudioCache!.loop('MenuMusic.mp3');
+    UserPreferences.readMusic();
 
 
 

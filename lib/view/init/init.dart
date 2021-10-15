@@ -92,6 +92,7 @@ class _Handler extends WidgetsBindingObserver {
       AppController.appController.menuMusicAudioPlayer.resume(); // Audio player is a custom class with resume and pause static methods
     } else {
       AppController.appController.menuMusicAudioPlayer.pause();
+      UserPreferences.saveMusic();
     }
   }
 }

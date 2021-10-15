@@ -35,6 +35,7 @@ class SettingsWidget extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: volumeWidget(
+                  isMusic: true,
                   text: "Music",
                   asset: ImageStrings.gameHomeMusic2Asset,
                 ),
@@ -43,6 +44,7 @@ class SettingsWidget extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: volumeWidget(
+                  isMusic: false,
                   text: "Effects",
                   asset: ImageStrings.gameHomeSound2Asset,
                 ),
@@ -69,7 +71,7 @@ class SettingsWidget extends StatelessWidget {
     ]);
   }
 
-  volumeWidget({required text, required asset}) {
+  volumeWidget({required text, required asset , required bool isMusic}) {
     return Column(
       children: [
         Expanded(
@@ -82,6 +84,7 @@ class SettingsWidget extends StatelessWidget {
         ),
         Expanded(
           child: SliderWidget(
+
             infiniteHeight: true,
             widget: Image.asset(asset),
             gradientColors: <Color>[
@@ -89,6 +92,7 @@ class SettingsWidget extends StatelessWidget {
               Colors.orange,
             ],
             thumbColor: Colors.orange,
+            isMusic: isMusic
           ),
         ),
       ],
