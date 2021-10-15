@@ -36,7 +36,7 @@ class Wheel extends StatelessWidget {
     lowPadding = SizeConfig.blockSizeHorizontal * 1;
     highPadding = SizeConfig.blockSizeHorizontal * 3;
     backButtonSize = SizeConfig.blockSizeHorizontal * 12;
-    iconWidth = SizeConfig.blockSizeHorizontal * 12;
+    iconWidth = SizeConfig.blockSizeHorizontal * 20;
 
     double width = 47;
 
@@ -45,10 +45,22 @@ class Wheel extends StatelessWidget {
       animateFirst: false,
       indicators: [
         FortuneIndicator(
-          child: Icon(
-            Icons.arrow_downward_outlined,
-            size: iconWidth,
-            color: Colors.amber,
+          child: Stack(
+            children: [
+              Positioned(
+                top: -SizeConfig.padding3,
+                right: 0,
+                left: 0,
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent.withOpacity(0.5),
+                  child: Icon(
+                    Icons.keyboard_arrow_down_sharp,
+                    size: iconWidth,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
           ),
           alignment: Alignment.topCenter,
         )
@@ -160,71 +172,73 @@ class Wheel extends StatelessWidget {
   void onAnimationEnd(context) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.circular(radius*3),
+      builder: (_) => Dialog(
+        insetPadding: EdgeInsets.symmetric(
+          vertical: SizeConfig.height3 * 1.3,
+          horizontal: SizeConfig.width3,
         ),
-
-        backgroundColor: Colors.amber,
-        title: Column(
-          children: [
-            confetti(),
-            AutoSizeText(
-              "CONGRATULATIONS!!!",
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              minFontSize: 12,
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Expanded(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.padding2, vertical: SizeConfig.padding3),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              confetti(),
+              AutoSizeText(
+                "CONGRATULATIONS!!!",
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                minFontSize: 12,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: AutoSizeText(
+                      "you won 13 ",
+                      textAlign: TextAlign.center,
+                      minFontSize: 10,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Image.asset(
+                    ImageStrings.appbarHeartAsset,
+                    width: iconWidth,
+                    // width: 40,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: iconWidth * 0.2,
+              ),
+              CustomContainer(
+                minHeight: iconWidth * 1.2,
+                onPressed: () => Navigator.of(context).pop(),
+                child: Padding(
+                  padding: EdgeInsets.all(lowPadding),
                   child: AutoSizeText(
-                    "you won 13 ",
-                    textAlign: TextAlign.center,
-                    minFontSize: 10,
+                    "OK",
                     maxLines: 1,
-
+                    minFontSize: 10,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Image.asset(
-                  ImageStrings.appbarHeartAsset,
-                  width: iconWidth,
-                  // width: 40,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: iconWidth * 0.2,
-            ),
-            CustomContainer(
-              minHeight: iconWidth * 1.2,
-              onPressed: () => Navigator.of(context).pop(),
-              child: Padding(
-                padding: EdgeInsets.all(lowPadding),
-                child: AutoSizeText(
-                  "OK",
-                  maxLines: 1,
-                  minFontSize: 10,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+                innerColor: Colors.deepPurple,
+                outerColor: Colors.brown,
               ),
-              innerColor: Colors.deepPurple,
-              outerColor: Colors.brown,
-            ),
-          ],
+            ],
+          ),
         ),
+        shape: BeveledRectangleBorder(
+          borderRadius: BorderRadius.circular(radius * 3),
+        ),
+        backgroundColor: Colors.amber,
       ),
     );
     _wheelController._controller.value.play();
