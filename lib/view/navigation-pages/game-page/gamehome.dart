@@ -2,12 +2,17 @@ import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:game_widget2/main.dart';
+import 'package:game_widget2/models/game.dart';
+import 'package:game_widget2/models/user.dart' as game_widget_user_mod;
+import 'package:game_widget2/views/game_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'game_page_appbar.dart';
 
@@ -76,7 +81,28 @@ playButtons() {
                 group: group,
               ),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              final user = AppController.appController.currUser;
+              if (user == null) {
+                Get.snackbar(
+                  'Login first!!',
+                  'You can\'t start playing without an account',
+                  isDismissible: true,
+                  backgroundColor: Colors.black54,
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 5),
+                  onTap: (_) => Get.to(() => RegisterScreen()),
+                );
+                return;
+              }
+              currentUser = game_widget_user_mod.User(
+                user.username!,
+                refreshToken: user.refreshToken!,
+                accessToken: user.accessToken!,
+              );
+              final game = await Game.join(currentUser);
+              Get.to(() => GameWidget(game));
+            },
             // innerColor: const Color(0xff6383F7),
             innerColor: Colors.deepOrangeAccent,
             outerColor: Colors.deepOrange,
