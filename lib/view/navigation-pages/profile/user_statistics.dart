@@ -21,17 +21,12 @@ class UserStatistics extends StatelessWidget {
       child: Column(
         children: [
           xpWidget(
-              all: AppController.appController.loggedInStatus.value ==
-                  Status.LoggedIn
-                  ? 1000
+              all: AppController.isLoggedIn() ? 1000 : 0,
+              part: AppController.isLoggedIn()
+                  ? AppController.getXp()
                   : 0,
-              part: AppController.appController.loggedInStatus.value ==
-                  Status.LoggedIn
-                  ? AppController.appController.currUser!.xp!
-                  : 0,
-              xpLevel: AppController.appController.loggedInStatus.value ==
-                  Status.LoggedIn
-                  ? AppController.appController.currUser!.xpLevel!+1
+              xpLevel: AppController.isLoggedIn()
+                  ? AppController.getXpLevel()
                   : 0,
               big: SizeConfig.screenWidth > 300),
           SizedBox(

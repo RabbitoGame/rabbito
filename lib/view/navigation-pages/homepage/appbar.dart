@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 
 class FutureAppBar extends StatelessWidget {
-  final FutureAppBarController _controller = Get.put(FutureAppBarController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,9 @@ class FutureAppBar extends StatelessWidget {
                   child: Center(
                     child: Obx(() {
                       return Text(
-                        _controller.coin.value,
+                        AppController.isLoggedIn()
+                            ? AppController.getCoin().toString()
+                            : UserStrings.emptyInfo,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
@@ -60,7 +62,9 @@ class FutureAppBar extends StatelessWidget {
                   child: Center(
                     child: Obx(() {
                       return Text(
-                        _controller.carrot.value,
+                        AppController.isLoggedIn()
+                            ? AppController.getCarrot().toString()
+                            : UserStrings.emptyInfo,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
@@ -84,7 +88,9 @@ class FutureAppBar extends StatelessWidget {
                   child: Center(
                     child: Obx(() {
                       return Text(
-                        _controller.heart.value,
+                        AppController.isLoggedIn()
+                            ? AppController.getHeart().toString()
+                            : UserStrings.emptyInfo,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
@@ -100,29 +106,5 @@ class FutureAppBar extends StatelessWidget {
             ),
           ])),
     );
-  }
-}
-
-class FutureAppBarController extends GetxController {
-  RxString _coin = UserStrings.emptyInfo.obs;
-  RxString _heart = UserStrings.emptyInfo.obs;
-  RxString _carrot = UserStrings.emptyInfo.obs;
-
-  RxString get coin => _coin;
-
-  set coin(RxString value) {
-    _coin = value;
-  }
-
-  RxString get heart => _heart;
-
-  set heart(RxString value) {
-    _heart = value;
-  }
-
-  RxString get carrot => _carrot;
-
-  set carrot(RxString value) {
-    _carrot = value;
   }
 }

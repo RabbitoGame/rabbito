@@ -78,6 +78,24 @@ class AppController extends GetxController {
   static bool isLoggedIn(){
     return appController._loggedInStatus.value == Status.LoggedIn;
   }
+  static int getXp(){
+    return AppController.appController.currUser!.xp!;
+  }
+  static int getXpLevel(){
+    return AppController.appController.currUser!.xpLevel!;
+  }
+  static int getCoin(){
+    return AppController.appController.currUser!.coin!;
+  }
+  static int getHeart(){
+    return AppController.appController.currUser!.hearts!;
+  }
+  static int getCarrot(){
+    return AppController.appController.currUser!.carrot!;
+  }
+  static int getXpMax(){
+    return 1000;
+  }
 
   static bool isLoginScreen() {
     return appController._loginScreenStatus.value;
@@ -114,10 +132,8 @@ class AppController extends GetxController {
     await menuMusicAudioCache!.loop('MenuMusic.mp3');
     UserPreferences.readMusic();
 
-
-
-
   }
+
 
 }
 

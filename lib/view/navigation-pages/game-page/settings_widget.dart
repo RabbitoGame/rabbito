@@ -4,6 +4,7 @@ import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/slider/slider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsWidget extends StatelessWidget {
   SettingsWidget({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class SettingsWidget extends StatelessWidget {
               ),
               Spacer(),
               Expanded(
-                flex: 7,
+                flex: 5,
                 child: supportWidget(),
               ),
             ],
@@ -71,7 +72,7 @@ class SettingsWidget extends StatelessWidget {
     ]);
   }
 
-  volumeWidget({required text, required asset , required bool isMusic}) {
+  volumeWidget({required text, required asset, required bool isMusic}) {
     return Column(
       children: [
         Expanded(
@@ -84,16 +85,14 @@ class SettingsWidget extends StatelessWidget {
         ),
         Expanded(
           child: SliderWidget(
-
-            infiniteHeight: true,
-            widget: Image.asset(asset),
-            gradientColors: <Color>[
-              Colors.orangeAccent,
-              Colors.orange,
-            ],
-            thumbColor: Colors.orange,
-            isMusic: isMusic
-          ),
+              infiniteHeight: true,
+              widget: Image.asset(asset),
+              gradientColors: <Color>[
+                Colors.orangeAccent,
+                Colors.orange,
+              ],
+              thumbColor: Colors.orange,
+              isMusic: isMusic),
         ),
       ],
     );
@@ -127,50 +126,57 @@ class SettingsWidget extends StatelessWidget {
         SizedBox(
           height: lowPadding,
         ),
+        // Expanded(
+        //   flex: 2,
+        //   child: CustomContainer(
+        //     onPressed: () {},
+        //     child: Padding(
+        //       padding: EdgeInsets.all(lowPadding),
+        //       child: Row(
+        //         children: [
+        //           Expanded(
+        //             child: Padding(
+        //               padding: EdgeInsets.all(lowPadding),
+        //               child: Image.asset(ImageStrings.gameHomeDonationsAsset),
+        //             ),
+        //           ),
+        //           Expanded(
+        //             flex: 2,
+        //             child: Padding(
+        //               padding: EdgeInsets.all(lowPadding),
+        //               child: AutoSizeText(
+        //                 "DONATE\nMONEY!",
+        //                 textAlign: TextAlign.center,
+        //                 maxLines: 2,
+        //                 group: _group,
+        //                 style: TextStyle(
+        //                     color: Colors.white,
+        //                     fontSize: 22,
+        //                     fontWeight: FontWeight.bold),
+        //               ),
+        //             ),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //     innerColor: Colors.deepOrange,
+        //     outerColor: Colors.red,
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 5,
+        // ),
         Expanded(
           flex: 2,
           child: CustomContainer(
-            onPressed: () {},
-            child: Padding(
-              padding: EdgeInsets.all(lowPadding),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(lowPadding),
-                      child: Image.asset(ImageStrings.gameHomeDonationsAsset),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.all(lowPadding),
-                      child: AutoSizeText(
-                        "DONATE\nMONEY!",
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        group: _group,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            innerColor: Colors.deepOrange,
-            outerColor: Colors.red,
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Expanded(
-          flex: 2,
-          child: CustomContainer(
-            onPressed: () {},
+            onPressed: () {
+              return Share.share(
+                "Hi my Friend!\n i found this cole game for learning" +
+                    " every language with playing card games!" +
+                    "site info:",
+                subject: "hey where are you???",
+              );
+            },
             child: Padding(
               padding: EdgeInsets.all(lowPadding),
               child: Row(

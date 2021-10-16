@@ -26,17 +26,12 @@ class GameAppBar extends StatelessWidget {
             children: [
               Expanded(child: Obx(() {
                 return xpWidget(
-                  all: AppController.appController.loggedInStatus.value ==
-                          Status.LoggedIn
-                      ? 1000
+                  all: AppController.isLoggedIn() ? 1000 : 0,
+                  part: AppController.isLoggedIn()
+                      ? AppController.getXp()
                       : 0,
-                  part: AppController.appController.loggedInStatus.value ==
-                          Status.LoggedIn
-                      ? AppController.appController.currUser!.xp!
-                      : 0,
-                  xpLevel: AppController.appController.loggedInStatus.value ==
-                          Status.LoggedIn
-                      ? AppController.appController.currUser!.xpLevel!+1
+                  xpLevel: AppController.isLoggedIn()
+                      ? AppController.getXpLevel()
                       : 0,
                   big: MediaQuery.of(context).size.width > 300,
                 );
@@ -58,7 +53,7 @@ class GameAppBar extends StatelessWidget {
                       builder: (_) {
                         return myDialog(
                           widget: SettingsWidget(),
-                          vertical: SizeConfig.screenHeight * 0.1,
+                          vertical: SizeConfig.screenHeight * 0.18,
                           horizontal: SizeConfig.screenWidth * 0.05,
                         );
                       },
