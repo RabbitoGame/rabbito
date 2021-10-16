@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
@@ -20,9 +21,18 @@ class UserStatistics extends StatelessWidget {
       child: Column(
         children: [
           xpWidget(
-              xpLevel: 12,
-              part: 10,
-              all: 20,
+              all: AppController.appController.loggedInStatus.value ==
+                  Status.LoggedIn
+                  ? 1000
+                  : 0,
+              part: AppController.appController.loggedInStatus.value ==
+                  Status.LoggedIn
+                  ? AppController.appController.currUser!.xp!
+                  : 0,
+              xpLevel: AppController.appController.loggedInStatus.value ==
+                  Status.LoggedIn
+                  ? AppController.appController.currUser!.xpLevel!+1
+                  : 0,
               big: SizeConfig.screenWidth > 300),
           SizedBox(
             height: 5,
@@ -178,9 +188,9 @@ class UserStatistics extends StatelessWidget {
 }
 
 xpWidget({
-  required double xpLevel,
-  required double part,
-  required double all,
+  required int xpLevel,
+  required int part,
+  required int all,
   required bool big,
 }) {
   return Stack(
