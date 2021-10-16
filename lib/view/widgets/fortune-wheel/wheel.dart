@@ -12,21 +12,82 @@ import 'package:rabbito/global/strings/image_strings.dart';
 
 import '../custom_container.dart';
 
+var fortuneWheelItems = [
+  {
+    "image": ImageStrings.coinPacksPackage1,
+    "color": Colors.lightGreen,
+    "prize": "10",
+    "isCoin1": true,
+  },
+  {
+    "image": ImageStrings.coinPacksPackage2,
+    "isCoin1": false,
+    "color": Colors.green,
+    "prize": "25",
+  },
+  {
+    "image": ImageStrings.heartPacks,
+    "color": Colors.teal,
+    "prize": "1",
+    "isCoin1": false,
+  },
+  {
+    "image": ImageStrings.gameHomeWheelMystery7Asset,
+    "color": Colors.blue,
+    "prize": "",
+    "isCoin1": false,
+  },
+  {
+    "image": ImageStrings.coinPacksPackage1,
+    "color": Colors.purple,
+    "prize": "10",
+    "isCoin1": true,
+  },
+  {
+    "image": ImageStrings.coinPacksPackage3,
+    "color": Colors.deepPurple,
+    "prize": "50",
+    "isCoin1": false,
+  },
+  {
+    "image": ImageStrings.heartPacks,
+    "color": Colors.red,
+    "prize": "1",
+    "isCoin1": false,
+  },
+  {
+    "image": ImageStrings.coinPacksPackage1,
+    "color": Colors.deepOrange,
+    "prize": "10",
+    "isCoin1": true,
+  },
+  {
+    "image": ImageStrings.coinPacksPackage2,
+    "isCoin1": false,
+    "color": Colors.orange,
+    "prize": "25",
+  },
+  {
+    "image": ImageStrings.gameHomeWheelMystery7Asset,
+    "isCoin1": false,
+    "color": Colors.amber,
+    "prize": "",
+  }
+];
+
 class Wheel extends StatelessWidget {
   StreamController<int> controller;
-  WheelController _wheelController = Get.put(WheelController());
+   WheelController _wheelController = Get.put(WheelController());
 
   Wheel(this.controller);
 
+
   var radius;
-  AutoSizeGroup group = AutoSizeGroup();
   var lowPadding;
-
   var highPadding;
-
   var backButtonSize;
-
   var iconWidth;
+  AutoSizeGroup group = AutoSizeGroup();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +99,7 @@ class Wheel extends StatelessWidget {
     backButtonSize = SizeConfig.blockSizeHorizontal * 12;
     iconWidth = SizeConfig.blockSizeHorizontal * 20;
 
-    double width = 47;
+    double width = SizeConfig.width1 / 2;
 
     return FortuneWheel(
       onAnimationEnd: () => onAnimationEnd(context),
@@ -65,71 +126,22 @@ class Wheel extends StatelessWidget {
           alignment: Alignment.topCenter,
         )
       ],
+
+
       physics: NoPanPhysics(),
       duration: Duration(seconds: 0),
       selected: controller.stream,
-      items: [
-        myItem(
-          image: ImageStrings.gameHomeWheelCoin2Asset,
-          width: width,
-          color: Colors.lightGreen,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelCash2Asset,
-          width: width,
-          color: Colors.green,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelHeartPlus6Asset,
-          width: width,
-          color: Colors.teal,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelMystery1Asset,
-          width: width,
-          color: Colors.blue,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelCoin2Asset,
-          width: width,
-          color: Colors.purple,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelMoneyBag3Asset,
-          width: width,
-          color: Colors.deepPurple,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelHeartPlus6Asset,
-          width: width,
-          color: Colors.red,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelMystery1Asset,
-          width: width,
-          color: Colors.deepOrange,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelCoin2Asset,
-          width: width,
-          color: Colors.orange,
-          prize: "10",
-        ),
-        myItem(
-          image: ImageStrings.gameHomeWheelMoneyBag1Asset,
-          width: width,
-          color: Colors.amber,
-          prize: "10",
-        ),
-      ],
+      items: List<FortuneItem>.generate(fortuneWheelItems.length, (e) {
+        return myItem(
+          color: fortuneWheelItems.elementAt(e)["color"] as Color,
+          prize: fortuneWheelItems.elementAt(e)["prize"] as String,
+          image: fortuneWheelItems.elementAt(e)["image"] as String,
+          width: (fortuneWheelItems.elementAt(e)["isCoin1"] as bool)
+              ? width / 2
+              : width,
+          isCoin1: fortuneWheelItems.elementAt(e)["isCoin1"] as bool,
+        );
+      }).toList(),
     );
   }
 
@@ -158,10 +170,9 @@ class Wheel extends StatelessWidget {
     );
   }
 
-  item(
-      {required Widget widget,
-      required Color color,
-      required Color borderColor}) {
+  item({required Widget widget,
+    required Color color,
+    required Color borderColor}) {
     return FortuneItem(
       child: widget,
       style: FortuneItemStyle(
@@ -169,100 +180,114 @@ class Wheel extends StatelessWidget {
     );
   }
 
-  void onAnimationEnd(context) {
+  void onAnimationEnd(context) async {
+    // int x = await controller.stream.first;
+    // print(x);
     var flex = 3;
     showDialog(
       context: context,
-      builder: (_) => Dialog(
-        insetPadding: EdgeInsets.symmetric(
-          vertical: SizeConfig.height3 * 1.3,
-          horizontal: SizeConfig.width3,
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.padding2, vertical: SizeConfig.padding3),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              confetti(),
-              Expanded(
-                flex: flex,
-                child: Center(
-                  child: AutoSizeText(
-                    "CONGRATULATIONS!!!",
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    minFontSize: 12,
+      builder: (_) =>
+          Dialog(
+            insetPadding: EdgeInsets.symmetric(
+              vertical: SizeConfig.height3 * 1.3,
+              horizontal: SizeConfig.width3,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.padding2,
+                  vertical: SizeConfig.padding3),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  confetti(),
+                  Expanded(
+                    flex: flex,
+                    child: Center(
+                      child: AutoSizeText(
+                        "CONGRATULATIONS!!!",
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        minFontSize: 12,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: flex,
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: SizeConfig.padding1),
-                  child: Row(
-                    children: [
-                      Expanded(
+                  Expanded(
+                    flex: flex,
+                    child: Padding(
+                      padding:
+                      EdgeInsets.symmetric(horizontal: SizeConfig.padding1),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Obx(() {
+                              return AutoSizeText(
+                                "you won ${fortuneWheelItems.elementAt(
+                                    WheelController.winValue
+                                        .value)["prize"]} ",
+                                textAlign: TextAlign.end,
+                                minFontSize: 10,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              );
+                            }),
+                          ),
+                          Obx(() {
+                            return Image.asset(
+                              fortuneWheelItems.elementAt(
+                                  WheelController.winValue
+                                      .value)["image"] as String,
+                              width: iconWidth,
+                              // width: 40,
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    flex: flex,
+                    child: CustomContainer(
+                      // minHeight: iconWidth * 1.2,
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Padding(
+                        padding: EdgeInsets.all(lowPadding),
                         child: AutoSizeText(
-                          "you won 13 ",
-                          textAlign: TextAlign.end,
-                          minFontSize: 10,
+                          "OK",
                           maxLines: 1,
+                          minFontSize: 10,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Image.asset(
-                        ImageStrings.appbarHeartAsset,
-                        width: iconWidth,
-                        // width: 40,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Spacer(),
-              Expanded(
-                flex: flex,
-                child: CustomContainer(
-                  // minHeight: iconWidth * 1.2,
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Padding(
-                    padding: EdgeInsets.all(lowPadding),
-                    child: AutoSizeText(
-                      "OK",
-                      maxLines: 1,
-                      minFontSize: 10,
-                      style: TextStyle(
-                          color: Colors.white,
-
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      innerColor: Colors.deepPurple,
+                      outerColor: Colors.brown,
                     ),
                   ),
-                  innerColor: Colors.deepPurple,
-                  outerColor: Colors.brown,
-                ),
+                ],
               ),
-            ],
+            ),
+            shape: BeveledRectangleBorder(
+              borderRadius: BorderRadius.circular(radius * 3),
+            ),
+            backgroundColor: Colors.amber,
           ),
-        ),
-        shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.circular(radius * 3),
-        ),
-        backgroundColor: Colors.amber,
-      ),
     );
     _wheelController._controller.value.play();
   }
 
-  myItem(
-      {required String prize,
-      required String image,
-      required double width,
-      required Color color}) {
+  myItem({
+    required String prize,
+    required String image,
+    required double width,
+    required Color color,
+    isCoin1 = false,
+  }) {
     return item(
       widget: Row(
         // mainAxisAlignment: MainAxisAlignment.center,
@@ -286,11 +311,21 @@ class Wheel extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: Padding(
-              padding: EdgeInsets.all(highPadding),
+            child: Container(
+              padding: isCoin1
+                  ? EdgeInsets.all(SizeConfig.padding3)
+                  : EdgeInsets.all(highPadding),
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  radius: 0.45,
+                  colors: [
+                    Colors.white,
+                    color,
+                  ],
+                ),
+              ),
               child: Image.asset(
                 image,
-                // width: width - 5,
               ),
             ),
           ),
@@ -305,10 +340,16 @@ class Wheel extends StatelessWidget {
 class WheelController extends GetxController {
   Rx<ConfettiController> _controller =
       ConfettiController(duration: const Duration(seconds: 10)).obs;
+  static RxInt winValue = 0.obs;
 
   Rx<ConfettiController> get controller => _controller;
 
   set controller(Rx<ConfettiController> value) {
     _controller = value;
+  }
+  static setWinValue(StreamController cont){
+    winValue.value =Random().nextInt(fortuneWheelItems.length);
+    cont.add(winValue.value);
+
   }
 }

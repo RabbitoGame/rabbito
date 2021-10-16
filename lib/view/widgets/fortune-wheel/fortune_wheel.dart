@@ -45,29 +45,18 @@ class FortuneWheelPage extends StatelessWidget {
                   flex: 5,
                   child: Padding(
                     padding: EdgeInsets.all(highPadding),
-                    child: Column(
+                    child: Stack(
                       children: [
-                        Expanded(
-                          child: watchAds(),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              Align(
-                                child: Image.asset(
-                                  ImageStrings.gameHomeRoulette2Asset,
-                                  // width: 300,
-                                ),
-                                alignment: Alignment.center,
-                              ),
-                              Align(
-                                child: Wheel(controller),
-                                alignment: Alignment.center,
-                              ),
-                            ],
+                        Align(
+                          child: Image.asset(
+                            ImageStrings.gameHomeRoulette2Asset,
+                            // width: 300,
                           ),
-                          flex: 6,
+                          alignment: Alignment.center,
+                        ),
+                        Align(
+                          child: Wheel(controller),
+                          alignment: Alignment.center,
                         ),
                       ],
                     ),
@@ -158,7 +147,7 @@ class FortuneWheelPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () => controller.add(_random.nextInt(max)),
+              onPressed: () => WheelController.setWinValue(controller),
               innerColor: Colors.red,
               outerColor: Colors.brown,
             ),

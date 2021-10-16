@@ -78,6 +78,10 @@ class ImageStrings {
   static const String gameHomeWheelMystery1Asset = 'assets/images/game-home/wheel/mystery1.png';
   static const String gameHomeWheelMystery3Asset = 'assets/images/game-home/wheel/mystery3.png';
   static const String gameHomeWheelMystery4Asset = 'assets/images/game-home/wheel/mystery4.png';
+  static const String gameHomeWheelMystery5Asset = 'assets/images/game-home/wheel/mystery5.png';
+  static const String gameHomeWheelMystery6Asset = 'assets/images/game-home/wheel/mystery6.png';
+  static const String gameHomeWheelMystery7Asset = 'assets/images/game-home/wheel/mystery7.png';
+  static const String gameHomeWheelMystery8Asset = 'assets/images/game-home/wheel/mystery8.png';
   static const String gameHomeWheelHeartPlus6Asset = 'assets/images/game-home/wheel/heart_plus6.png';
   static const String profileBookAsset = 'assets/images/profile/book.png';
   static const String profileGiftAsset = 'assets/images/profile/gift.png';
@@ -106,6 +110,10 @@ class ImageStrings {
   static const String wallpaperMainPageAsset = 'assets/images/wallpaper/MainPageWallpaper-01.png';
   static const String wallpaperShopPageAsset = 'assets/images/wallpaper/ShopPageWallpaper-01.png';
   static const String league = 'assets/images/leagues/';
+  static const String coinPacksPackage1 = 'assets/images/Coin Packs/Package_1.png';
+  static const String coinPacksPackage2 = 'assets/images/Coin Packs/Package_2.png';
+  static const String coinPacksPackage3 = 'assets/images/Coin Packs/Package_3.png';
+  static const String heartPacks = 'assets/images/Heart Packs/Package_2.png';
 
 
 }

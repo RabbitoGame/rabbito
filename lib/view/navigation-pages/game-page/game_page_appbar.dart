@@ -112,7 +112,7 @@ class GameAppBar extends StatelessWidget {
                       builder: (_) {
                         return myDialog(
                           widget: FortuneWheelPage(),
-                          vertical: SizeConfig.screenHeight * 0.1,
+                          vertical: SizeConfig.screenHeight * 0.15,
                           horizontal: SizeConfig.screenWidth * 0.05,
                         );
                       },

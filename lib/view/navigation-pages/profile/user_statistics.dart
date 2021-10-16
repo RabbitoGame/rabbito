@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/model/user.dart';
 
 class UserStatistics extends StatelessWidget {
   int win;
@@ -64,7 +66,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Image.asset(
-                              calculateLeagueImageString()
+                              User.calculateLeagueImageString(league)
                             ),
                           ),
                         ),
@@ -182,35 +184,6 @@ class UserStatistics extends StatelessWidget {
     );
   }
 
-  String calculateLeagueImageString() {
-    String base= ImageStrings.league;
-    String main="";
-
-    switch ((league/3).round()){
-      case 0:
-        main = "Bronze_";
-        break;
-      case 1:
-        main = "Silver_";
-        break;
-      case 2:
-        main = "Gold_";
-        break;
-      case 3:
-        main = "Crystal_";
-        break;
-      case 4:
-        main = "Epic_";
-        break;
-      case 5:
-        main = "Legendary_";
-        break;
-      default:
-        print("fucked up in calculate league image string");
-    }
-    main+= (league.remainder(3)+1).toString()+".png";
-    return base+main;
-  }
 }
 
 xpWidget({

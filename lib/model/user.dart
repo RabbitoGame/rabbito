@@ -1,4 +1,5 @@
 import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/global/apis.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
@@ -258,5 +259,35 @@ class User {
       RequestStrings.message: 'Unsuccessful Request',
       RequestStrings.data: error,
     };
+  }
+
+  static String calculateLeagueImageString(league) {
+    String base= ImageStrings.league;
+    String main="";
+
+    switch ((league~/3)){
+      case 0:
+        main = "Bronze_";
+        break;
+      case 1:
+        main = "Silver_";
+        break;
+      case 2:
+        main = "Gold_";
+        break;
+      case 3:
+        main = "Crystal_";
+        break;
+      case 4:
+        main = "Epic_";
+        break;
+      case 5:
+        main = "Legendary_";
+        break;
+      default:
+        print("fucked up in calculate league image string");
+    }
+    main+= (league.remainder(3)+1).toString()+".png";
+    return base+main;
   }
 }
