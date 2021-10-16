@@ -82,7 +82,7 @@ class AppController extends GetxController {
     return AppController.appController.currUser!.xp!;
   }
   static int getXpLevel(){
-    return AppController.appController.currUser!.xpLevel!;
+    return AppController.appController.currUser!.xpLevel!+1;
   }
   static int getCoin(){
     return AppController.appController.currUser!.coin!;
@@ -95,6 +95,15 @@ class AppController extends GetxController {
   }
   static int getXpMax(){
     return 1000;
+  }
+  static getUsername() {
+    return AppController.appController.currUser!.username!;
+  }
+  static getDate() {
+    return "date";
+  }
+  static getLanguage() {
+    return "Learning English";
   }
 
   static bool isLoginScreen() {
@@ -133,6 +142,8 @@ class AppController extends GetxController {
     UserPreferences.readMusic();
 
   }
+
+
 
 
 }

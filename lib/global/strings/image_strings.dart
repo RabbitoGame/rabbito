@@ -105,5 +105,7 @@ class ImageStrings {
   static const String backgroundBack8Asset = 'assets/images/background/back8.jpg';
   static const String wallpaperMainPageAsset = 'assets/images/wallpaper/MainPageWallpaper-01.png';
   static const String wallpaperShopPageAsset = 'assets/images/wallpaper/ShopPageWallpaper-01.png';
+  static const String league = 'assets/images/leagues/';
+
 
 }

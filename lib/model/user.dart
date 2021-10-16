@@ -235,11 +235,12 @@ class User {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      AppController.appController.currUser = User.fromJson(
-          responseData, responseData["data"][UserStrings.username]);
+
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',
+        RequestStrings.data: responseData,
+
       };
     } else {
       result = {
@@ -257,41 +258,5 @@ class User {
       RequestStrings.message: 'Unsuccessful Request',
       RequestStrings.data: error,
     };
-  }
-
-  static getUserDetail() {
-    //todo complete getUserDetail
-  }
-
-  static getCarrot() {
-    //todo complete getCarrot
-  }
-
-  static getCoin() {
-    //todo complete getCoin
-  }
-
-  static getHeart() {
-    //todo complete getHeart
-  }
-
-  static getRank() {
-    //todo complete getRank
-  }
-
-  static setCarrot() {
-    //todo complete setCarrot
-  }
-
-  static setCoin() {
-    //todo complete setCoin
-  }
-
-  static setHeart() {
-    //todo complete setHeart
-  }
-
-  static setRank() {
-    //todo complete setRank
   }
 }

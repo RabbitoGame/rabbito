@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
+import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
 import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
@@ -54,7 +57,9 @@ class ProfileUI2 extends StatelessWidget {
                   group: null,
                   min: 15.0,
                   partition: 2 / 3,
-                  text: _controller._username.value,
+                  text: AppController.isLoggedIn()
+                      ? AppController.getUsername()
+                      : "",
                   style: TextStyle(
                       fontSize: 25.0,
                       color: Colors.blueGrey,
@@ -71,7 +76,8 @@ class ProfileUI2 extends StatelessWidget {
                   group: null,
                   min: 12.0,
                   partition: 1 / 2,
-                  text: _controller._stringDate.value,
+                  text:
+                      AppController.isLoggedIn() ? AppController.getDate() : "",
                   style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black45,
@@ -89,7 +95,9 @@ class ProfileUI2 extends StatelessWidget {
                   group: null,
                   min: 10.0,
                   partition: 1,
-                  text: "Learning ${_controller.learningLanguage.value}",
+                  text: AppController.isLoggedIn()
+                      ? AppController.getLanguage()
+                      : "",
                   style: TextStyle(
                     fontSize: 15.0,
                     color: Colors.black45,
@@ -107,13 +115,22 @@ class ProfileUI2 extends StatelessWidget {
               Card(
                 elevation: 10,
                 margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                child: UserStatistics(),
+                child: Obx(() {
+                  return UserStatistics(
+                    correctMatches: _controller._corr_matches.value,
+                    wrongMatches: _controller._wronng_matches.value,
+                    win: _controller._win.value,
+                    loose: _controller._loose.value,
+                    rank: _controller._rank.value,
+                    league: _controller._league.value,
+                  );
+                }),
               ),
               SizedBox(
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value, group);
+                return WordsLearned(_controller.wordsLearned.value + 5, group);
               }),
               SizedBox(
                 height: 10,
@@ -130,6 +147,23 @@ class ProfileUI2 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getProfileInfo() async {
+    var result = await User.getUserDetails();
+    if (result[RequestStrings.status]) {
+      _controller._stringDate.value = result[UserStrings.joinDate];
+      _controller._league.value = result[UserStrings.league];
+      _controller._rank.value = result[UserStrings.rank];
+      _controller._wordsLearned.value = result[UserStrings.wordsLearned];
+      _controller._win.value = result[UserStrings.win];
+      _controller._loose.value = result[UserStrings.loose];
+      _controller._corr_matches.value = result[UserStrings.correctMatches];
+      _controller._wronng_matches.value = result[UserStrings.wrongMatches];
+    } else {
+      // User.logOut();
+      print("getProfileInfo: unsuccessful");
+    }
   }
 }
 
@@ -149,41 +183,23 @@ Widget text({text, style, context, min, group, partition}) {
 
 class ProfileController extends GetxController {
   RxString _avatar = "".obs;
-  RxString _username = "sampleUsername".obs;
-  Rx<DateTime> _date = DateTime.now().obs;
   RxString _stringDate = "sampleDate".obs;
-  RxString _learningLanguage = "sampleLanguage".obs;
   RxInt _rank = 0.obs;
+  RxInt _league = 0.obs;
   RxInt _wordsLearned = 0.obs;
-
-  RxString get avatar => _avatar;
+  RxInt _win = 0.obs;
+  RxInt _loose = 0.obs;
+  RxInt _corr_matches = 0.obs;
+  RxInt _wronng_matches = 0.obs;
 
   set avatar(RxString value) {
     _avatar = value;
-  }
-
-  RxString get username => _username;
-
-  set username(RxString value) {
-    _username = value;
-  }
-
-  Rx<DateTime> get date => _date;
-
-  set date(Rx<DateTime> value) {
-    _date = value;
   }
 
   RxString get stringDate => _stringDate;
 
   set stringDate(RxString value) {
     _stringDate = value;
-  }
-
-  RxString get learningLanguage => _learningLanguage;
-
-  set learningLanguage(RxString value) {
-    _learningLanguage = value;
   }
 
   RxInt get rank => _rank;
