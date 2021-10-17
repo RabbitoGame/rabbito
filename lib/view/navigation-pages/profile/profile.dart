@@ -1,14 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:game_widget2/views/profile_widget.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user.dart';
-import 'package:rabbito/view/navigation-pages/profile/achievements.dart';
-import 'package:rabbito/view/navigation-pages/profile/friends_tabbar.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
@@ -25,6 +23,8 @@ class ProfileUI2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AutoSizeGroup group = AutoSizeGroup();
+    print(
+        'assets/images/avatars/Faces/face_${AppController.appController.currUser!.avatar!.face}.png');
     return Container(
       color: Colors.white,
       child: Container(
@@ -40,9 +40,9 @@ class ProfileUI2 extends StatelessWidget {
                   child: Container(
                     // alignment: Alignment(0.0, 5),
                     alignment: Alignment(0, 10),
-                    child: CircleAvatar(
-                      child: Image.asset(ImageStrings.logoAsset,
-                          width: height * 20),
+                    child: ProfileWidget(
+                      AppController.appController.currUser!.avatar!,
+                      backgroundColor: Colors.green,
                       radius: height * 10,
                     ),
                   ),
