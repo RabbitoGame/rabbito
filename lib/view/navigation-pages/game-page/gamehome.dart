@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:game_widget2/main.dart';
+import 'package:game_widget2/models/avatar.dart';
 import 'package:game_widget2/models/game.dart';
 import 'package:game_widget2/models/user.dart' as game_widget_user_mod;
 import 'package:game_widget2/views/game_widget.dart';
@@ -97,6 +98,8 @@ playButtons() {
               }
               currentUser = game_widget_user_mod.User(
                 user.username!,
+                avatar: Avatar.defaultAvatar(),
+                cardBg: 1,
                 refreshToken: user.refreshToken!,
                 accessToken: user.accessToken!,
               );
