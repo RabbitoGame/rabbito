@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -11,9 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
+
 import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
@@ -101,11 +102,21 @@ playButtons() {
               }
               currentUser = game_widget_user_mod.User(
                 user.username!,
+                avatar: user.avatar!,
+                cardBg: 1,
                 refreshToken: user.refreshToken!,
                 accessToken: user.accessToken!,
               );
               final game = await Game.join(currentUser);
-              Get.to(() => GameWidget(game));
+              unawaited(
+                  AppController.appController.menuMusicAudioPlayer.pause());
+              Get.to(
+                () => GameWidget(
+                  game,
+                  afterGameTodo: () =>
+                      AppController.appController.menuMusicAudioPlayer.resume(),
+                ),
+              );
             },
             // innerColor: const Color(0xff6383F7),
             innerColor: Colors.deepOrangeAccent,
