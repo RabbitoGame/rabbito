@@ -1,20 +1,22 @@
-import 'package:rabbito/controller/app_controller.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
-import 'package:rabbito/global/strings/user_strings.dart';
-import 'package:rabbito/global/apis.dart';
-import 'package:rabbito/global/strings/request_strings.dart';
-import 'package:rabbito/model/user_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:game_widget2/models/avatar.dart';
 import 'package:http/http.dart';
 import 'package:http/src/response.dart' as httpResponse;
+import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/apis.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
+import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/model/user_preferences.dart';
 
 class User {
   static const maxHearts = 7;
   static const startCoin = 7;
   String? username;
   String? email;
-  String? avatar;
+  Avatar? avatar;
   String? joinDate;
   String? accessToken;
   String? refreshToken;
@@ -29,6 +31,7 @@ class User {
 
   User({
     required this.username,
+    Avatar? avatar,
     required this.hearts,
     required this.carrot,
     required this.coin,
@@ -36,7 +39,7 @@ class User {
     required this.xpLevel,
     this.accessToken,
     required this.refreshToken,
-  });
+  }) : this.avatar = avatar ?? Avatar.defaultAvatar();
 
   // league: mainData[UserStrings.league],
   // rank: mainData[UserStrings.rank],
@@ -54,6 +57,7 @@ class User {
         carrot: mainData[UserStrings.carrot],
         // xp: mainData[UserStrings.xp],
         // xplevel: mainData[UserStrings.xpLevel],
+        // avatar fixme add when added in server
         xp: 0,
         xpLevel: 0,
         accessToken: responseData[UserStrings.accessToken],
@@ -71,7 +75,8 @@ class User {
         accessToken: responseData[UserStrings.accessToken],
         refreshToken: responseData[UserStrings.refreshToken]);
   }
-  static logOut(){
+
+  static logOut() {
     AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
     UserPreferences.removeUser();
   }
@@ -80,8 +85,7 @@ class User {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
     var refreshData = {
-      UserStrings.refreshToken:
-          refreshToken,
+      UserStrings.refreshToken: refreshToken,
     };
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
@@ -241,7 +245,6 @@ class User {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',
         RequestStrings.data: responseData,
-
       };
     } else {
       result = {
@@ -262,10 +265,10 @@ class User {
   }
 
   static String calculateLeagueImageString(league) {
-    String base= ImageStrings.league;
-    String main="";
+    String base = ImageStrings.league;
+    String main = "";
 
-    switch ((league~/3)){
+    switch ((league ~/ 3)) {
       case 0:
         main = "Bronze_";
         break;
@@ -287,7 +290,7 @@ class User {
       default:
         print("fucked up in calculate league image string");
     }
-    main+= (league.remainder(3)+1).toString()+".png";
-    return base+main;
+    main += (league.remainder(3) + 1).toString() + ".png";
+    return base + main;
   }
 }

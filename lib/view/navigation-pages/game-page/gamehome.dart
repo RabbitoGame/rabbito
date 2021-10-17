@@ -98,7 +98,7 @@ playButtons() {
               }
               currentUser = game_widget_user_mod.User(
                 user.username!,
-                avatar: Avatar.defaultAvatar(),
+                avatar: user.avatar!,
                 cardBg: 1,
                 refreshToken: user.refreshToken!,
                 accessToken: user.accessToken!,
