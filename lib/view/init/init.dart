@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
@@ -20,6 +21,7 @@ class InitPage extends StatelessWidget {
       systemNavigationBarColor: Color(0xff301b49), // navigation bar color
     ));
     return GetMaterialApp(
+      builder: (context, child) => FlutterSmartDialog(child: child),
       theme: ThemeData(
           primaryColor: Colors.red,
           accentColor: Colors.yellowAccent,
