@@ -26,7 +26,11 @@ Widget gameMenu(BuildContext context) {
         fit: BoxFit.fill,
       ),
     ),
-    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+    padding: SizeConfig.screenHeight > 500
+        ? EdgeInsets.fromLTRB(SizeConfig.padding3, SizeConfig.padding3 / 2,
+            SizeConfig.padding3, SizeConfig.padding3 / 2)
+        : EdgeInsets.fromLTRB(SizeConfig.padding2, SizeConfig.padding2 / 2,
+        SizeConfig.padding2, SizeConfig.padding2 / 2),
     child: Column(
       children: [
         Expanded(

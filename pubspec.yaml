@@ -53,6 +53,7 @@ dependencies:
   audioplayers: ^0.20.1
   game_widget2:
     git: https://github.com/dorrin-sot/game_widget2.git
+  tapsell_plus: ^2.1.4
 
 
 

@@ -6,22 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/wheel.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 import '../custom_container.dart';
 
 class FortuneWheelPage extends StatelessWidget {
   StreamController<int> controller = StreamController<int>();
   Random _random = Random();
   int max = 10;
-  var radius ;
-  var lowPadding ;
-  var highPadding ;
-  var backButtonSize ;
+  var radius;
+
+  var lowPadding;
+
+  var highPadding;
+
+  var backButtonSize;
+
   @override
   Widget build(BuildContext context) {
-     radius = SizeConfig.blockSizeHorizontal*1;
-     lowPadding =SizeConfig.blockSizeHorizontal*1;
-     highPadding =SizeConfig.blockSizeHorizontal*3;
-     backButtonSize =SizeConfig.blockSizeHorizontal*12;
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
     return Stack(
       children: [
         Container(
@@ -38,25 +43,38 @@ class FortuneWheelPage extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding:  EdgeInsets.all(lowPadding),
+            padding: EdgeInsets.all(lowPadding),
             child: Column(
               children: [
                 Expanded(
                   flex: 5,
                   child: Padding(
                     padding: EdgeInsets.all(highPadding),
-                    child: Stack(
+                    child: Column(
                       children: [
-                        Align(
-                          child: Image.asset(
-                            ImageStrings.gameHomeRoulette2Asset,
-                            // width: 300,
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(SizeConfig.padding2),
+                            child: watchAds(),
                           ),
-                          alignment: Alignment.center,
                         ),
-                        Align(
-                          child: Wheel(controller),
-                          alignment: Alignment.center,
+                        Expanded(
+                          flex: 3,
+                          child: Stack(
+                            children: [
+                              Align(
+                                child: Image.asset(
+                                  ImageStrings.gameHomeRoulette2Asset,
+                                  // width: 300,
+                                ),
+                                alignment: Alignment.center,
+                              ),
+                              Align(
+                                child: Wheel(controller),
+                                alignment: Alignment.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -87,18 +105,32 @@ class FortuneWheelPage extends StatelessWidget {
   watchAds() {
     return Material(
       color: Colors.blueGrey,
-      borderRadius: BorderRadius.circular(radius*2),
+      borderRadius: BorderRadius.circular(radius * 2),
       child: InkWell(
-        onTap: () {
-          //todo call ads api
+        onTap: () async {
+          final zoneId = "616c4cfd7475fa0c7cac706a";
+          TapsellPlus.instance
+              .requestRewardedVideoAd(zoneId)
+              .then((responseId) {
+            TapsellPlus.instance.showRewardedVideoAd(responseId,
+                onOpened: (map) {
+              // Ad opened
+            }, onError: (map) {
+              // Ad had error - map contains `error_message`
+            }, onRewarded: (map) {
+              // Ad shown completely
+            }, onClosed: (map) {
+              // Ad closed
+            });
+          });
         },
         child: Padding(
-          padding:  EdgeInsets.all(lowPadding),
+          padding: EdgeInsets.all(lowPadding),
           child: Row(
             children: [
               Expanded(
                 child: Padding(
-                  padding:  EdgeInsets.all(lowPadding),
+                  padding: EdgeInsets.all(lowPadding),
                   child: Image.asset(
                     ImageStrings.widgetsAd3Asset,
                   ),
@@ -110,14 +142,12 @@ class FortuneWheelPage extends StatelessWidget {
                   "watch video for another try!",
                   textAlign: TextAlign.start,
                   minFontSize: 10,
-
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                   maxLines: 1,
-
                 ),
               ),
             ],
