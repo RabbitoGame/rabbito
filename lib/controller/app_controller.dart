@@ -13,7 +13,9 @@ class AppController extends GetxController {
   static late AppController appController;
   Rx<bool> _firstEntrance = true.obs;
   Rx<bool> _loginScreenStatus = false.obs;
-  Rx<bool> _timerIsFirst = true.obs;
+  Rx<bool> _gifTimerIsFirst = true.obs;
+  Rx<bool> hasTicketForWheel = true.obs;
+  late DateTime ticketDate =DateTime.now();
   late Random _random;
 
   Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
@@ -132,9 +134,9 @@ class AppController extends GetxController {
   void initiateGamePageGifTimer() {
     _random = Random();
     _timer.value = Timer.periodic(Duration(seconds: 3), (timer) {
-      if (_timerIsFirst.value) {
+      if (_gifTimerIsFirst.value) {
         _gifStatus.value = GifStatus.Gif1;
-        _timerIsFirst.value = false;
+        _gifTimerIsFirst.value = false;
       } else {
         if (_random.nextBool()) {
           _gifStatus.value = GifStatus.Gif2;

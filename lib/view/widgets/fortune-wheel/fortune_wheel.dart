@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/wheel.dart';
@@ -112,16 +114,22 @@ class FortuneWheelPage extends StatelessWidget {
           TapsellPlus.instance
               .requestRewardedVideoAd(zoneId)
               .then((responseId) {
-            TapsellPlus.instance.showRewardedVideoAd(responseId,
-                onOpened: (map) {
-              // Ad opened
-            }, onError: (map) {
-              // Ad had error - map contains `error_message`
-            }, onRewarded: (map) {
-              // Ad shown completely
-            }, onClosed: (map) {
-              // Ad closed
-            });
+            TapsellPlus.instance.showRewardedVideoAd(
+              responseId,
+              onOpened: (map) {
+                // Ad opened
+              },
+              onError: (map) {
+                Get.snackbar("error", "error happend while opening video");
+              },
+              onRewarded: (map) {
+                AppController.appController.hasTicketForWheel.value = true;
+              },
+              onClosed: (map) {
+                Get.snackbar("finish early",
+                    "you closed ad and did'nt watch it completely");
+              },
+            );
           });
         },
         child: Padding(
@@ -158,6 +166,14 @@ class FortuneWheelPage extends StatelessWidget {
   }
 
   rotateButton() {
+    if (!AppController.appController.hasTicketForWheel.value) {
+      if (DateTime.now()
+              .difference(AppController.appController.ticketDate)
+              .inDays >
+          0) {
+        AppController.appController.hasTicketForWheel.value = true;
+      }
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
       child: Row(
@@ -167,20 +183,30 @@ class FortuneWheelPage extends StatelessWidget {
           ),
           Expanded(
             // flex: 5,
-            child: CustomContainer(
-              child: Text(
-                "role!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            child: Obx(() {
+              return CustomContainer(
+                child: Text(
+                  AppController.appController.hasTicketForWheel.value
+                      ? "role!"
+                      : "try later",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              onPressed: () => WheelController.setWinValue(controller),
-              innerColor: Colors.red,
-              outerColor: Colors.brown,
-            ),
+                onPressed: AppController.appController.hasTicketForWheel.value
+                    ? () => WheelController.setWinValue(controller)
+                    : null,
+                innerColor: AppController.appController.hasTicketForWheel.value
+                    ? Colors.red
+                    : Colors.blueGrey,
+                outerColor: AppController.appController.hasTicketForWheel.value
+                    ? Colors.brown
+                    : Colors.grey,
+              );
+            }),
           )
         ],
       ),

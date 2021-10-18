@@ -320,6 +320,8 @@ class Wheel extends StatelessWidget {
       isHeart: isHeart,
     );
     if (result[RequestStrings.status]) {
+      AppController.appController.hasTicketForWheel.value = false;
+      AppController.appController.ticketDate = DateTime.now();
       if (isHeart) {
         User.addHeart(wheelController.amountPrize.value);
       } else {
