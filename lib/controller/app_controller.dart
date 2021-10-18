@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:math';
 
@@ -11,14 +9,13 @@ import 'package:rabbito/model/user_preferences.dart';
 import '../model/user.dart';
 import 'package:get/get.dart';
 
-
-
 class AppController extends GetxController {
   static late AppController appController;
   Rx<bool> _firstEntrance = true.obs;
   Rx<bool> _loginScreenStatus = false.obs;
   Rx<bool> _timerIsFirst = true.obs;
-  late Random _random ;
+  late Random _random;
+
   Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
   Rx<GifStatus> _gifStatus = GifStatus.Gif1.obs;
 
@@ -26,16 +23,26 @@ class AppController extends GetxController {
 
   late AudioCache menuMusicAudioCache;
   late AudioPlayer effectsAudioPlayer;
-  late double musicVolume=0.5;
-  late double soundEffectsVolume=0.5;
+  late double musicVolume = 0.5;
+  late double soundEffectsVolume = 0.5;
   late AudioCache effectsAudioCache;
+
   Rx<Status> get loggedInStatus => _loggedInStatus;
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
+
   Rx<Status> get registeredInStatus => _registeredInStatus;
-  Rx<Timer>  _timer = Timer.periodic(Duration(seconds: 1),(x){}).obs;
+  Rx<Timer> _timer = Timer.periodic(Duration(seconds: 1), (x) {}).obs;
 
-  User? currUser;
-
+  Rx<User>? currUser = User(
+    xp: 0,
+    refreshToken: '',
+    coin: null,
+    id: null,
+    hearts: null,
+    username: '',
+    xpLevel: null,
+    carrot: null,
+  ).obs;
 
   Rx<GifStatus> get gifStatus => _gifStatus;
 
@@ -49,7 +56,6 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
-
     initiateGamePageGifTimer();
     await prefsOnInit();
     await setMusic();
@@ -61,7 +67,6 @@ class AppController extends GetxController {
   set firstEntrance(Rx<bool> value) {
     _firstEntrance = value;
   }
-
 
   Rx<bool> get loginScreenStatus => _loginScreenStatus;
 
@@ -75,33 +80,43 @@ class AppController extends GetxController {
     // await getMusicVolumePrefs();
     update();
   }
-  static bool isLoggedIn(){
+
+  static bool isLoggedIn() {
     return appController._loggedInStatus.value == Status.LoggedIn;
   }
-  static int getXp(){
-    return AppController.appController.currUser!.xp!;
+
+  static int getXp() {
+    return AppController.appController.currUser!.value.xp!;
   }
-  static int getXpLevel(){
-    return AppController.appController.currUser!.xpLevel!+1;
+
+  static int getXpLevel() {
+    return AppController.appController.currUser!.value.xpLevel! + 1;
   }
-  static int getCoin(){
-    return AppController.appController.currUser!.coin!;
+
+  static int getCoin() {
+    return AppController.appController.currUser!.value.coin!;
   }
-  static int getHeart(){
-    return AppController.appController.currUser!.hearts!;
+
+  static int getHeart() {
+    return AppController.appController.currUser!.value.hearts!;
   }
-  static int getCarrot(){
-    return AppController.appController.currUser!.carrot!;
+
+  static int getCarrot() {
+    return AppController.appController.currUser!.value.carrot!;
   }
-  static int getXpMax(){
+
+  static int getXpMax() {
     return 1000;
   }
+
   static getUsername() {
-    return AppController.appController.currUser!.username!;
+    return AppController.appController.currUser!.value.username!;
   }
+
   static getDate() {
     return "date";
   }
+
   static getLanguage() {
     return "Learning English";
   }
@@ -117,21 +132,20 @@ class AppController extends GetxController {
   void initiateGamePageGifTimer() {
     _random = Random();
     _timer.value = Timer.periodic(Duration(seconds: 3), (timer) {
-      if(_timerIsFirst.value) {
+      if (_timerIsFirst.value) {
         _gifStatus.value = GifStatus.Gif1;
         _timerIsFirst.value = false;
-      }else{
-        if(_random.nextBool()){
+      } else {
+        if (_random.nextBool()) {
           _gifStatus.value = GifStatus.Gif2;
-        }else{
+        } else {
           _gifStatus.value = GifStatus.Image;
         }
       }
     });
   }
 
-  setMusic() async{
-
+  setMusic() async {
     menuMusicAudioPlayer = AudioPlayer();
     effectsAudioPlayer = AudioPlayer();
     menuMusicAudioCache = AudioCache(
@@ -140,12 +154,7 @@ class AppController extends GetxController {
     );
     await menuMusicAudioCache!.loop('MenuMusic.mp3');
     UserPreferences.readMusic();
-
   }
-
-
-
-
 }
 
 enum Status {
@@ -157,7 +166,7 @@ enum Status {
   Registering,
   LoggedOut
 }
-enum GifStatus{
+enum GifStatus {
   Gif1,
   Gif2,
   Image,

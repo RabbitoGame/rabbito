@@ -22,4 +22,6 @@ class UserStrings {
   static const String correctMatches = "correctMatches";
   static const String win = "win";
   static const String loose = "loose";
+
+  static const String id = "id";
 }

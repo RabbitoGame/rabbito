@@ -83,7 +83,7 @@ class Init {
         if (result[RequestStrings.status]) {
           user.refreshToken = result[UserStrings.refreshToken];
           user.accessToken = result[UserStrings.accessToken];
-          AppController.appController.currUser = user;
+          AppController.appController.currUser = user.obs;
         } else {
           UserPreferences.removeUser();
         }

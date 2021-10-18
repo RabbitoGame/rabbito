@@ -33,7 +33,7 @@ class FutureAppBar extends StatelessWidget {
                   child: Center(
                     child: Obx(() {
                       return Text(
-                        AppController.isLoggedIn()
+                        AppController.appController.loggedInStatus.value == Status.LoggedIn
                             ? AppController.getCoin().toString()
                             : UserStrings.emptyInfo,
                         style: TextStyle(

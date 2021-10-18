@@ -24,7 +24,7 @@ class ProfileUI2 extends StatelessWidget {
   Widget build(BuildContext context) {
     AutoSizeGroup group = AutoSizeGroup();
     print(
-        'assets/images/avatars/Faces/face_${AppController.appController.currUser!.avatar!.face}.png');
+        'assets/images/avatars/Faces/face_${AppController.appController.currUser!.value.avatar!.face}.png');
     return Container(
       color: Colors.white,
       child: Container(
@@ -41,7 +41,7 @@ class ProfileUI2 extends StatelessWidget {
                     // alignment: Alignment(0.0, 5),
                     alignment: Alignment(0, 10),
                     child: ProfileWidget(
-                      AppController.appController.currUser!.avatar!,
+                      AppController.appController.currUser!.value.avatar!,
                       backgroundColor: Colors.green,
                       radius: height * 10,
                     ),

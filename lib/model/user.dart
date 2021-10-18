@@ -28,6 +28,7 @@ class User {
   int? league;
   int? leagueLevel;
   int? rank;
+  int? id;
 
   User({
     required this.username,
@@ -37,14 +38,11 @@ class User {
     required this.coin,
     required this.xp,
     required this.xpLevel,
+    required this.id,
     this.accessToken,
     required this.refreshToken,
   }) : this.avatar = avatar ?? Avatar.defaultAvatar();
 
-  // league: mainData[UserStrings.league],
-  // rank: mainData[UserStrings.rank],
-  // avatar: mainData[UserStrings.avatar],
-  // joinDate: mainData[UserStrings.joinDate],
   factory User.fromJson(
     Map<String, dynamic> responseData,
     String username,
@@ -58,6 +56,7 @@ class User {
         // xp: mainData[UserStrings.xp],
         // xplevel: mainData[UserStrings.xpLevel],
         // avatar fixme add when added in server
+        id: mainData[UserStrings.id],
         xp: 0,
         xpLevel: 0,
         accessToken: responseData[UserStrings.accessToken],
@@ -70,6 +69,7 @@ class User {
         hearts: maxHearts,
         coin: startCoin,
         carrot: 0,
+        id: responseData["id"],
         xp: 0,
         xpLevel: 0,
         accessToken: responseData[UserStrings.accessToken],
@@ -234,11 +234,52 @@ class User {
       Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
-            AppController.appController.currUser!.accessToken!,
+            AppController.appController.currUser!.value.accessToken!,
       },
     );
 
     if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      result = {
+        RequestStrings.status: true,
+        RequestStrings.message: 'Successful',
+        RequestStrings.data: responseData,
+      };
+    } else {
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+    }
+    return result;
+  }
+
+  static Future<Map<String, dynamic>> transactions({
+    required bool isHeart,
+    required int amount,
+    required bool isIncrease,
+  }) async {
+    var result;
+    var data = {
+      RequestStrings.transactionType: isIncrease ? "increase" : "decrease",
+      RequestStrings.modelType: isHeart ? "heart" : "coin",
+      RequestStrings.amount: amount,
+      RequestStrings.gamer: AppController.appController.currUser!.value.id,
+    };
+    print("sallll");
+    httpResponse.Response response = await post(
+      Uri.parse(AppUrl.transactions),
+      headers: {
+        RequestStrings.authentication:
+            "JWT " + AppController.appController.currUser!.value.accessToken!,
+        RequestStrings.contentType: RequestStrings.appJson,
+      },
+      body: json.encode(data),
+    );
+    print("salam001");
+    print(response.body.toString());
+    if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
       result = {
@@ -292,5 +333,15 @@ class User {
     }
     main += (league.remainder(3) + 1).toString() + ".png";
     return base + main;
+  }
+
+  static void addHeart(int value) {
+    value = AppController.appController.currUser!.value.hearts! + value;
+
+    if (value > 7) {
+      value = 7;
+    }
+    AppController.appController.currUser!
+        .update((val) => (val as User).hearts = value);
   }
 }

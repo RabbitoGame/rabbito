@@ -16,6 +16,7 @@ class UserPreferences {
     prefs.setInt(UserStrings.coin, user.coin!);
     prefs.setInt(UserStrings.xp, user.xp!);
     prefs.setInt(UserStrings.xpLevel, user.xpLevel!);
+    prefs.setInt(UserStrings.id, user.id!);
 
     //todo save token using secure storage
     FlutterSecureStorage _storage = FlutterSecureStorage();
@@ -57,11 +58,13 @@ class UserPreferences {
     int? coin = prefs.getInt(UserStrings.coin);
     int? xp = prefs.getInt(UserStrings.xp);
     int? xpLevel = prefs.getInt(UserStrings.xpLevel);
+    int? id = prefs.getInt(UserStrings.id);
 
     //todo read refresh token by secure storage
     String? refreshToken = await getRefreshToken();
 
     return User(
+      id:id,
       xp: xp,
       carrot: carrot,
       coin: coin,
@@ -81,6 +84,7 @@ class UserPreferences {
     prefs.remove(UserStrings.coin);
     prefs.remove(UserStrings.carrot);
     prefs.remove(UserStrings.hearts);
+    prefs.remove(UserStrings.id);
   }
 
   static Future<String?> getRefreshToken() async {
