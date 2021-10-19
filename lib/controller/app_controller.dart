@@ -3,8 +3,13 @@ import 'dart:math';
 
 // import 'package:just_audio/just_audio.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
 import 'package:rabbito/model/user_preferences.dart';
+import 'package:rabbito/view/widgets/custom_container.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 
 import '../model/user.dart';
 import 'package:get/get.dart';
@@ -32,6 +37,8 @@ class AppController extends GetxController {
   late double musicVolume = 0.5;
   late double soundEffectsVolume = 0.5;
   late AudioCache effectsAudioCache;
+  RxBool isAdReady = false.obs;
+  Widget? bannerAdWidget;
 
   Rx<Status> get loggedInStatus => _loggedInStatus;
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
@@ -62,7 +69,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
-
+    initiateBannerAd();
     initiateHeartTimer();
     initiateGamePageGifTimer();
     await prefsOnInit();
@@ -167,12 +174,84 @@ class AppController extends GetxController {
   void initiateHeartTimer() {
     globalHeartTimer.value = Timer.periodic(
       Duration(minutes: globalHeartTimerLong),
-          (timer) {
+      (timer) {
         if (AppController.isLoggedIn()) {
           User.addHeart(1);
         }
       },
     );
+  }
+
+  void initiateBannerAd() {
+    final zoneId = "616e850690f1c157757c541c";
+    TapsellPlus.instance.requestNativeAd(zoneId).then((responseId) {
+      TapsellPlus.instance.showNativeAd(responseId, onOpened: (nativeAd) {
+        bannerAdWidget = Container(
+          color: Colors.white.withOpacity(0.5),
+          width: double.maxFinite,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Image.network(
+                  nativeAd.iconUrl!,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(nativeAd.title!),
+                      Text(nativeAd.description!),
+                    ]),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: CustomContainer(
+                    child: Padding(
+                      padding: EdgeInsets.all(4),
+                      child: FittedBox(
+                        child: Text(
+                          nativeAd.callToActionText!,
+                          textDirection: TextDirection.rtl,
+                        ),
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    onPressed: () {
+                      TapsellPlus.instance.nativeBannerAdClicked(responseId);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+        print("what???");
+        AppController.appController.isAdReady.value = true;
+        print("ad done");
+      }, onError: (errorPayload) {
+        print("errorr ad");
+      });
+    }).catchError((error) {
+      Get.snackbar("error", "error in ad opening");
+    });
   }
 }
 

@@ -9,16 +9,23 @@ import 'package:game_widget2/models/user.dart' as game_widget_user_mod;
 import 'package:game_widget2/views/game_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
+import 'package:rabbito/view/widgets/loading.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 
 import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
   SizeConfig().init(context);
+  var paddings = SizeConfig.screenHeight > 500
+      ? EdgeInsets.fromLTRB(SizeConfig.padding3, 0, SizeConfig.padding3, 0)
+      : EdgeInsets.fromLTRB(SizeConfig.padding2, 0, SizeConfig.padding2, 0);
+
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
@@ -27,19 +34,21 @@ Widget gameMenu(BuildContext context) {
         fit: BoxFit.fill,
       ),
     ),
-    padding: SizeConfig.screenHeight > 500
-        ? EdgeInsets.fromLTRB(SizeConfig.padding3, SizeConfig.padding3 / 2,
-            SizeConfig.padding3, SizeConfig.padding3 / 2)
-        : EdgeInsets.fromLTRB(SizeConfig.padding2, SizeConfig.padding2 / 2,
-        SizeConfig.padding2, SizeConfig.padding2 / 2),
     child: Column(
       children: [
         Expanded(
-          flex: SizeConfig.screenHeight > 500 ? 3 : 4,
-          child: GameAppBar(),
+          flex: SizeConfig.screenHeight > 500 ? 12 : 16,
+          child: Padding(
+            padding: SizeConfig.screenHeight > 500
+                ? EdgeInsets.fromLTRB(SizeConfig.padding3,
+                    SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
+                : EdgeInsets.fromLTRB(SizeConfig.padding2,
+                    SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
+            child: GameAppBar(),
+          ),
         ),
         Expanded(
-          flex: 8,
+          flex: 28,
           child: Obx(() {
             String asset = "";
             var x = AppController.appController.gifStatus.value;
@@ -50,14 +59,25 @@ Widget gameMenu(BuildContext context) {
                     : GifStrings.rabittoLastFrameGif;
             return Image.asset(
               asset,
-              fit: BoxFit.cover,
+              // fit: BoxFit.fitWidth,
             );
           }),
         ),
         Expanded(
-          flex: 3,
-          child: playButtons(),
+          flex: 8,
+          child: Padding(
+            padding: paddings,
+            child: playButtons(),
+          )
         ),
+        Obx(() {
+          return Expanded(
+            flex: 5,
+            child: AppController.appController.isAdReady.value
+                ? AppController.appController.bannerAdWidget!
+                : LoadingWidget(Indicator.ballBeat),
+          );
+        })
       ],
     ),
   );

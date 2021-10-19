@@ -4,6 +4,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user.dart';
@@ -57,6 +58,7 @@ class Init {
   Init._();
 
   static final instance = Init._();
+
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   Future initialize() async {
@@ -99,13 +101,17 @@ class Init {
 
 class _Handler extends WidgetsBindingObserver {
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async{
     if (state == AppLifecycleState.resumed) {
       AppController.appController.menuMusicAudioPlayer
           .resume(); // Audio player is a custom class with resume and pause static methods
     } else {
       AppController.appController.menuMusicAudioPlayer.pause();
       UserPreferences.saveMusic();
+      if(AppController.isLoggedIn()){
+        print("background opendddedd");
+        await UserPreferences.saveUser(AppController.appController.currUser!.value);
+      }
     }
   }
 }
