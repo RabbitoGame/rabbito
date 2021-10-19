@@ -9,13 +9,17 @@ import 'package:rabbito/model/user_preferences.dart';
 import '../model/user.dart';
 import 'package:get/get.dart';
 
+const int globalHeartTimerLong = 2;
+
 class AppController extends GetxController {
   static late AppController appController;
   Rx<bool> _firstEntrance = true.obs;
   Rx<bool> _loginScreenStatus = false.obs;
   Rx<bool> _gifTimerIsFirst = true.obs;
   Rx<bool> hasTicketForWheel = true.obs;
-  late DateTime ticketDate =DateTime.now();
+  Rx<Timer> globalHeartTimer =
+      Timer.periodic(Duration(minutes: globalHeartTimerLong), (timer) {}).obs;
+  late DateTime ticketDate = DateTime.now();
   late Random _random;
 
   Rx<Status> _loggedInStatus = Status.NotLoggedIn.obs;
@@ -58,6 +62,8 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
+
+    initiateHeartTimer();
     initiateGamePageGifTimer();
     await prefsOnInit();
     await setMusic();
@@ -156,6 +162,17 @@ class AppController extends GetxController {
     );
     await menuMusicAudioCache!.loop('MenuMusic.mp3');
     UserPreferences.readMusic();
+  }
+
+  void initiateHeartTimer() {
+    globalHeartTimer.value = Timer.periodic(
+      Duration(minutes: globalHeartTimerLong),
+          (timer) {
+        if (AppController.isLoggedIn()) {
+          User.addHeart(1);
+        }
+      },
+    );
   }
 }
 
