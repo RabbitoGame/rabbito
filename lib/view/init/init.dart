@@ -21,6 +21,7 @@ class InitPage extends StatelessWidget {
       systemNavigationBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Color(0xff301b49), // navigation bar color
     ));
+
     return GetMaterialApp(
       builder: (context, child) => FlutterSmartDialog(child: child),
       theme: ThemeData(

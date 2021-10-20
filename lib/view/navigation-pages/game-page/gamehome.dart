@@ -22,6 +22,8 @@ import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
   SizeConfig().init(context);
+  AppController.appController.initiateBannerAd();
+
   var paddings = SizeConfig.screenHeight > 500
       ? EdgeInsets.fromLTRB(SizeConfig.padding3, 0, SizeConfig.padding3, 0)
       : EdgeInsets.fromLTRB(SizeConfig.padding2, 0, SizeConfig.padding2, 0);
@@ -41,22 +43,22 @@ Widget gameMenu(BuildContext context) {
           child: Padding(
             padding: SizeConfig.screenHeight > 500
                 ? EdgeInsets.fromLTRB(SizeConfig.padding3,
-                    SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
+                SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
                 : EdgeInsets.fromLTRB(SizeConfig.padding2,
-                    SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
+                SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
             child: GameAppBar(),
           ),
         ),
         Expanded(
-          flex: 28,
+          flex: 24,
           child: Obx(() {
             String asset = "";
             var x = AppController.appController.gifStatus.value;
             asset = x == GifStatus.Gif1
                 ? GifStrings.rabittoStarterGif
                 : x == GifStatus.Gif2
-                    ? GifStrings.rabittoWavingGif
-                    : GifStrings.rabittoLastFrameGif;
+                ? GifStrings.rabittoWavingGif
+                : GifStrings.rabittoLastFrameGif;
             return Image.asset(
               asset,
               // fit: BoxFit.fitWidth,
@@ -64,12 +66,11 @@ Widget gameMenu(BuildContext context) {
           }),
         ),
         Expanded(
-          flex: 8,
-          child: Padding(
-            padding: paddings,
-            child: playButtons(),
-          )
-        ),
+            flex: 8,
+            child: Padding(
+              padding: paddings,
+              child: playButtons(),
+            )),
         Obx(() {
           return Expanded(
             flex: 5,
@@ -77,7 +78,8 @@ Widget gameMenu(BuildContext context) {
                 ? AppController.appController.bannerAdWidget!
                 : LoadingWidget(Indicator.ballBeat),
           );
-        })
+        }),
+
       ],
     ),
   );
@@ -131,11 +133,13 @@ playButtons() {
               unawaited(
                   AppController.appController.menuMusicAudioPlayer.pause());
               Get.to(
-                () => GameWidget(
-                  game,
-                  afterGameTodo: () =>
-                      AppController.appController.menuMusicAudioPlayer.resume(),
-                ),
+                    () =>
+                    GameWidget(
+                      game,
+                      afterGameTodo: () =>
+                          AppController.appController.menuMusicAudioPlayer
+                              .resume(),
+                    ),
               );
             },
             // innerColor: const Color(0xff6383F7),

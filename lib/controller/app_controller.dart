@@ -40,6 +40,8 @@ class AppController extends GetxController {
   RxBool isAdReady = false.obs;
   Widget? bannerAdWidget;
 
+  Size? size;
+
   Rx<Status> get loggedInStatus => _loggedInStatus;
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
 
@@ -69,7 +71,6 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
-    initiateBannerAd();
     initiateHeartTimer();
     initiateGamePageGifTimer();
     await prefsOnInit();
@@ -189,6 +190,7 @@ class AppController extends GetxController {
         bannerAdWidget = Container(
           color: Colors.white.withOpacity(0.5),
           width: double.maxFinite,
+          padding: EdgeInsets.all(SizeConfig.padding2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -212,32 +214,47 @@ class AppController extends GetxController {
               Expanded(
                 flex: 4,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(nativeAd.title!),
-                      Text(nativeAd.description!),
+                      Expanded(
+                        child: Text(
+                          nativeAd.title!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          nativeAd.description!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ),
                     ]),
               ),
               Expanded(
                 flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: CustomContainer(
-                    child: Padding(
-                      padding: EdgeInsets.all(4),
-                      child: FittedBox(
-                        child: Text(
-                          nativeAd.callToActionText!,
-                          textDirection: TextDirection.rtl,
-                        ),
-                        fit: BoxFit.scaleDown,
+                child: CustomContainer(
+                  child: Padding(
+                    padding: EdgeInsets.all(SizeConfig.padding1),
+                    child: FittedBox(
+                      child: Text(
+                        nativeAd.callToActionText!,
+                        textDirection: TextDirection.rtl,
                       ),
+                      fit: BoxFit.scaleDown,
                     ),
-                    onPressed: () {
-                      TapsellPlus.instance.nativeBannerAdClicked(responseId);
-                    },
                   ),
+                  onPressed: () {
+                    TapsellPlus.instance.nativeBannerAdClicked(responseId);
+                  },
                 ),
               ),
             ],
@@ -252,6 +269,36 @@ class AppController extends GetxController {
     }).catchError((error) {
       Get.snackbar("error", "error in ad opening");
     });
+  }
+
+  void initiateStandardBannerAd() {
+    var zoneId = "616fd4c3eedd084fd3e09fda";
+    TapsellPlus.instance
+        .requestStandardBannerAd(zoneId, TapsellPlusBannerType.BANNER_320x50)
+        .then(
+      (responseId) {
+        TapsellPlus.instance.showStandardBannerAd(
+          responseId,
+          TapsellPlusHorizontalGravity.BOTTOM,
+          TapsellPlusVerticalGravity.CENTER,
+          margin: EdgeInsets.only(
+            bottom: SizeConfig.screenHeight > 500 ? 180 : 135,
+          ),
+          onOpened: (map) {
+            AppController.appController.isAdReady.value = true;
+
+            print('Ad opened - Data: $map');
+          },
+          onError: (map) {
+            print('Ad opened - Data: $map');
+          },
+        );
+      },
+    ).catchError(
+      (error) {
+        // Error when requesting for an ad
+      },
+    );
   }
 }
 

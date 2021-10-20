@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/view/navigation-pages/shop/avatar_card.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 
 import 'avatar_item.dart';
 import 'avatars.dart';
