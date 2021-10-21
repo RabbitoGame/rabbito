@@ -127,7 +127,7 @@ class FortuneWheelPage extends StatelessWidget {
               },
               onClosed: (map) {
                 Get.snackbar("finish early",
-                    "you closed ad and did'nt watch it completely");
+                    "you closed ad and didn't watch it completely");
               },
             );
           });

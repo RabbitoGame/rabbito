@@ -7,6 +7,7 @@ import 'package:game_widget2/main.dart';
 import 'package:game_widget2/models/game.dart';
 import 'package:game_widget2/models/user.dart' as game_widget_user_mod;
 import 'package:game_widget2/views/game_widget.dart';
+import 'package:game_widget2/views/placement_game_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -16,7 +17,7 @@ import 'package:rabbito/global/strings/gif_strings.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/loading.dart';
-import 'package:tapsell_plus/tapsell_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'game_page_appbar.dart';
 
@@ -43,9 +44,9 @@ Widget gameMenu(BuildContext context) {
           child: Padding(
             padding: SizeConfig.screenHeight > 500
                 ? EdgeInsets.fromLTRB(SizeConfig.padding3,
-                SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
+                    SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
                 : EdgeInsets.fromLTRB(SizeConfig.padding2,
-                SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
+                    SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
             child: GameAppBar(),
           ),
         ),
@@ -57,8 +58,8 @@ Widget gameMenu(BuildContext context) {
             asset = x == GifStatus.Gif1
                 ? GifStrings.rabittoStarterGif
                 : x == GifStatus.Gif2
-                ? GifStrings.rabittoWavingGif
-                : GifStrings.rabittoLastFrameGif;
+                    ? GifStrings.rabittoWavingGif
+                    : GifStrings.rabittoLastFrameGif;
             return Image.asset(
               asset,
               // fit: BoxFit.fitWidth,
@@ -79,7 +80,6 @@ Widget gameMenu(BuildContext context) {
                 : LoadingWidget(Indicator.ballBeat),
           );
         }),
-
       ],
     ),
   );
@@ -113,7 +113,7 @@ playButtons() {
               if (user == null) {
                 Get.snackbar(
                   'Login first!!',
-                  'You can\'t start playing without an account',
+                  'You can\'t start playing without an account. Tap to Signup right now!!',
                   isDismissible: true,
                   backgroundColor: Colors.black54,
                   colorText: Colors.white,
@@ -129,17 +129,34 @@ playButtons() {
                 refreshToken: user.value.refreshToken!,
                 accessToken: user.value.accessToken!,
               );
+
+              // if player hasnt dont placement game before start placement game widget instead
+              if (!(await SharedPreferences.getInstance())
+                  .containsKey(PlacementGameWidget.keyHasDonePlacement)) {
+                Get.snackbar(
+                  'Placement first!!',
+                  'Looks like you haven\'t played a Placement Game yet. Tap to start one right now!!',
+                  isDismissible: true,
+                  backgroundColor: Colors.black54,
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 5),
+                  onTap: (_) async {
+                    final rankWords = await PlacementGameWidget.getRankWords();
+                    Get.off(() => PlacementGameWidget(currentUser, rankWords));
+                  },
+                );
+                return;
+              }
+
               final game = await Game.join(currentUser);
               unawaited(
                   AppController.appController.menuMusicAudioPlayer.pause());
               Get.to(
-                    () =>
-                    GameWidget(
-                      game,
-                      afterGameTodo: () =>
-                          AppController.appController.menuMusicAudioPlayer
-                              .resume(),
-                    ),
+                () => GameWidget(
+                  game,
+                  afterGameTodo: () =>
+                      AppController.appController.menuMusicAudioPlayer.resume(),
+                ),
               );
             },
             // innerColor: const Color(0xff6383F7),
