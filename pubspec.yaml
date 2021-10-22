@@ -102,6 +102,71 @@ flutter:
     - assets/sounds/
 
 
+  fonts:
+    - family: Orbitron
+      fonts:
+        - asset: assets/fonts/Orbitron/Orbitron-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Orbitron/Orbitron-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Orbitron/Orbitron-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Orbitron/Orbitron-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Orbitron/Orbitron-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Orbitron/Orbitron-Regular.ttf
+          weight: 400
+    - family: LuckiestGuy
+      fonts:
+        - asset: assets/fonts/LuckiestGuy-Regular.ttf
+          weight: 400
+    - family: Titillium
+      fonts:
+        - asset: assets/fonts/Titillium/TitilliumWeb-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Titillium/TitilliumWeb-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Titillium/TitilliumWeb-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Titillium/TitilliumWeb-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Titillium/TitilliumWeb-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Titillium/TitilliumWeb-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Black.ttf
+          weight: 800
+    - family: Roboto_Condensed
+      fonts:
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf
+          weight: 700
+          style: italic
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
