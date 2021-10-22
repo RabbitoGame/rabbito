@@ -24,4 +24,6 @@ class UserStrings {
   static const String loose = "loose";
 
   static const String id = "id";
+
+  static const String heartTime = "heart-time";
 }

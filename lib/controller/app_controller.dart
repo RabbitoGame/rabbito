@@ -190,7 +190,7 @@ class AppController extends GetxController {
         bannerAdWidget = Container(
           color: Colors.white.withOpacity(0.5),
           width: double.maxFinite,
-          padding: EdgeInsets.all(SizeConfig.padding2),
+          padding: EdgeInsets.all(SizeConfig.padding1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -213,48 +213,60 @@ class AppController extends GetxController {
               ),
               Expanded(
                 flex: 4,
-                child: Column(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          nativeAd.title!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
+                child: Column(children: [
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        nativeAd.title!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
-                      Expanded(
-                        child: Text(
-                          nativeAd.description!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
+                    ),
+                  ),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        nativeAd.description!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
                         ),
                       ),
-                    ]),
+                    ),
+                  ),
+                ]),
               ),
               Expanded(
                 flex: 2,
-                child: CustomContainer(
-                  child: Padding(
-                    padding: EdgeInsets.all(SizeConfig.padding1),
-                    child: FittedBox(
-                      child: Text(
-                        nativeAd.callToActionText!,
-                        textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: EdgeInsets.all(SizeConfig.padding1),
+                  child: CustomContainer(
+                    innerColor: Colors.red,
+                    outerColor: Colors.redAccent,
+                    child: Padding(
+                      padding: EdgeInsets.all(SizeConfig.padding1),
+                      child: FittedBox(
+                        child: Text(
+                          nativeAd.callToActionText!,
+                          textDirection: TextDirection.rtl,
+
+                          style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold,),
+                        ),
+                        fit: BoxFit.scaleDown,
                       ),
-                      fit: BoxFit.scaleDown,
                     ),
+                    onPressed: () {
+                      TapsellPlus.instance.nativeBannerAdClicked(responseId);
+                    },
                   ),
-                  onPressed: () {
-                    TapsellPlus.instance.nativeBannerAdClicked(responseId);
-                  },
                 ),
               ),
             ],

@@ -19,7 +19,7 @@ class InitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xff301b49), // navigation bar color
+      systemNavigationBarColor: Colors.green, // navigation bar color
     ));
 
     return GetMaterialApp(
@@ -38,8 +38,16 @@ class InitPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SplashScreen();
           } else if (AppController.appController.firstEntrance.value) {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.white, // navigation bar color
+            ));
             return IntroductionScreen();
           } else {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Color(0xff301b49), // navigation bar color
+            ));
             return Container(
                 child: HomePage(title: 'Rabbito'), color: Colors.red);
           }
@@ -112,6 +120,8 @@ class _Handler extends WidgetsBindingObserver {
       if(AppController.isLoggedIn()){
         print("background opendddedd");
         await UserPreferences.saveUser(AppController.appController.currUser!.value);
+
+
       }
     }
   }

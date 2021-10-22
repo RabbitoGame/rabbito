@@ -50,7 +50,9 @@ class User {
     Map<String, dynamic> mainData = responseData["data"];
     return User(
         username: username,
-        hearts: mainData[UserStrings.hearts],
+        // fixme heart been removed
+        // hearts: mainData[UserStrings.hearts],
+        hearts: maxHearts,
         coin: mainData[UserStrings.coin],
         carrot: mainData[UserStrings.carrot],
         // xp: mainData[UserStrings.xp],
