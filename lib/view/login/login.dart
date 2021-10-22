@@ -15,69 +15,73 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var radius = SizeConfig.radius3 * 3;
 
-    return Container(
-      color: const Color(0xffd4d2d2),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Stack(
-              children: [
-                Align(
-                  child: Image.asset(
-                    'assets/images/rabbit/Waving.png',
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Container(
+        color: const Color(0xffd4d2d2),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Stack(
+                children: [
+                  Align(
+                    child: Image.asset(
+                      'assets/images/rabbit/Waving.png',
+                    ),
+                    alignment: Alignment.topRight,
                   ),
-                  alignment: Alignment.topRight,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(SizeConfig.padding3 * 2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Login',
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 35.0),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(SizeConfig.padding3 * 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Login',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 35.0),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: AutoSizeText(
-                            'Please sign in to continue',
-                            maxLines: 2,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                color: Colors.grey),
-                            minFontSize: 15,
+                          Expanded(
+                            child: AutoSizeText(
+                              'Please sign in to continue',
+                              maxLines: 2,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.grey),
+                              minFontSize: 15,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  right: SizeConfig.padding3 * 2,
-                  left: SizeConfig.padding3 * 2,
-                  top: SizeConfig.padding1,
-                  bottom: SizeConfig.padding3),
-              child: fields(radius),
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: SizeConfig.padding3 * 2,
+                    left: SizeConfig.padding3 * 2,
+                    top: SizeConfig.padding1,
+                    bottom: SizeConfig.padding3),
+                child: fields(radius),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
