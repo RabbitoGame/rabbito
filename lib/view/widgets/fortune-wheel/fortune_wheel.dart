@@ -3,25 +3,32 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/view/widgets/fortune-wheel/wheel.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 import '../custom_container.dart';
 
 class FortuneWheelPage extends StatelessWidget {
   StreamController<int> controller = StreamController<int>();
   Random _random = Random();
   int max = 10;
-  var radius ;
-  var lowPadding ;
-  var highPadding ;
-  var backButtonSize ;
+  var radius;
+
+  var lowPadding;
+
+  var highPadding;
+
+  var backButtonSize;
+
   @override
   Widget build(BuildContext context) {
-     radius = SizeConfig.blockSizeHorizontal*1;
-     lowPadding =SizeConfig.blockSizeHorizontal*1;
-     highPadding =SizeConfig.blockSizeHorizontal*3;
-     backButtonSize =SizeConfig.blockSizeHorizontal*12;
+    radius = SizeConfig.blockSizeHorizontal * 1;
+    lowPadding = SizeConfig.blockSizeHorizontal * 1;
+    highPadding = SizeConfig.blockSizeHorizontal * 3;
+    backButtonSize = SizeConfig.blockSizeHorizontal * 12;
     return Stack(
       children: [
         Container(
@@ -38,7 +45,7 @@ class FortuneWheelPage extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding:  EdgeInsets.all(lowPadding),
+            padding: EdgeInsets.all(lowPadding),
             child: Column(
               children: [
                 Expanded(
@@ -48,10 +55,13 @@ class FortuneWheelPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: watchAds(),
-                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.all(SizeConfig.padding2),
+                            child: watchAds(),
+                          ),
                         ),
                         Expanded(
+                          flex: 3,
                           child: Stack(
                             children: [
                               Align(
@@ -67,7 +77,6 @@ class FortuneWheelPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          flex: 6,
                         ),
                       ],
                     ),
@@ -98,18 +107,38 @@ class FortuneWheelPage extends StatelessWidget {
   watchAds() {
     return Material(
       color: Colors.blueGrey,
-      borderRadius: BorderRadius.circular(radius*2),
+      borderRadius: BorderRadius.circular(radius * 2),
       child: InkWell(
-        onTap: () {
-          //todo call ads api
+        onTap: () async {
+          final zoneId = "616c4cfd7475fa0c7cac706a";
+          TapsellPlus.instance
+              .requestRewardedVideoAd(zoneId)
+              .then((responseId) {
+            TapsellPlus.instance.showRewardedVideoAd(
+              responseId,
+              onOpened: (map) {
+                // Ad opened
+              },
+              onError: (map) {
+                Get.snackbar("error", "error happend while opening video");
+              },
+              onRewarded: (map) {
+                AppController.appController.hasTicketForWheel.value = true;
+              },
+              onClosed: (map) {
+                Get.snackbar("finish early",
+                    "you closed ad and didn't watch it completely");
+              },
+            );
+          });
         },
         child: Padding(
-          padding:  EdgeInsets.all(lowPadding),
+          padding: EdgeInsets.all(lowPadding),
           child: Row(
             children: [
               Expanded(
                 child: Padding(
-                  padding:  EdgeInsets.all(lowPadding),
+                  padding: EdgeInsets.all(lowPadding),
                   child: Image.asset(
                     ImageStrings.widgetsAd3Asset,
                   ),
@@ -121,14 +150,12 @@ class FortuneWheelPage extends StatelessWidget {
                   "watch video for another try!",
                   textAlign: TextAlign.start,
                   minFontSize: 10,
-
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                   maxLines: 1,
-
                 ),
               ),
             ],
@@ -139,6 +166,14 @@ class FortuneWheelPage extends StatelessWidget {
   }
 
   rotateButton() {
+    if (!AppController.appController.hasTicketForWheel.value) {
+      if (DateTime.now()
+              .difference(AppController.appController.ticketDate)
+              .inDays >
+          0) {
+        AppController.appController.hasTicketForWheel.value = true;
+      }
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
       child: Row(
@@ -148,20 +183,30 @@ class FortuneWheelPage extends StatelessWidget {
           ),
           Expanded(
             // flex: 5,
-            child: CustomContainer(
-              child: Text(
-                "role!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            child: Obx(() {
+              return CustomContainer(
+                child: Text(
+                  AppController.appController.hasTicketForWheel.value
+                      ? "role!"
+                      : "try later",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              onPressed: () => controller.add(_random.nextInt(max)),
-              innerColor: Colors.red,
-              outerColor: Colors.brown,
-            ),
+                onPressed: AppController.appController.hasTicketForWheel.value
+                    ? () => WheelController.setWinValue(controller)
+                    : null,
+                innerColor: AppController.appController.hasTicketForWheel.value
+                    ? Colors.red
+                    : Colors.blueGrey,
+                outerColor: AppController.appController.hasTicketForWheel.value
+                    ? Colors.brown
+                    : Colors.grey,
+              );
+            }),
           )
         ],
       ),

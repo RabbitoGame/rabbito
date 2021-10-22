@@ -1,19 +1,22 @@
-import 'package:rabbito/controller/app_controller.dart';
-import 'package:rabbito/global/strings/user_strings.dart';
-import 'package:rabbito/global/apis.dart';
-import 'package:rabbito/global/strings/request_strings.dart';
-import 'package:rabbito/model/user_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:game_widget2/models/avatar.dart';
 import 'package:http/http.dart';
 import 'package:http/src/response.dart' as httpResponse;
+import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/apis.dart';
+import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
+import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/model/user_preferences.dart';
 
 class User {
   static const maxHearts = 7;
   static const startCoin = 7;
   String? username;
   String? email;
-  String? avatar;
+  Avatar? avatar;
   String? joinDate;
   String? accessToken;
   String? refreshToken;
@@ -25,52 +28,65 @@ class User {
   int? league;
   int? leagueLevel;
   int? rank;
+  int? id;
+  DateTime? heartTime;
 
-  User({
-    required this.username,
-    required this.hearts,
-    required this.carrot,
-    required this.coin,
-    required this.xp,
-    required this.xpLevel,
-    this.accessToken,
-    required this.refreshToken,
-  });
+  User(
+      {required this.username,
+      Avatar? avatar,
+      required this.hearts,
+      required this.carrot,
+      required this.coin,
+      required this.xp,
+      required this.xpLevel,
+      required this.id,
+      this.accessToken,
+      required this.refreshToken,
+      this.heartTime})
+      : this.avatar = avatar ?? Avatar.defaultAvatar();
 
-  // league: mainData[UserStrings.league],
-  // rank: mainData[UserStrings.rank],
-  // avatar: mainData[UserStrings.avatar],
-  // joinDate: mainData[UserStrings.joinDate],
   factory User.fromJson(
     Map<String, dynamic> responseData,
     String username,
   ) {
     Map<String, dynamic> mainData = responseData["data"];
+    String heartTime;
+
     return User(
-        username: username,
-        hearts: mainData[UserStrings.hearts],
-        coin: mainData[UserStrings.coin],
-        carrot: mainData[UserStrings.carrot],
-        // xp: mainData[UserStrings.xp],
-        // xplevel: mainData[UserStrings.xpLevel],
-        xp: 0,
-        xpLevel: 0,
-        accessToken: responseData[UserStrings.accessToken],
-        refreshToken: responseData[UserStrings.refreshToken]);
+      username: username,
+      // fixme heart been removed
+      // hearts: mainData[UserStrings.hearts],
+      hearts: maxHearts,
+      coin: mainData[UserStrings.coin],
+      carrot: mainData[UserStrings.carrot],
+      // xp: mainData[UserStrings.xp],
+      // xplevel: mainData[UserStrings.xpLevel],
+      // avatar fixme add when added in server
+      id: mainData[UserStrings.id],
+      xp: 0,
+      xpLevel: 0,
+      accessToken: responseData[UserStrings.accessToken],
+      refreshToken: responseData[UserStrings.refreshToken],
+      heartTime: DateTime.now(),
+    );
   }
 
   factory User.zeroUser(Map<String, dynamic> responseData, username) {
     return User(
-        username: username,
-        hearts: maxHearts,
-        coin: startCoin,
-        carrot: 0,
-        xp: 0,
-        xpLevel: 0,
-        accessToken: responseData[UserStrings.accessToken],
-        refreshToken: responseData[UserStrings.refreshToken]);
+      username: username,
+      hearts: maxHearts,
+      coin: startCoin,
+      carrot: 0,
+      id: responseData["id"],
+      xp: 0,
+      xpLevel: 0,
+      accessToken: responseData[UserStrings.accessToken],
+      refreshToken: responseData[UserStrings.refreshToken],
+      heartTime: DateTime.now(),
+    );
   }
-  static logOut(){
+
+  static logOut() {
     AppController.appController.loggedInStatus.value = Status.NotLoggedIn;
     UserPreferences.removeUser();
   }
@@ -79,8 +95,7 @@ class User {
     var result;
     AppController.appController.loggedInStatus.value = Status.Authenticating;
     var refreshData = {
-      UserStrings.refreshToken:
-          refreshToken,
+      UserStrings.refreshToken: refreshToken,
     };
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
@@ -154,7 +169,7 @@ class User {
 
       User authUser = User.fromJson(responseData, username);
 
-      UserPreferences.saveUser(authUser);
+      await UserPreferences.saveUser(authUser);
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
 
@@ -206,7 +221,7 @@ class User {
     if (response.statusCode == 200) {
       User authUser = User.zeroUser(responseData, username);
 
-      UserPreferences.saveUser(authUser);
+      await UserPreferences.saveUser(authUser);
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successfully registered',
@@ -229,17 +244,58 @@ class User {
       Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
-            AppController.appController.currUser!.accessToken!,
+            AppController.appController.currUser!.value.accessToken!,
       },
     );
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      AppController.appController.currUser = User.fromJson(
-          responseData, responseData["data"][UserStrings.username]);
+
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successful',
+        RequestStrings.data: responseData,
+      };
+    } else {
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+    }
+    return result;
+  }
+
+  static Future<Map<String, dynamic>> transactions({
+    required bool isHeart,
+    required int amount,
+    required bool isIncrease,
+  }) async {
+    var result;
+    var data = {
+      RequestStrings.transactionType: isIncrease ? "increase" : "decrease",
+      RequestStrings.modelType: isHeart ? "heart" : "coin",
+      RequestStrings.amount: amount,
+      RequestStrings.gamer: AppController.appController.currUser!.value.id,
+    };
+    print("sallll");
+    httpResponse.Response response = await post(
+      Uri.parse(AppUrl.transactions),
+      headers: {
+        RequestStrings.authentication:
+            "JWT " + AppController.appController.currUser!.value.accessToken!,
+        RequestStrings.contentType: RequestStrings.appJson,
+      },
+      body: json.encode(data),
+    );
+    print("salam001");
+    print(response.body.toString());
+    if (response.statusCode == 201) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      result = {
+        RequestStrings.status: true,
+        RequestStrings.message: 'Successful',
+        RequestStrings.data: responseData,
       };
     } else {
       result = {
@@ -259,39 +315,46 @@ class User {
     };
   }
 
-  static getUserDetail() {
-    //todo complete getUserDetail
+  static String calculateLeagueImageString(league) {
+    String base = ImageStrings.league;
+    String main = "";
+
+    switch ((league ~/ 3)) {
+      case 0:
+        main = "Bronze_";
+        break;
+      case 1:
+        main = "Silver_";
+        break;
+      case 2:
+        main = "Gold_";
+        break;
+      case 3:
+        main = "Crystal_";
+        break;
+      case 4:
+        main = "Epic_";
+        break;
+      case 5:
+        main = "Legendary_";
+        break;
+      default:
+        print("fucked up in calculate league image string");
+    }
+    main += (league.remainder(3) + 1).toString() + ".png";
+    return base + main;
   }
 
-  static getCarrot() {
-    //todo complete getCarrot
-  }
+  static void addHeart(int value) {
+    value = AppController.appController.currUser!.value.hearts! + value;
 
-  static getCoin() {
-    //todo complete getCoin
-  }
+    if (value > 7) {
+      value = 7;
+      AppController.appController.currUser!
+          .update((val) => val!.heartTime = DateTime.now());
 
-  static getHeart() {
-    //todo complete getHeart
-  }
-
-  static getRank() {
-    //todo complete getRank
-  }
-
-  static setCarrot() {
-    //todo complete setCarrot
-  }
-
-  static setCoin() {
-    //todo complete setCoin
-  }
-
-  static setHeart() {
-    //todo complete setHeart
-  }
-
-  static setRank() {
-    //todo complete setRank
+    }
+    AppController.appController.currUser!
+        .update((val) => (val as User).hearts = value);
   }
 }

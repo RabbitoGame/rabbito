@@ -16,36 +16,42 @@ class UserPreferences {
     prefs.setInt(UserStrings.coin, user.coin!);
     prefs.setInt(UserStrings.xp, user.xp!);
     prefs.setInt(UserStrings.xpLevel, user.xpLevel!);
+    prefs.setInt(UserStrings.id, user.id!);
+    prefs.setString(UserStrings.heartTime, user.heartTime!.toString());
 
     //todo save token using secure storage
     FlutterSecureStorage _storage = FlutterSecureStorage();
     await _storage.write(
         key: UserStrings.refreshToken, value: user.refreshToken);
 
-    if(prefs.containsKey(UserStrings.username)){
-      print("shared prefs: "+ prefs.getString(UserStrings.username)!);
-    }else{
+    if (prefs.containsKey(UserStrings.username)) {
+      print("shared prefs: " + prefs.getString(UserStrings.username)!);
+    } else {
       print("shared prefs: not contains ");
     }
-
-
   }
 
   static Future saveMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.setDouble(UserStrings.musicLevel, AppController.appController.musicVolume);
-    prefs.setDouble(UserStrings.soundEffectsLevel, AppController.appController.soundEffectsVolume);
+    prefs.setDouble(
+        UserStrings.musicLevel, AppController.appController.musicVolume);
+    prefs.setDouble(UserStrings.soundEffectsLevel,
+        AppController.appController.soundEffectsVolume);
   }
+
   static Future readMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.containsKey(UserStrings.musicLevel)){
-      AppController.appController.musicVolume = prefs.getDouble(UserStrings.musicLevel)!;
-      AppController.appController.soundEffectsVolume = prefs.getDouble(UserStrings.soundEffectsLevel)!;
+    if (prefs.containsKey(UserStrings.musicLevel)) {
+      AppController.appController.musicVolume =
+          prefs.getDouble(UserStrings.musicLevel)!;
+      AppController.appController.soundEffectsVolume =
+          prefs.getDouble(UserStrings.soundEffectsLevel)!;
     }
-    AppController.appController.menuMusicAudioPlayer.setVolume(AppController.appController.musicVolume);
-    AppController.appController.effectsAudioPlayer.setVolume(AppController.appController.soundEffectsVolume);
-
+    AppController.appController.menuMusicAudioPlayer
+        .setVolume(AppController.appController.musicVolume);
+    AppController.appController.effectsAudioPlayer
+        .setVolume(AppController.appController.soundEffectsVolume);
   }
 
   static Future<User> getUser() async {
@@ -57,18 +63,23 @@ class UserPreferences {
     int? coin = prefs.getInt(UserStrings.coin);
     int? xp = prefs.getInt(UserStrings.xp);
     int? xpLevel = prefs.getInt(UserStrings.xpLevel);
+    int? id = prefs.getInt(UserStrings.id);
+    String? heartTimeString = prefs.getString(UserStrings.heartTime);
+    DateTime heartTime = DateTime.parse(heartTimeString!);
 
     //todo read refresh token by secure storage
     String? refreshToken = await getRefreshToken();
 
     return User(
+      id: id,
       xp: xp,
       carrot: carrot,
       coin: coin,
       hearts: hearts,
       username: username,
       xpLevel: xpLevel,
-      refreshToken: refreshToken ,
+      refreshToken: refreshToken,
+      heartTime: heartTime,
     );
   }
 
@@ -81,6 +92,7 @@ class UserPreferences {
     prefs.remove(UserStrings.coin);
     prefs.remove(UserStrings.carrot);
     prefs.remove(UserStrings.hearts);
+    prefs.remove(UserStrings.id);
   }
 
   static Future<String?> getRefreshToken() async {

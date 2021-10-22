@@ -9,6 +9,7 @@ import 'package:rabbito/view/login/login_manager.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/navigation-pages/profile/profile.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop.dart';
+import 'package:rabbito/view/widgets/widget_size.dart';
 
 import '../game-page/gamehome.dart';
 import 'appbar.dart';
@@ -40,9 +41,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             FutureAppBar(),
             Expanded(
-                child: Container(
-              child: _menus[_currentIndex],
-            ))
+              child: Container(
+                child: _menus[_currentIndex],
+              ),
+            ),
           ],
         ),
       ),

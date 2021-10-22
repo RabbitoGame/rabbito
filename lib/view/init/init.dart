@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/localization_service.dart';
+import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/model/user.dart';
@@ -17,9 +19,11 @@ class InitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xff301b49), // navigation bar color
+      systemNavigationBarColor: Colors.green, // navigation bar color
     ));
+
     return GetMaterialApp(
+      builder: (context, child) => FlutterSmartDialog(child: child),
       theme: ThemeData(
           primaryColor: Colors.red,
           accentColor: Colors.yellowAccent,
@@ -34,8 +38,16 @@ class InitPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SplashScreen();
           } else if (AppController.appController.firstEntrance.value) {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.white, // navigation bar color
+            ));
             return IntroductionScreen();
           } else {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Color(0xff301b49), // navigation bar color
+            ));
             return Container(
                 child: HomePage(title: 'Rabbito'), color: Colors.red);
           }
@@ -55,6 +67,7 @@ class Init {
   Init._();
 
   static final instance = Init._();
+
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   Future initialize() async {
@@ -81,7 +94,7 @@ class Init {
         if (result[RequestStrings.status]) {
           user.refreshToken = result[UserStrings.refreshToken];
           user.accessToken = result[UserStrings.accessToken];
-          AppController.appController.currUser = user;
+          AppController.appController.currUser = user.obs;
         } else {
           UserPreferences.removeUser();
         }
@@ -97,13 +110,21 @@ class Init {
 
 class _Handler extends WidgetsBindingObserver {
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async{
     if (state == AppLifecycleState.resumed) {
       AppController.appController.menuMusicAudioPlayer
-          .resume(); // Audio player is a custom class with resume and pause static methods
+          .resume(); // Audio
+      await UserPreferences.getUser();
+// player is a custom class with resume and pause static methods
     } else {
       AppController.appController.menuMusicAudioPlayer.pause();
       UserPreferences.saveMusic();
+      if(AppController.isLoggedIn()){
+        print("background opendddedd");
+        await UserPreferences.saveUser(AppController.appController.currUser!.value);
+
+
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ class LoginRegisterController extends GetxController {
 
       if (result[RequestStrings.status]) {
         AppController.appController.currUser =
-            (result[RequestStrings.data] as User);
+            (result[RequestStrings.data] as User).obs;
         //todo login successful
         _error.value = RequestStrings.successful;
       } else {
@@ -53,9 +53,9 @@ class LoginRegisterController extends GetxController {
       if (result[RequestStrings.status]) {
         //todo register successful
         AppController.appController.currUser =
-            (result[RequestStrings.data] as User);
+            (result[RequestStrings.data] as User).obs;
         _error.value = "successful";
-        print(AppController.appController.currUser!.username);
+        print(AppController.appController.currUser!.value.username);
       } else {
         _error.value = result[RequestStrings.message];
       }

@@ -44,13 +44,17 @@ dependencies:
   flutter_fortune_wheel: ^1.1.0
   loading_indicator: ^3.0.1
   confetti: ^0.6.0-nullsafety
-  share_plus: ^2.1.4
+  share_plus: ^3.0.2
   path_provider: ^2.0.3
   cached_network_image: ^3.1.0
   flutter_glow: ^0.2.0
   flutter_svg: ^0.22.0
   auto_size_text: ^3.0.0-nullsafety.0
   audioplayers: ^0.20.1
+  game_widget2:
+    git: https://github.com/dorrin-sot/game_widget2.git
+  tapsell_plus: ^2.1.4
+  flutter_smart_dialog: ^2.3.8
 
 
 
@@ -83,7 +87,7 @@ flutter:
     - assets/images/profile/
     - assets/images/widgets/
     - assets/images/rabbit/
-    - assets/images/background/
+    - assets/images/backgrounds/
     - assets/images/avatars/Cloths/
     - assets/images/avatars/Eyes/
     - assets/images/avatars/Faces/
@@ -97,6 +101,71 @@ flutter:
     - assets/sounds/
 
 
+  fonts:
+    - family: Orbitron
+      fonts:
+        - asset: assets/fonts/Orbitron/Orbitron-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Orbitron/Orbitron-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Orbitron/Orbitron-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Orbitron/Orbitron-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Orbitron/Orbitron-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Orbitron/Orbitron-Regular.ttf
+          weight: 400
+    - family: LuckiestGuy
+      fonts:
+        - asset: assets/fonts/LuckiestGuy-Regular.ttf
+          weight: 400
+    - family: Titillium
+      fonts:
+        - asset: assets/fonts/Titillium/TitilliumWeb-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Titillium/TitilliumWeb-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Titillium/TitilliumWeb-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Titillium/TitilliumWeb-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Titillium/TitilliumWeb-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Titillium/TitilliumWeb-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Titillium/TitilliumWeb-Black.ttf
+          weight: 800
+    - family: Roboto_Condensed
+      fonts:
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf
+          weight: 700
+          style: italic
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

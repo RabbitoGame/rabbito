@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
@@ -13,7 +14,6 @@ import 'package:rabbito/view/widgets/fortune-wheel/fortune_wheel.dart';
 import 'settings_widget.dart';
 
 class GameAppBar extends StatelessWidget {
-  final GameAppBarController _controller = Get.put(GameAppBarController());
   AutoSizeGroup group = AutoSizeGroup();
 
   @override
@@ -26,9 +26,13 @@ class GameAppBar extends StatelessWidget {
             children: [
               Expanded(child: Obx(() {
                 return xpWidget(
-                  all: _controller.all.value,
-                  part: _controller.part.value,
-                  xpLevel: _controller.xpLevel.value,
+                  all: AppController.isLoggedIn() ? 1000 : 0,
+                  part: AppController.isLoggedIn()
+                      ? AppController.getXp()
+                      : 0,
+                  xpLevel: AppController.isLoggedIn()
+                      ? AppController.getXpLevel()
+                      : 0,
                   big: MediaQuery.of(context).size.width > 300,
                 );
               })),
@@ -48,9 +52,8 @@ class GameAppBar extends StatelessWidget {
                       context: context,
                       builder: (_) {
                         return myDialog(
-                            widget: SettingsWidget(),
-
-                          vertical: SizeConfig.screenHeight*0.1,
+                          widget: SettingsWidget(),
+                          vertical: SizeConfig.screenHeight * 0.18,
                           horizontal: SizeConfig.screenWidth * 0.05,
                         );
                       },
@@ -109,8 +112,7 @@ class GameAppBar extends StatelessWidget {
                       builder: (_) {
                         return myDialog(
                           widget: FortuneWheelPage(),
-
-                          vertical: SizeConfig.screenHeight*0.1,
+                          vertical: SizeConfig.screenHeight * 0.1,
                           horizontal: SizeConfig.screenWidth * 0.05,
                         );
                       },
@@ -177,29 +179,5 @@ class GameAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: widget,
     );
-  }
-}
-
-class GameAppBarController extends GetxController {
-  RxDouble _xpLevel = 0.0.obs;
-  RxDouble _part = 0.0.obs;
-  RxDouble _all = 0.0.obs;
-
-  RxDouble get xpLevel => _xpLevel;
-
-  set xpLevel(RxDouble value) {
-    _xpLevel = value;
-  }
-
-  RxDouble get part => _part;
-
-  set part(RxDouble value) {
-    _part = value;
-  }
-
-  RxDouble get all => _all;
-
-  set all(RxDouble value) {
-    _all = value;
   }
 }

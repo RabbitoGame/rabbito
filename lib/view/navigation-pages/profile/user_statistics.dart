@@ -1,13 +1,31 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/image_strings.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
+import 'package:rabbito/model/user.dart';
 
 class UserStatistics extends StatelessWidget {
-  const UserStatistics({Key? key}) : super(key: key);
+  int win;
+  int loose;
+  int correctMatches;
+  int wrongMatches;
+  int league;
+  int rank;
+
+  UserStatistics({
+    required this.win,
+    required this.loose,
+    required this.correctMatches,
+    required this.wrongMatches,
+    required this.rank,
+    required this.league,
+  });
+
   final double dividerHeight = 5;
 
   @override
@@ -20,9 +38,10 @@ class UserStatistics extends StatelessWidget {
       child: Column(
         children: [
           xpWidget(
-              xpLevel: 12,
-              part: 10,
-              all: 20,
+              all: AppController.isLoggedIn() ? 1000 : 0,
+              part: AppController.isLoggedIn() ? AppController.getXp() : 0,
+              xpLevel:
+                  AppController.isLoggedIn() ? AppController.getXpLevel() : 0,
               big: SizeConfig.screenWidth > 300),
           SizedBox(
             height: 5,
@@ -47,7 +66,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Image.asset(
-                              ImageStrings.rankingLeagueBronze2Asset,
+                              User.calculateLeagueImageString(league)
                             ),
                           ),
                         ),
@@ -55,7 +74,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 1,
                           child: Center(
                             child: AutoSizeText(
-                              "18th",
+                              rank.toString() + "th",
                               textAlign: TextAlign.center,
                               minFontSize: 12,
                               maxLines: 1,
@@ -83,11 +102,11 @@ class UserStatistics extends StatelessWidget {
                 Expanded(
                   flex: 10,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SmallRow(
                         title: "correct matches",
-                        number: "3521",
+                        number: correctMatches.toString(),
                         width: SizeConfig.screenWidth,
                         group: group,
                       ),
@@ -98,7 +117,7 @@ class UserStatistics extends StatelessWidget {
                       ),
                       SmallRow(
                         title: "wrong matches",
-                        number: "234",
+                        number: wrongMatches.toString(),
                         width: SizeConfig.screenWidth,
                         group: group,
                       ),
@@ -109,7 +128,7 @@ class UserStatistics extends StatelessWidget {
                       ),
                       SmallRow(
                         title: "victory",
-                        number: "53",
+                        number: win.toString(),
                         width: SizeConfig.screenWidth,
                         group: group,
                       ),
@@ -120,18 +139,7 @@ class UserStatistics extends StatelessWidget {
                       ),
                       SmallRow(
                         title: "vic ratio",
-                        number: "53%",
-                        width: SizeConfig.screenWidth,
-                        group: group,
-                      ),
-                      Divider(
-                        color: Colors.black,
-                        thickness: 0.5,
-                        height: dividerHeight,
-                      ),
-                      SmallRow(
-                        title: "wrong",
-                        number: "53",
+                        number: (win / (win + loose)*100).toString()+"%",
                         width: SizeConfig.screenWidth,
                         group: group,
                       ),
@@ -175,12 +183,13 @@ class UserStatistics extends StatelessWidget {
       ],
     );
   }
+
 }
 
 xpWidget({
-  required double xpLevel,
-  required double part,
-  required double all,
+  required int xpLevel,
+  required int part,
+  required int all,
   required bool big,
 }) {
   return Stack(

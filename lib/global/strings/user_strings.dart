@@ -16,4 +16,14 @@ class UserStrings {
   static const String emptyInfo = "--";
   static const String musicLevel = "music-level";
   static const String soundEffectsLevel = "sound-effects-level";
+  static const String wordsLearned = "words_learned";
+
+  static const String wrongMatches = "wrongMatches";
+  static const String correctMatches = "correctMatches";
+  static const String win = "win";
+  static const String loose = "loose";
+
+  static const String id = "id";
+
+  static const String heartTime = "heart-time";
 }

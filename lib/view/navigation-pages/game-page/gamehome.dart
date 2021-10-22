@@ -1,18 +1,34 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:game_widget2/main.dart';
+import 'package:game_widget2/models/game.dart';
+import 'package:game_widget2/models/user.dart' as game_widget_user_mod;
+import 'package:game_widget2/views/game_widget.dart';
+import 'package:game_widget2/views/placement_game_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
-import 'package:rabbito/global/strings/image_strings.dart';
+import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
+import 'package:rabbito/view/widgets/loading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'game_page_appbar.dart';
 
 Widget gameMenu(BuildContext context) {
   SizeConfig().init(context);
+  AppController.appController.initiateBannerAd();
+
+  var paddings = SizeConfig.screenHeight > 500
+      ? EdgeInsets.fromLTRB(SizeConfig.padding3, 0, SizeConfig.padding3, 0)
+      : EdgeInsets.fromLTRB(SizeConfig.padding2, 0, SizeConfig.padding2, 0);
+
   return Container(
     decoration: BoxDecoration(
       image: DecorationImage(
@@ -21,15 +37,21 @@ Widget gameMenu(BuildContext context) {
         fit: BoxFit.fill,
       ),
     ),
-    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     child: Column(
       children: [
         Expanded(
-          flex: SizeConfig.screenHeight > 500 ? 3 : 4,
-          child: GameAppBar(),
+          flex: SizeConfig.screenHeight > 500 ? 12 : 16,
+          child: Padding(
+            padding: SizeConfig.screenHeight > 500
+                ? EdgeInsets.fromLTRB(SizeConfig.padding3,
+                    SizeConfig.padding3 / 2, SizeConfig.padding3, 0)
+                : EdgeInsets.fromLTRB(SizeConfig.padding2,
+                    SizeConfig.padding2 / 2, SizeConfig.padding2, 0),
+            child: GameAppBar(),
+          ),
         ),
         Expanded(
-          flex: 8,
+          flex: 24,
           child: Obx(() {
             String asset = "";
             var x = AppController.appController.gifStatus.value;
@@ -40,14 +62,32 @@ Widget gameMenu(BuildContext context) {
                     : GifStrings.rabittoLastFrameGif;
             return Image.asset(
               asset,
-              fit: BoxFit.cover,
+              // fit: BoxFit.fitWidth,
             );
           }),
         ),
         Expanded(
-          flex: 3,
-          child: playButtons(),
-        ),
+            flex: 8,
+            child: Padding(
+              padding: paddings,
+              child: playButtons(),
+            )),
+        ElevatedButton(child: Text("remove heart"),onPressed: (){
+          if(AppController.isLoggedIn()){
+            AppController.appController.currUser!.update((val) {
+              var temp =val!.hearts!;
+              val!.hearts =temp -1;
+            });
+          }
+        },),
+        Obx(() {
+          return Expanded(
+            flex: 5,
+            child: AppController.appController.isAdReady.value
+                ? AppController.appController.bannerAdWidget!
+                : LoadingWidget(Indicator.ballBeat),
+          );
+        }),
       ],
     ),
   );
@@ -76,7 +116,59 @@ playButtons() {
                 group: group,
               ),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              final user = AppController.appController.currUser;
+              if (user == null ||
+                  user.value.refreshToken == null ||
+                  user.value.accessToken == null) {
+                Get.snackbar(
+                  'Login first!!',
+                  'You can\'t start playing without an account. Tap to Signup right now!!',
+                  isDismissible: true,
+                  backgroundColor: Colors.black54,
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 5),
+                  onTap: (_) => Get.to(() => RegisterScreen()),
+                );
+                return;
+              }
+              currentUser = game_widget_user_mod.User(
+                user.value.username!,
+                avatar: user.value.avatar!,
+                cardBg: 1,
+                refreshToken: user.value.refreshToken!,
+                accessToken: user.value.accessToken!,
+              );
+
+              // if player hasnt dont placement game before start placement game widget instead
+              if (!(await SharedPreferences.getInstance())
+                  .containsKey(PlacementGameWidget.keyHasDonePlacement)) {
+                Get.snackbar(
+                  'Placement first!!',
+                  'Looks like you haven\'t played a Placement Game yet. Tap to start one right now!!',
+                  isDismissible: true,
+                  backgroundColor: Colors.black54,
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 5),
+                  onTap: (_) async {
+                    final rankWords = await PlacementGameWidget.getRankWords();
+                    Get.off(() => PlacementGameWidget(currentUser, rankWords));
+                  },
+                );
+                return;
+              }
+
+              final game = await Game.join(currentUser);
+              unawaited(
+                  AppController.appController.menuMusicAudioPlayer.pause());
+              Get.to(
+                () => GameWidget(
+                  game,
+                  afterGameTodo: () =>
+                      AppController.appController.menuMusicAudioPlayer.resume(),
+                ),
+              );
+            },
             // innerColor: const Color(0xff6383F7),
             innerColor: Colors.deepOrangeAccent,
             outerColor: Colors.deepOrange,
