@@ -14,7 +14,8 @@ import 'package:tapsell_plus/tapsell_plus.dart';
 import '../model/user.dart';
 import 'package:get/get.dart';
 
-const int globalHeartTimerLong = 2;
+const int globalHeartTimerLong = 60;
+const int globalHeartTimerChecker = 5;
 
 class AppController extends GetxController {
   static late AppController appController;
@@ -23,7 +24,9 @@ class AppController extends GetxController {
   Rx<bool> _gifTimerIsFirst = true.obs;
   Rx<bool> hasTicketForWheel = true.obs;
   Rx<Timer> globalHeartTimer =
-      Timer.periodic(Duration(minutes: globalHeartTimerLong), (timer) {}).obs;
+      Timer
+          .periodic(Duration(seconds: globalHeartTimerChecker), (timer) {})
+          .obs;
   late DateTime ticketDate = DateTime.now();
   late Random _random;
 
@@ -46,7 +49,9 @@ class AppController extends GetxController {
   Rx<Status> _registeredInStatus = Status.NotRegistered.obs;
 
   Rx<Status> get registeredInStatus => _registeredInStatus;
-  Rx<Timer> _timer = Timer.periodic(Duration(seconds: 1), (x) {}).obs;
+  Rx<Timer> _timer = Timer
+      .periodic(Duration(seconds: 1), (x) {})
+      .obs;
 
   Rx<User>? currUser = User(
     xp: 0,
@@ -173,11 +178,27 @@ class AppController extends GetxController {
   }
 
   void initiateHeartTimer() {
+    globalHeartTimer.value.cancel();
     globalHeartTimer.value = Timer.periodic(
-      Duration(minutes: globalHeartTimerLong),
-      (timer) {
+      Duration(seconds: globalHeartTimerChecker),
+          (timer) {
         if (AppController.isLoggedIn()) {
-          User.addHeart(1);
+          DateTime time = AppController.appController.currUser!.value
+              .heartTime!;
+          // var minutes = DateTime.now().difference(time).inMinutes;
+          var minutes = DateTime.now().difference(time).inSeconds;
+          var maghsom = minutes ~/ globalHeartTimerLong;
+          var baghimandeh = minutes % globalHeartTimerLong;
+          // DateTime.now().
+          if(maghsom >0){
+            AppController.appController.currUser!.update((val) {
+              val!.heartTime =  DateTime.now().subtract(Duration(minutes: baghimandeh));
+            });
+
+          }
+          User.addHeart(maghsom);
+
+
         }
       },
     );
@@ -204,7 +225,7 @@ class AppController extends GetxController {
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
+                            loadingProgress.expectedTotalBytes!
                             : null,
                       ),
                     );
@@ -258,7 +279,9 @@ class AppController extends GetxController {
                           nativeAd.callToActionText!,
                           textDirection: TextDirection.rtl,
 
-                          style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold,),
+                          style: TextStyle(color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,),
                         ),
                         fit: BoxFit.scaleDown,
                       ),
@@ -288,7 +311,7 @@ class AppController extends GetxController {
     TapsellPlus.instance
         .requestStandardBannerAd(zoneId, TapsellPlusBannerType.BANNER_320x50)
         .then(
-      (responseId) {
+          (responseId) {
         TapsellPlus.instance.showStandardBannerAd(
           responseId,
           TapsellPlusHorizontalGravity.BOTTOM,
@@ -307,7 +330,7 @@ class AppController extends GetxController {
         );
       },
     ).catchError(
-      (error) {
+          (error) {
         // Error when requesting for an ad
       },
     );

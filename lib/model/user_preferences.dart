@@ -17,7 +17,7 @@ class UserPreferences {
     prefs.setInt(UserStrings.xp, user.xp!);
     prefs.setInt(UserStrings.xpLevel, user.xpLevel!);
     prefs.setInt(UserStrings.id, user.id!);
-    prefs.setString(UserStrings.heartTime, DateTime.now().toString());
+    prefs.setString(UserStrings.heartTime, user.heartTime!.toString());
 
     //todo save token using secure storage
     FlutterSecureStorage _storage = FlutterSecureStorage();
@@ -66,7 +66,6 @@ class UserPreferences {
     int? id = prefs.getInt(UserStrings.id);
     String? heartTimeString = prefs.getString(UserStrings.heartTime);
     DateTime heartTime = DateTime.parse(heartTimeString!);
-    var diff = DateTime.now().difference(heartTime).inMinutes;
 
     //todo read refresh token by secure storage
     String? refreshToken = await getRefreshToken();
@@ -80,6 +79,7 @@ class UserPreferences {
       username: username,
       xpLevel: xpLevel,
       refreshToken: refreshToken,
+      heartTime: heartTime,
     );
   }
 

@@ -72,6 +72,14 @@ Widget gameMenu(BuildContext context) {
               padding: paddings,
               child: playButtons(),
             )),
+        ElevatedButton(child: Text("remove heart"),onPressed: (){
+          if(AppController.isLoggedIn()){
+            AppController.appController.currUser!.update((val) {
+              var temp =val!.hearts!;
+              val!.hearts =temp -1;
+            });
+          }
+        },),
         Obx(() {
           return Expanded(
             flex: 5,

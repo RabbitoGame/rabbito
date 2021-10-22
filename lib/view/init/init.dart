@@ -113,7 +113,9 @@ class _Handler extends WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) async{
     if (state == AppLifecycleState.resumed) {
       AppController.appController.menuMusicAudioPlayer
-          .resume(); // Audio player is a custom class with resume and pause static methods
+          .resume(); // Audio
+      await UserPreferences.getUser();
+// player is a custom class with resume and pause static methods
     } else {
       AppController.appController.menuMusicAudioPlayer.pause();
       UserPreferences.saveMusic();

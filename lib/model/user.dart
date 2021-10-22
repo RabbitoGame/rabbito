@@ -29,53 +29,61 @@ class User {
   int? leagueLevel;
   int? rank;
   int? id;
+  DateTime? heartTime;
 
-  User({
-    required this.username,
-    Avatar? avatar,
-    required this.hearts,
-    required this.carrot,
-    required this.coin,
-    required this.xp,
-    required this.xpLevel,
-    required this.id,
-    this.accessToken,
-    required this.refreshToken,
-  }) : this.avatar = avatar ?? Avatar.defaultAvatar();
+  User(
+      {required this.username,
+      Avatar? avatar,
+      required this.hearts,
+      required this.carrot,
+      required this.coin,
+      required this.xp,
+      required this.xpLevel,
+      required this.id,
+      this.accessToken,
+      required this.refreshToken,
+      this.heartTime})
+      : this.avatar = avatar ?? Avatar.defaultAvatar();
 
   factory User.fromJson(
     Map<String, dynamic> responseData,
     String username,
   ) {
     Map<String, dynamic> mainData = responseData["data"];
+    String heartTime;
+
     return User(
-        username: username,
-        // fixme heart been removed
-        // hearts: mainData[UserStrings.hearts],
-        hearts: maxHearts,
-        coin: mainData[UserStrings.coin],
-        carrot: mainData[UserStrings.carrot],
-        // xp: mainData[UserStrings.xp],
-        // xplevel: mainData[UserStrings.xpLevel],
-        // avatar fixme add when added in server
-        id: mainData[UserStrings.id],
-        xp: 0,
-        xpLevel: 0,
-        accessToken: responseData[UserStrings.accessToken],
-        refreshToken: responseData[UserStrings.refreshToken]);
+      username: username,
+      // fixme heart been removed
+      // hearts: mainData[UserStrings.hearts],
+      hearts: maxHearts,
+      coin: mainData[UserStrings.coin],
+      carrot: mainData[UserStrings.carrot],
+      // xp: mainData[UserStrings.xp],
+      // xplevel: mainData[UserStrings.xpLevel],
+      // avatar fixme add when added in server
+      id: mainData[UserStrings.id],
+      xp: 0,
+      xpLevel: 0,
+      accessToken: responseData[UserStrings.accessToken],
+      refreshToken: responseData[UserStrings.refreshToken],
+      heartTime: DateTime.now(),
+    );
   }
 
   factory User.zeroUser(Map<String, dynamic> responseData, username) {
     return User(
-        username: username,
-        hearts: maxHearts,
-        coin: startCoin,
-        carrot: 0,
-        id: responseData["id"],
-        xp: 0,
-        xpLevel: 0,
-        accessToken: responseData[UserStrings.accessToken],
-        refreshToken: responseData[UserStrings.refreshToken]);
+      username: username,
+      hearts: maxHearts,
+      coin: startCoin,
+      carrot: 0,
+      id: responseData["id"],
+      xp: 0,
+      xpLevel: 0,
+      accessToken: responseData[UserStrings.accessToken],
+      refreshToken: responseData[UserStrings.refreshToken],
+      heartTime: DateTime.now(),
+    );
   }
 
   static logOut() {
@@ -161,7 +169,7 @@ class User {
 
       User authUser = User.fromJson(responseData, username);
 
-      UserPreferences.saveUser(authUser);
+      await UserPreferences.saveUser(authUser);
 
       AppController.appController.loggedInStatus.value = Status.LoggedIn;
 
@@ -213,7 +221,7 @@ class User {
     if (response.statusCode == 200) {
       User authUser = User.zeroUser(responseData, username);
 
-      UserPreferences.saveUser(authUser);
+      await UserPreferences.saveUser(authUser);
       result = {
         RequestStrings.status: true,
         RequestStrings.message: 'Successfully registered',
@@ -342,6 +350,9 @@ class User {
 
     if (value > 7) {
       value = 7;
+      AppController.appController.currUser!
+          .update((val) => val!.heartTime = DateTime.now());
+
     }
     AppController.appController.currUser!
         .update((val) => (val as User).hearts = value);
