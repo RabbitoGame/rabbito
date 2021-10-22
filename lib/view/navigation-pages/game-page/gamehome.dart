@@ -110,7 +110,9 @@ playButtons() {
             ),
             onPressed: () async {
               final user = AppController.appController.currUser;
-              if (user == null) {
+              if (user == null ||
+                  user.value.refreshToken == null ||
+                  user.value.accessToken == null) {
                 Get.snackbar(
                   'Login first!!',
                   'You can\'t start playing without an account. Tap to Signup right now!!',
