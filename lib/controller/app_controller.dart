@@ -111,8 +111,8 @@ class AppController extends GetxController {
       prefix: 'assets/sounds/',
       fixedPlayer: menuMusicAudioPlayer,
     );
-    await menuMusicAudioCache!.loop('MenuMusic.mp3');
-    UserPreferences.readMusic();
+    // await menuMusicAudioCache!.loop('MenuMusic.mp3');
+    // UserPreferences.readMusic();
 
 
 
