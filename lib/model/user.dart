@@ -244,9 +244,10 @@ class User {
       Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
-            AppController.appController.currUser!.value.accessToken!,
+            "JWT "+AppController.appController.currUser!.value.accessToken!,
       },
     );
+    print(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -315,33 +316,33 @@ class User {
     };
   }
 
-  static String calculateLeagueImageString(league) {
+  static String calculateLeagueImageString({required String name , required int layer}) {
     String base = ImageStrings.league;
     String main = "";
-
-    switch ((league ~/ 3)) {
-      case 0:
+    int leagueNumber =0;
+    switch (name) {
+      case "bronze":
         main = "Bronze_";
         break;
-      case 1:
+      case "silver":
         main = "Silver_";
         break;
-      case 2:
+      case "gold":
         main = "Gold_";
         break;
-      case 3:
+      case "crystal":
         main = "Crystal_";
         break;
-      case 4:
+      case "epic":
         main = "Epic_";
         break;
-      case 5:
+      case "legendary":
         main = "Legendary_";
         break;
       default:
         print("fucked up in calculate league image string");
     }
-    main += (league.remainder(3) + 1).toString() + ".png";
+    main += layer.toString() + ".png";
     return base + main;
   }
 

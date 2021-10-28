@@ -14,7 +14,7 @@ class UserStatistics extends StatelessWidget {
   int loose;
   int correctMatches;
   int wrongMatches;
-  int league;
+  String leagueString;
   int rank;
 
   UserStatistics({
@@ -23,7 +23,7 @@ class UserStatistics extends StatelessWidget {
     required this.correctMatches,
     required this.wrongMatches,
     required this.rank,
-    required this.league,
+    required this.leagueString,
   });
 
   final double dividerHeight = 5;
@@ -66,7 +66,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Image.asset(
-                              User.calculateLeagueImageString(league)
+                              leagueString
                             ),
                           ),
                         ),

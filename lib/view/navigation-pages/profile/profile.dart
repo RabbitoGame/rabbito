@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:game_widget2/views/profile_widget.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/request_strings.dart';
@@ -10,6 +11,7 @@ import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
+import 'package:rabbito/view/widgets/loading.dart';
 
 Widget profileMenu(BuildContext context) {
   return ProfileUI2();
@@ -17,14 +19,29 @@ Widget profileMenu(BuildContext context) {
 
 class ProfileUI2 extends StatelessWidget {
   ProfileController _controller = Get.put(ProfileController());
-  AutoSizeGroup _group = AutoSizeGroup();
   var height = SizeConfig.blockSizeVertical;
 
   @override
   Widget build(BuildContext context) {
-    AutoSizeGroup group = AutoSizeGroup();
     print(
-        'assets/images/avatars/Faces/face_${AppController.appController.currUser!.value.avatar!.face}.png');
+        'assets/images/avatars/Faces/face_${AppController.appController
+            .currUser!.value.avatar!.face}.png');
+    return FutureBuilder(
+      future: _controller.getProfileInfo(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        return profileWidget(context);
+        // if (_controller.isDataReady.value) {
+        //   return profileWidget(context);
+        // } else {
+        //   return LoadingWidget(Indicator.ballBeat);
+        // }
+      },
+    );
+  }
+
+
+  Widget profileWidget(context) {
+    AutoSizeGroup group = AutoSizeGroup();
     return Container(
       color: Colors.white,
       child: Container(
@@ -77,7 +94,7 @@ class ProfileUI2 extends StatelessWidget {
                   min: 12.0,
                   partition: 1 / 2,
                   text:
-                      AppController.isLoggedIn() ? AppController.getDate() : "",
+                  AppController.isLoggedIn() ? AppController.getDate() : "",
                   style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black45,
@@ -122,7 +139,7 @@ class ProfileUI2 extends StatelessWidget {
                     win: _controller._win.value,
                     loose: _controller._loose.value,
                     rank: _controller._rank.value,
-                    league: _controller._league.value,
+                    leagueString: _controller._leagueString.value,
                   );
                 }),
               ),
@@ -148,29 +165,15 @@ class ProfileUI2 extends StatelessWidget {
       ),
     );
   }
-
-  void getProfileInfo() async {
-    var result = await User.getUserDetails();
-    if (result[RequestStrings.status]) {
-      _controller._stringDate.value = result[UserStrings.joinDate];
-      _controller._league.value = result[UserStrings.league];
-      _controller._rank.value = result[UserStrings.rank];
-      _controller._wordsLearned.value = result[UserStrings.wordsLearned];
-      _controller._win.value = result[UserStrings.win];
-      _controller._loose.value = result[UserStrings.loose];
-      _controller._corr_matches.value = result[UserStrings.correctMatches];
-      _controller._wronng_matches.value = result[UserStrings.wrongMatches];
-    } else {
-      // User.logOut();
-      print("getProfileInfo: unsuccessful");
-    }
-  }
 }
 
 Widget text({text, style, context, min, group, partition}) {
   return Container(
     alignment: Alignment.center,
-    width: MediaQuery.of(context).size.width * partition,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width * partition,
     child: AutoSizeText(
       text,
       maxLines: 1,
@@ -186,11 +189,45 @@ class ProfileController extends GetxController {
   RxString _stringDate = "sampleDate".obs;
   RxInt _rank = 0.obs;
   RxInt _league = 0.obs;
+  RxString _leagueString = "".obs;
   RxInt _wordsLearned = 0.obs;
   RxInt _win = 0.obs;
   RxInt _loose = 0.obs;
   RxInt _corr_matches = 0.obs;
   RxInt _wronng_matches = 0.obs;
+
+  RxBool isDataReady = false.obs;
+
+  @override
+  void onInit() {
+    // getProfileInfo();
+    super.onInit();
+  }
+
+  Future getProfileInfo() async {
+    isDataReady.value = false;
+    var result = await User.getUserDetails();
+    print("result from User.getUserDetails(): " + result.toString());
+    if (result[RequestStrings.status]) {
+      var data = result[RequestStrings.data];
+      _stringDate.value = data[UserStrings.joinDate];
+      var rankJson =data[UserStrings.rank];
+
+      var mLeague = rankJson["name"];
+      var mLayer = rankJson["rank_under_layer"];
+      _leagueString.value = User.calculateLeagueImageString(name: mLeague, layer: mLayer,);
+      _rank.value =10;
+      // _wordsLearned.value = data[UserStrings.wordsLearned];
+      // _win.value = data[UserStrings.win];
+      // _loose.value = data[UserStrings.loose];
+      // _corr_matches.value = data[UserStrings.correctMatches];
+      // _wronng_matches.value = data[UserStrings.wrongMatches];
+      isDataReady.value = true;
+    } else {
+      // User.logOut();
+      print("getProfileInfo: unsuccessful");
+    }
+  }
 
   set avatar(RxString value) {
     _avatar = value;

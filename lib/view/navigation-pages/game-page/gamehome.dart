@@ -14,6 +14,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/size_config.dart';
 import 'package:rabbito/global/strings/gif_strings.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/login/register.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 import 'package:rabbito/view/widgets/loading.dart';
@@ -72,14 +73,25 @@ Widget gameMenu(BuildContext context) {
               padding: paddings,
               child: playButtons(),
             )),
-        ElevatedButton(child: Text("remove heart"),onPressed: (){
-          if(AppController.isLoggedIn()){
-            AppController.appController.currUser!.update((val) {
-              var temp =val!.hearts!;
-              val!.hearts =temp -1;
-            });
-          }
-        },),
+        Row(children: [
+          ElevatedButton(
+            onPressed: () {
+              User.logOut();
+            },
+            child: Text("logout"),
+          ),
+          ElevatedButton(
+            child: Text("remove heart"),
+            onPressed: () {
+              if (AppController.isLoggedIn()) {
+                AppController.appController.currUser!.update((val) {
+                  var temp = val!.hearts!;
+                  val!.hearts = temp - 1;
+                });
+              }
+            },
+          ),
+        ]),
         Obx(() {
           return Expanded(
             flex: 5,

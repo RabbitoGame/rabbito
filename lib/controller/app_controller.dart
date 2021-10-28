@@ -76,6 +76,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
+    AppController.appController.loggedInStatus.value =Status.LoggedIn;
     initiateHeartTimer();
     initiateGamePageGifTimer();
     await prefsOnInit();

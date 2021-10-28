@@ -9,9 +9,9 @@ const List<Map> endpoints = [
     },
     "header": null,
     "response.data": {
-      "status": String,
-      "Message": String,
-      "data": null,
+      "data": {
+        "id": int,
+      },
       "access-token": String,
       "refresh-token": String,
     }
@@ -26,23 +26,19 @@ const List<Map> endpoints = [
     "header": null,
     "response.data": {
       "data": {
-        "username": String,
+        "id": int,
         "carrot": int,
         "coin": int,
         "heart": int,
-        "league": int,
-        "rank": int,
-        "join-date": String,
-        "avatar": String,
+        "xp": int,
+        "xpLevel": int,
       },
-      "status": String,
-      "Message": String,
       "access-token": String,
       "refresh-token": String,
     }
   },
   {
-    "url": "/get-user-info",
+    "url": "/gamers/user-details/",
     "methode": "GET",
     "body": null,
     "header": {
@@ -51,64 +47,40 @@ const List<Map> endpoints = [
     "response.data": {
       "data": {
         "username": String,
-        "carrot": int,
-        "coin": int,
-        "heart": int,
-        "league": int,
-        "rank": int,
         "join-date": String,
-        "avatar": String,
+        "avatar": String, //or int? idk
+        "xp": int,
+        "xpLevel": int,
+        "league": int, //this is for league, for example bronze1, gold3 , ...
+        "rank-position": int, //position of user in that particular league
+        //next three are given by the end of every card game
+        "win": int,
+        "loose": int,
+        "correct-match": int,
+        "total-number-words-learned": int,
       },
-      "status": String,
-      "Message": String,
       "access-token": String,
       "refresh-token": String,
     }
   },
   {
-    "url": "/token/refresh",
+    "url": "/token/refresh/",
     "methode": "POST",
     "body": {
       "refresh": String,
     },
     "header": null,
     "response.data": {
-      "data": null,
-      "status": String,
-      "Message": String,
+      "data": {
+        "id": int,
+        "carrot": int,
+        "coin": int,
+        "heart": int,
+        "xp": int,
+        "xpLevel": int,
+      },
       "access-token": String,
       "refresh-token": String,
-    }
-  },
-  {
-    "url": "/heart",
-    "methode": "GET",
-    "body": null,
-    "header": {
-      "Authorization": "access token",
-    },
-    "response.data": {
-      "data": {
-        "heart": int,
-      },
-      "status": String,
-      "Message": String,
-    }
-  },
-  {
-    "url": "/user-details",
-    "methode": "GET",
-    "body": null,
-    "header": {
-      "Authorization": "access token",
-    },
-    "response.data": {
-      "data": {
-        //todo some specific data
-        //todo like how many words he learnde and ..
-      },
-      "status": String,
-      "Message": String,
     }
   },
   {
@@ -120,49 +92,28 @@ const List<Map> endpoints = [
     },
     "response.data": {
       "data": {
-        "league": int,
-        "position": int,
+        "count": int, // number of users in this league
+        "league": int, //data for identifying league
+        "position-in-league": int, //position of current player in league
         //competitors is a list off all people in one league
         //this list must be sorted (1 to n)
         // every competitor is in fact a user and i need some info
         // about him in form of a list of json
-        // [
-        //   {
-        //     "avatar": String,
-        //     "username" : String,
-        //     "carrot" : int ,
-        //   },
-        //   {
-        //     "avatar": String,
-        //     "username" : String,
-        //     "carrot" : int ,
-        //   },
-        // ],
-        "competitors": List,
-      },
-      "status": String,
-      "Message": String,
-    }
-  },
-  {
-    "url": "/get-competitor-info",
-    //this api is for seeing other
-    //people account info
-    "methode": "POST",
-    "body": {
-      "username": String,
-    },
-    "header": null,
-    "response.data": {
-      "data": {
-        "username": String,
-        "carrot": int,
-        "coin": int,
-        "league": int,
-        "rank": int,
-        "join-date": String,
-        "avatar": String,
-        //todo add more info
+
+        "competitors": [
+          {
+            "avatar": String,
+            "username": String,
+            "carrot": int,
+            "xpLevel": int,
+          },
+          {
+            "avatar": String,
+            "username": String,
+            "carrot": int,
+            "xpLevel": int,
+          },
+        ],
       },
       "status": String,
       "Message": String,
@@ -176,93 +127,69 @@ const List<Map> endpoints = [
       "Authorization": "access token",
     },
     "response.data": {
-      "data": {
-        "words": List, // a list of words
-        "translation": List // a list of words translations
-      },
-      "status": String,
-      "Message": String,
+      "league": int,
+      //this is for current league, for example bronze1, gold3 , ...
+      // must provide every word with it's corresponding league
+      "learned_words": [
+        {
+          "bronze3": [
+            {
+              "in_first_lang": "wefwefw",
+              "in_second_lang": "صبثاصب",
+            },
+            {
+              "in_first_lang": "wewfwfwefw",
+              "in_second_lang": "صبصثبصثثاصب",
+            },
+          ],
+          "bronze2": [
+            {
+              "in_first_lang": "wefwefw",
+              "in_second_lang": "صبثاصب",
+            },
+            {
+              "in_first_lang": "wewfwfwefw",
+              "in_second_lang": "صبصثبصثثاصب",
+            },
+          ],
+          "silver1": [
+            {
+              "in_first_lang": "wefwefw",
+              "in_second_lang": "صبثاصب",
+            },
+            {
+              "in_first_lang": "wewfwfwefw",
+              "in_second_lang": "صبصثبصثثاصب",
+            },
+          ],
+        }
+      ]
     }
   },
-  // {
-  //   "url": "/achievements",
-  //   "methode": "GET",
-  //   "body": null,
-  //   "header": {
-  //     "Authorization": "access token",
-  //   },
-  //   "response.data": {
-  //     "data": {
-  //       "achievements": List, // a list of achievements
-  //     },
-  //     "status": String,
-  //     "Message": String,
-  //   }
-  // },
-  // {
-  //   "url": "",
-  //   "methode": "",
-  //   "body": null,
-  //   "header": "",
-  // },
   {
-    "url": "/user/getHeart",
+    //this is for timer increase or decrease of hearts of a player
+    "url": "/heart",
     "methode": "GET",
     "body": null,
     "header": {
       "Authorization": "access token",
     },
     "response.data": {
-      "data": {
-        "heart": int,
-      },
-      "status": String,
-      "Message": String,
-    }
-  },
-  {
-    "url": "/user/setHeart",
-    "methode": "Post",
-    "header": {
-      "Authorization": "access token",
-    },
-    "body":{
       "heart": int,
-    },
-    "response.data": {
-      "data": null,
-      "status": String,
-      "Message": String,
     }
   },
   {
-    "url": "/user/getCoin",
-    "methode": "GET",
-    "body": null,
+    "url": "/gamers/transactions/",
+    "methode": "POST",
+    "body": {
+      "transaction_type": String, //increase or decrease
+      "model_type": String, //coin or heart
+      "amount": int,
+      "gamer": int, //user id
+    },
     "header": {
       "Authorization": "access token",
     },
-    "response.data": {
-      "data": {
-        "coin": int,
-      },
-      "status": String,
-      "Message": String,
-    }
-  },
-  {
-    "url": "/user/setCoin",
-    "methode": "Post",
-    "header": {
-      "Authorization": "access token",
-    },
-    "body":{
-      "coin": int,
-    },
-    "response.data": {
-      "data": null,
-      "status": String,
-      "Message": String,
-    }
+    "response.data": null
   },
 ];
