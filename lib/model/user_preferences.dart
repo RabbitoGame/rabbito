@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:game_widget2/views/placement_game_widget.dart';
 import 'package:rabbito/controller/app_controller.dart';
 import 'package:rabbito/global/strings/user_strings.dart';
 import 'package:rabbito/main.dart';
@@ -93,6 +94,7 @@ class UserPreferences {
     prefs.remove(UserStrings.carrot);
     prefs.remove(UserStrings.hearts);
     prefs.remove(UserStrings.id);
+    prefs.remove(PlacementGameWidget.keyHasDonePlacement);
   }
 
   static Future<String?> getRefreshToken() async {

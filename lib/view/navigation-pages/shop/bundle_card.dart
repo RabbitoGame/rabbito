@@ -113,7 +113,7 @@ Widget bundleCard(BundleItem item) {
                     item.description,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 13.5,
+                        fontSize:(item.width<400)? 10:13.5,
                         color: item.shadowColor
                     ),
                   ),

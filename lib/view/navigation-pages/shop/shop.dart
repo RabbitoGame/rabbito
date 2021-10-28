@@ -107,29 +107,29 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '100 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 10
             ))),
             Expanded(child:  shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '200 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 12
             ))),
             Expanded(child:   shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '500 Coins',
                 description: '', //100 Coins package is a cool improvement!
                 imageURL: 'assets/images/appbar/coin.png',
@@ -145,34 +145,34 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '1000 Coins',
                 description: '',
-                imageURL: 'assets/images/appbar/coin.png',
+                imageURL: 'assets/images/packs/coin_pack1.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 18
             ))),
             Expanded(child:   shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '5000 Coins',
                 description: '',
-                imageURL: 'assets/images/appbar/coin.png',
+                imageURL: 'assets/images/packs/coin_pack2.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 20
             ))),
             Expanded(child:   shopCard(new ShopItem(
                 deepColor: deepGreen,
                 shadowColor: shadowGreen,
                 lightColor: lightGreen,
-                width: 150, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '50000 Coins',
                 description: '',
-                imageURL: 'assets/images/appbar/coin.png',
+                imageURL: 'assets/images/packs/coin_pack3.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 25
             ))),
           ],
         ),
@@ -183,7 +183,7 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepYellow,
                 shadowColor: shadowYellow,
                 lightColor: lightYellow,
-                width: 200, height: 162,
+                width: MediaQuery.of(context).size.width, height: 162,
                 name: 'Special Bundle for You',
                 description: 'Buy infinite heart to do anything in the game without any limits!',
                 imageURL: 'assets/images/appbar/cup.png',
@@ -200,34 +200,34 @@ Widget shopMenu(BuildContext context) {
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '3 Hearts',
                 description: '',
                 imageURL: 'assets/images/appbar/heart.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 10
             ))),
             Expanded(child: shopCard(new ShopItem(
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: 'Fill Hearts',
                 description: '',
-                imageURL: 'assets/images/appbar/heart.png',
+                imageURL: 'assets/images/packs/heart_pack2.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 14
             ))),
             Expanded(child: shopCard(new ShopItem(
                 deepColor: deepRed,
                 shadowColor: shadowRed,
                 lightColor: lightRed,
-                width: 145, height: 131,
+                width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: 'Infinite',
                 description: '',
                 imageURL: 'assets/images/appbar/infinite.png',
                 price: 100.0,
-                value_added: 15
+                value_added: 18
             ))),
           ],
         ),

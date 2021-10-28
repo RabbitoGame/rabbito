@@ -88,7 +88,7 @@ flutter:
     - assets/images/widgets/
     - assets/images/rabbit/
     - assets/images/backgrounds/
-    - assets/images/avatars/Clothes/
+    - assets/images/avatars/Cloths/
     - assets/images/avatars/Eyes/
     - assets/images/avatars/Faces/
     - assets/images/avatars/Hairs/
@@ -96,8 +96,7 @@ flutter:
     - assets/images/avatars/Specials/
     - assets/images/avatars/
     - assets/images/wallpapers/
-    - assets/images/Coin Packs/
-    - assets/images/Heart Packs/
+    - assets/images/packs/
     - assets/gifs/
     - assets/sounds/
 

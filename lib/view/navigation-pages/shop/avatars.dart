@@ -152,10 +152,11 @@ Widget AvatarsScreen(BuildContext context) {
         ],
       )
     ),
-    body: Stack(
+    body: Column(
       children: [
         Container(
           // color: Colors.white,
+          height: MediaQuery.of(context).size.height-60,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/wallpapers/ShopPageWallpaper.png"),
@@ -164,10 +165,11 @@ Widget AvatarsScreen(BuildContext context) {
             ),
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Container(
+                    Expanded(child: Container(
                       width: 77.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
@@ -179,14 +181,16 @@ Widget AvatarsScreen(BuildContext context) {
                       // padding: EdgeInsets.all(1.0),
                       margin: EdgeInsets.all(1.0),
                       child:  FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.changeSkin('Face', 'face_', 4);
+                        },
                         child: Column(
                           children: [
                             Text(
                               'Faces',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -194,8 +198,8 @@ Widget AvatarsScreen(BuildContext context) {
                           ],
                         ),
                       ),
-                    ),
-                    Container(
+                    )),
+                    Expanded(child: Container(
                       width: 77.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
@@ -207,23 +211,25 @@ Widget AvatarsScreen(BuildContext context) {
                       // padding: EdgeInsets.all(1.0),
                       margin: EdgeInsets.all(1.0),
                       child:  FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.changeSkin('Cloth', 'cloth_', 6);
+                        },
                         child: Column(
                           children: [
                             Text(
-                              'Clothes',
+                              'Cloths',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
-                            Image.asset('assets/images/avatars/Clothes/cloth_1.png', width: 50.0,),
+                            Image.asset('assets/images/avatars/Cloths/cloth_1.png', width: 50.0,),
                           ],
                         ),
                       ),
-                    ),
-                    Container(
+                    ),),
+                    Expanded(child: Container(
                       width: 77.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
@@ -235,14 +241,16 @@ Widget AvatarsScreen(BuildContext context) {
                       // padding: EdgeInsets.all(1.0),
                       margin: EdgeInsets.all(1.0),
                       child:  FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.changeSkin('Eye', 'eye_', 4);
+                        },
                         child: Column(
                           children: [
                             Text(
                               'Eyes',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -250,8 +258,38 @@ Widget AvatarsScreen(BuildContext context) {
                           ],
                         ),
                       ),
-                    ),
-                    Container(
+                    ),),
+                   Expanded(child:  Container(
+                     width: 77.0,
+                     decoration: BoxDecoration(
+                         color: const Color(0xffb9ebfd),
+                         border: Border.all(
+                           color: const Color(0xffb9ebfd),
+                         ),
+                         borderRadius: BorderRadius.all(Radius.circular(8))
+                     ),
+                     // padding: EdgeInsets.all(1.0),
+                     margin: EdgeInsets.all(1.0),
+                     child:  FlatButton(
+                       onPressed: () {
+                         _controller.changeSkin('Mouth', 'mouth_', 5);
+                       },
+                       child: Column(
+                         children: [
+                           Text(
+                             'Mouths',
+                             style: TextStyle(
+                                 fontWeight: FontWeight.bold,
+                                 fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                 color: Colors.blueAccent
+                             ),
+                           ),
+                           Image.asset('assets/images/avatars/Mouths/mouth_1.png', width: 50.0,),
+                         ],
+                       ),
+                     ),
+                   ),),
+                    Expanded(child: Container(
                       width: 77.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
@@ -263,42 +301,16 @@ Widget AvatarsScreen(BuildContext context) {
                       // padding: EdgeInsets.all(1.0),
                       margin: EdgeInsets.all(1.0),
                       child:  FlatButton(
-                        onPressed: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              'Mouths',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                  color: Colors.blueAccent
-                              ),
-                            ),
-                            Image.asset('assets/images/avatars/Mouths/mouth_1.png', width: 50.0,),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 77.0,
-                      decoration: BoxDecoration(
-                          color: const Color(0xffb9ebfd),
-                          border: Border.all(
-                            color: const Color(0xffb9ebfd),
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(8))
-                      ),
-                      // padding: EdgeInsets.all(1.0),
-                      margin: EdgeInsets.all(1.0),
-                      child:  FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.changeSkin('Hair', 'hair_', 18);
+                        },
                         child: Column(
                           children: [
                             Text(
                               'Hairs',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -306,8 +318,8 @@ Widget AvatarsScreen(BuildContext context) {
                           ],
                         ),
                       ),
-                    ),
-                    Container(
+                    ),),
+                    Expanded(child: Container(
                       width: 80.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
@@ -319,14 +331,16 @@ Widget AvatarsScreen(BuildContext context) {
                       // padding: EdgeInsets.all(1.0),
                       margin: EdgeInsets.all(1.0),
                       child:  FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _controller.changeSkin('Special', 'special_', 5);
+                        },
                         child: Column(
                           children: [
                             Text(
                               'Specials',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -334,13 +348,13 @@ Widget AvatarsScreen(BuildContext context) {
                           ],
                         ),
                       ),
-                    ),
+                    ),)
                   ],
                 ),
-                Padding(padding: EdgeInsets.only(top: 80.0)),
+                // Padding(padding: EdgeInsets.only(top: 80.0)),
                 Container(
-                    height: 300,
-                    width: 300,
+                    height: (MediaQuery.of(context).size.height<(700))? 240:300,
+                    width: (MediaQuery.of(context).size.height<(700))? 240:300,
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -348,8 +362,8 @@ Widget AvatarsScreen(BuildContext context) {
                         border: Border.all(width: 1, color: Colors.blueAccent)
                     ),
                     child: Container(
-                      width: 250.0,
-                      height: 250.0,
+                      width: (MediaQuery.of(context).size.height<(700))? 200:250,
+                      height: (MediaQuery.of(context).size.height<(700))? 200:250,
                       child: Stack(
                         children: [
                           // Obx(() => Image.asset("$face")),
@@ -363,39 +377,94 @@ Widget AvatarsScreen(BuildContext context) {
                       ),
                     )
                 ),
+                Center(
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
+                      child: SizedBox(
+                        height: (MediaQuery.of(context).size.height<(700))? 150:191,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 1', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png', price: 80, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png', 80, true);
+                            }, hasBought: true, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<1?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 2', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png', price: 200, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png', 200, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<2?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 3', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png', price: 350, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png', 350, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<3?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 4', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png', price: 500, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png', 500, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<4?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 5', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png', price: 800, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png', 800, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<5?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 6', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png', price: 900, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png', 900, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<6?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 7', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png', price: 950, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png', 950, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<7?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 8', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png', price: 1000, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png', 1000, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<8?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 9', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png', price: 1100, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png', 1100, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<9?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 10', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png', price: 1100, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png', 1100, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<10?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 11', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png', price: 1100, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png', 1100, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<11?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 12', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png', price: 1400, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png', 1400, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<12?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 13', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png', price: 1500, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png', 1500, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<13?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 14', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png', price: 1600, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png', 1600, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<14?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 15', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png', price: 1700, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png', 1700, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<15?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 16', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png', price: 1800, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png', 1800, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<16?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 17', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png', price: 1900, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png', 1900, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<17?false:true),
+                            ),
+                            Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 18', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png', price: 2000, onClick: () {
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png', 2000, false);
+                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<18?false:true),
+                            ),
+                          ],
+                        ),
+                      )
+                  ),
+                ),
               ],
             )
         ),
-        Positioned(
-            bottom: 30.0,
-            right: 0,
-            left: 0,
-            child: Center(
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
-                    child: SizedBox(
-                      height: 191,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          avatarCard(new AvatarIcon(name: 'Face 1', imageURL: 'assets/images/avatars/Faces/face_1.png', price: 20, onClick: () {
-                            _controller.changeFace('assets/images/avatars/Faces/face_1.png', 20, true);
-                          }, hasBought: true)),
-                          avatarCard(new AvatarIcon(name: 'Face 2', imageURL: 'assets/images/avatars/Faces/face_2.png', price: 30, onClick: () {
-                            _controller.changeFace('assets/images/avatars/Faces/face_2.png', 30, false);
-                          }, hasBought: false)),
-                          avatarCard(new AvatarIcon(name: 'Face 3', imageURL: 'assets/images/avatars/Faces/face_3.png', price: 40, onClick: () {
-                            _controller.changeFace('assets/images/avatars/Faces/face_3.png', 40, false);
-                          }, hasBought: false)),
-                          avatarCard(new AvatarIcon(name: 'Face 4', imageURL: 'assets/images/avatars/Faces/face_4.png', price: 50, onClick: () {
-                            _controller.changeFace('assets/images/avatars/Faces/face_4.png', 50, false);
-                          }, hasBought: false)),
-                        ],
-                      ),
-                    )
-                ),
-            ),
-        )
       ],
     )
   ));
@@ -403,11 +472,15 @@ Widget AvatarsScreen(BuildContext context) {
 
 class AvatarsController extends GetxController {
   RxString _face = 'assets/images/avatars/Faces/face_1.png'.obs;
-  RxString _clothes = 'assets/images/avatars/Clothes/cloth_1.png'.obs;
+  RxString _clothes = 'assets/images/avatars/Cloths/cloth_1.png'.obs;
   RxString _eyes = 'assets/images/avatars/Eyes/eye_1.png'.obs;
   RxString _mouth = 'assets/images/avatars/Mouths/mouth_1.png'.obs;
   RxString _hair = 'assets/images/avatars/Hairs/hair_1.png'.obs;
   RxString _specials = 'assets/images/avatars/Specials/special_1.png'.obs;
+
+  RxString _selectedSkin = 'Face'.obs;
+  RxString _selectedSkinUrl = 'face_'.obs;
+  RxInt _selectedSkinNumber = 4.obs;
 
   RxInt _totalCost = 0.obs;
   RxInt _faceCost = 0.obs;
@@ -416,6 +489,27 @@ class AvatarsController extends GetxController {
   RxInt _mouthCost = 0.obs;
   RxInt _hairCost = 0.obs;
   RxInt _specialsCost = 0.obs;
+
+  void changeSkin(skin, url, number) {
+    _selectedSkin.value = skin;
+    _selectedSkinUrl.value = url;
+    _selectedSkinNumber.value = number;
+  }
+  void whichFunction(skin, value, price, hasBought) {
+    if(skin=='Face') {
+      changeFace(value, price, hasBought);
+    } else if(skin=='Cloth') {
+      changeClothes(value, price, hasBought);
+    } else if(skin=='Eye') {
+      changeEyes(value, price, hasBought);
+    } else if(skin=='Mouth') {
+      changeMouth(value, price, hasBought);
+    } else if(skin=='Hair') {
+      changeHair(value, price, hasBought);
+    } else if(skin=='Special') {
+      changeSpecials(value, price, hasBought);
+    }
+  }
 
   void changeFace(value, price, hasBought) {
     _face.value = value;

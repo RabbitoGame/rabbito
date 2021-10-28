@@ -8,13 +8,15 @@ class AvatarIcon {
   late double price;
   late var onClick;
   late bool hasBought;
+  late var height;
 
   AvatarIcon({
     required this.name,
     required this.imageURL,
     required this.price,
     required this.onClick,
-    required this.hasBought
+    required this.hasBought,
+    required this.height
   });
 
 }
@@ -22,10 +24,10 @@ class AvatarIcon {
 Widget avatarCard(AvatarIcon item) {
 
   return Container(
-    height: 170,
+    // height: 170,
     width: 170,
-    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-    padding: EdgeInsets.all(5),
+    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+    padding: EdgeInsets.all((item.height<(700))? 2:5),
     decoration: BoxDecoration(
         color: const Color(0xffe3e0e0),
         border: Border.all(
@@ -41,16 +43,16 @@ Widget avatarCard(AvatarIcon item) {
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+            padding: EdgeInsets.fromLTRB(0, (item.height<(700))? 1:4, 0, (item.height<(700))? 1:4),
             child: CircleAvatar(
-              radius: 40.0,
+              radius: 35.0,
               backgroundImage: AssetImage(item.imageURL),
               backgroundColor: Colors.transparent,
             ),
           ),
         ),
         Padding(
-            padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+            padding: EdgeInsets.fromLTRB(0, (item.height<(700))? 2:4, 0, (item.height<(700))? 2:4),
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,7 +65,7 @@ Widget avatarCard(AvatarIcon item) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                  padding: EdgeInsets.fromLTRB(3, (item.height<(700))? 1:2, 3, (item.height<(700))? 1:2),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -72,7 +74,7 @@ Widget avatarCard(AvatarIcon item) {
                       borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
                   child: Text(
-                    item.hasBought? "Has Bought" : item.price.toString() + " \$",
+                    item.hasBought? "Has Bought" : item.price.toString() + " C",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: item.hasBought? 14.0 : 17.0,
@@ -98,7 +100,7 @@ Widget avatarCard(AvatarIcon item) {
                 onPressed: item.onClick,
                 outerColor: item.hasBought? Colors.green : Colors.orange,
                 innerColor: item.hasBought? Colors.lightGreen : Colors.orangeAccent,
-                minHeight: 40,
+                minHeight: (item.height<(700))? 30:40,
               ))
         )
       ],

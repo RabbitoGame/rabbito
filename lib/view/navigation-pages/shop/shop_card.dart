@@ -1,3 +1,6 @@
+import 'dart:js';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 
@@ -32,9 +35,10 @@ class ShopItem {
 Widget shopCard(ShopItem item) {
 
   return Container(
+    width: item.width,
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-    padding: EdgeInsets.fromLTRB(5, 2, 5, 3),
-      width: item.width,
+    padding: EdgeInsets.fromLTRB((item.width<(400/3))? 0:2.5 , 2, (item.width<(400/3))? 0:2.5, 3),
+      // width: item.width,
       height: item.height,
       decoration: BoxDecoration(
           color: item.lightColor,
@@ -60,12 +64,25 @@ Widget shopCard(ShopItem item) {
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  item.name,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                      color: item.deepColor
+                Container(
+                  padding: EdgeInsets.fromLTRB((item.width<(400/3))? 1:3, 2, (item.width<(400/3))? 1:3, 0),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(8))
+                  ),
+                  child: AutoSizeText(
+                    item.name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: (item.width<(400/3))? 10.5:14,
+                        color: item.deepColor
+                    ),
+                    maxLines: 1,
+                    minFontSize: 5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Container(
@@ -78,13 +95,13 @@ Widget shopCard(ShopItem item) {
                       borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
                   child: Text(
-                    item.value_added.toString() + " VA",
+                    item.value_added.toString() + " %",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
+                        fontSize: (item.width<(400/3))? 8:12,
                         color: Colors.amber
                     ),
-                  ),
+                  )
                 )
               ],
             )
