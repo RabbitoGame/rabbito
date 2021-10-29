@@ -129,7 +129,7 @@ Widget AvatarsScreen(BuildContext context) {
           ),
           Positioned(
               top: 0,
-              right: 65,
+              right: 75,
               width: 30,
               child: FlatButton(
                 minWidth: 25,
