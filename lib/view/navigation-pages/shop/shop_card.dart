@@ -14,7 +14,7 @@ class ShopItem {
   late String name;
   late String description;
   late String imageURL;
-  late double price;
+  late int price;
   late double value_added;
 
   ShopItem({
@@ -98,7 +98,7 @@ Widget shopCard(ShopItem item) {
                     item.value_added.toString() + " %",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: (item.width<(400/3))? 8:12,
+                        fontSize: (item.width<(400/3))? 9:12,
                         color: Colors.amber
                     ),
                   )
@@ -125,7 +125,7 @@ Widget shopCard(ShopItem item) {
               width: double.infinity,
               child: CustomContainer(
                 child: Text(
-                  item.price.toString() + '\$',
+                  item.price.toString() + ' T',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,
