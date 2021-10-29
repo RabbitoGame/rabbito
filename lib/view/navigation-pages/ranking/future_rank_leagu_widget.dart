@@ -286,11 +286,9 @@ class FutureRankLeagueWidget extends StatelessWidget {
         }
       }).toList();
     } else {
-
-      Map currentRank = json.decode(data["current_rank"]);
-
-      Map allRanks =  json.decode(data["all_ranks"]);
-
+      print(data.toString());
+      Map currentRank = data["current_rank"];
+      Map allRanks =  data["all_ranks"];
       if (currentRank.length==0) {
         return [
           Center(
@@ -298,18 +296,28 @@ class FutureRankLeagueWidget extends StatelessWidget {
           )
         ];
       }
-      int leagueIndex =findInt(currentRank.keys.first);
+      int inde =findInt(currentRank.keys.first.toString());
+      List leagueIndexes=[];
+      for(int i =0 ; i<allRanks.keys.length;i++){
+        leagueIndexes.add(findInt(allRanks.keys.elementAt(i).toString()));
+      }
+
+
       return List<Widget>.generate(leagueNum, (index) {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
-        // if (index >= leagueIndex) {
-        //   return openableLeague(leagueDetail.image, leagueDetail.text,
-        //       leagueDetail.rightSide, jsonWords.elementAt(index)["words"], -1);
-        // } else {
-        //   return closeLeague(
-        //       leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
-        // }
-        return closeLeague(
-            leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
+        if (index == inde) {
+          return openableLeague(leagueDetail.image, leagueDetail.text,
+              leagueDetail.rightSide, currentRank[currentRank.keys.first.toString()], -1);
+        }
+        int x = checkIndex(index , leagueIndexes);
+        if(x!=-1){
+          return openableLeague(leagueDetail.image, leagueDetail.text,
+              leagueDetail.rightSide, allRanks[allRanks.keys.elementAt(x).toString()], -1);
+        }
+        else {
+          return closeLeague(
+              leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
+        }
       }).toList();
     }
   }
@@ -335,5 +343,13 @@ class FutureRankLeagueWidget extends StatelessWidget {
     int last =int.parse(name.substring(name.length - 1));
     return x*3 +(3 - last);
 
+  }
+
+  int checkIndex(int index, List<dynamic> leagueIndexes) {
+    for(int i =0 ; i<leagueIndexes.length;i++){
+      if(index==leagueIndexes.elementAt(i)) return i;
+
+    }
+    return -1;
   }
 }

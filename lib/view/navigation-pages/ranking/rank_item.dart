@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -188,7 +190,7 @@ class RankItem extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(SizeConfig.padding2),
               child: AutoSizeText(
-                userState["word"],
+                userState["in_first_lang"],
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 group: itemGroup,
@@ -205,7 +207,7 @@ class RankItem extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(SizeConfig.padding2),
               child: AutoSizeText(
-                userState["translation"],
+                utf8.decode((userState["in_second_lang"] as String).codeUnits),
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 group: itemGroup,
