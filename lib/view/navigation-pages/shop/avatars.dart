@@ -5,6 +5,7 @@ import 'package:rabbito/global/strings/request_strings.dart';
 import 'package:rabbito/model/user.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/view/navigation-pages/shop/avatar_card.dart';
+import 'package:rabbito/view/navigation-pages/shop/shop.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
 import 'package:rabbito/view/widgets/custom_container.dart';
 
@@ -29,6 +30,8 @@ Widget AvatarsScreen(BuildContext context) {
   }
 
   payBill(int amount) async {
+    print('request sent');
+    print(amount);
     var result = await User.transactions(
       amount: amount,
       isIncrease: false,
@@ -46,8 +49,9 @@ Widget AvatarsScreen(BuildContext context) {
         box.write(_controller._mouth.value, 'bought');
         box.write(_controller._hair.value, 'bought');
         box.write(_controller._specials.value, 'bought');
-      }
     }
+    Navigator.of(context).pop(true);
+  }
 
   Future<bool> _onWillPop() async {
     return (await  showDialog(
@@ -55,7 +59,7 @@ Widget AvatarsScreen(BuildContext context) {
         builder: (BuildContext context) {
           return AlertDialog(
               content: SizedBox(
-                height: 142,
+                height: 160,
                 child: Stack(
                   overflow: Overflow.visible,
                   children: <Widget>[
