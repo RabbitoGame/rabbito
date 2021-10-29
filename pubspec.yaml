@@ -55,6 +55,7 @@ dependencies:
     git: https://github.com/dorrin-sot/game_widget2.git
   tapsell_plus: ^2.1.4
   flutter_smart_dialog: ^2.3.8
+  get_storage: ^2.0.3
 
 
 

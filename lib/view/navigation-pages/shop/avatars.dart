@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:rabbito/controller/app_controller.dart';
+import 'package:rabbito/global/strings/request_strings.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:get/get.dart';
 import 'package:rabbito/view/navigation-pages/shop/avatar_card.dart';
 import 'package:rabbito/view/navigation-pages/shop/shop_card.dart';
@@ -6,6 +10,37 @@ import 'package:rabbito/view/widgets/custom_container.dart';
 
 Widget AvatarsScreen(BuildContext context) {
   AvatarsController _controller = Get.put(AvatarsController());
+  final box = GetStorage();
+
+  hasBought(String key) {
+    if(box.hasData(key)) {
+      if(box.read(key) == 'bought') {
+        return true;
+      }
+    }
+   return false;
+  }
+
+  payBill(int amount) async {
+    var result = await User.transactions(
+      amount: amount,
+      isIncrease: false,
+      isHeart: false,
+    );
+    print('request sent');
+    if (result[RequestStrings.status]) {
+        print('request done successfully!');
+        var x = AppController.appController.currUser!.value.coin! + amount;
+        AppController.appController.currUser!.update(( user) =>
+        (user as User).coin = x );
+        box.write(_controller._face.value, 'bought');
+        box.write(_controller._clothes.value, 'bought');
+        box.write(_controller._eyes.value, 'bought');
+        box.write(_controller._mouth.value, 'bought');
+        box.write(_controller._hair.value, 'bought');
+        box.write(_controller._specials.value, 'bought');
+      }
+    }
 
   Future<bool> _onWillPop() async {
     return (await  showDialog(
@@ -73,7 +108,9 @@ Widget AvatarsScreen(BuildContext context) {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      payBill(_controller._totalCost.value);
+                                    },
                                     outerColor: Colors.orange,
                                     innerColor: Colors.orangeAccent,
                                     minHeight: 40,
@@ -386,76 +423,76 @@ Widget AvatarsScreen(BuildContext context) {
                           scrollDirection: Axis.horizontal,
                           children: [
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 1', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png', price: 80, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png', 80, true);
-                            }, hasBought: true, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<1?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png', 80, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}1.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<1?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 2', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png', price: 200, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png', 200, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<2?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png', 200, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}2.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<2?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 3', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png', price: 350, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png', 350, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<3?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png', 350, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}3.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<3?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 4', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png', price: 500, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png', 500, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<4?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png', 500, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}4.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<4?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 5', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png', price: 800, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png', 800, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<5?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png', 800, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}5.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<5?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 6', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png', price: 900, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png', 900, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<6?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png', 900, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}6.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<6?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 7', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png', price: 950, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png', 950, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<7?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png', 950, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}7.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<7?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 8', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png', price: 1000, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png', 1000, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<8?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png', 1000, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}8.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<8?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 9', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png', price: 1100, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png', 1100, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<9?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png', 1100, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}9.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<9?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 10', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png', price: 1100, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png', 1100, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<10?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png', 1100, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}10.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<10?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 11', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png', price: 1100, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png', 1100, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<11?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png', 1100, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}11.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<11?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 12', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png', price: 1400, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png', 1400, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<12?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png', 1400, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}12.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<12?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 13', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png', price: 1500, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png', 1500, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<13?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png', 1500, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}13.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<13?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 14', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png', price: 1600, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png', 1600, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<14?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png', 1600, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}14.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<14?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 15', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png', price: 1700, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png', 1700, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<15?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png', 1700, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}15.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<15?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 16', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png', price: 1800, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png', 1800, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<16?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png', 1800, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}16.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<16?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 17', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png', price: 1900, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png', 1900, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<17?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png', 1900, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}17.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<17?false:true),
                             ),
                             Obx(() =>  Visibility(child: avatarCard(new AvatarIcon(name: '${_controller._selectedSkin.value} 18', imageURL: 'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png', price: 2000, onClick: () {
-                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png', 2000, false);
-                            }, hasBought: false, height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<18?false:true),
+                              _controller.whichFunction(_controller._selectedSkin.value,'assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png', 2000, hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png'));
+                            }, hasBought: hasBought('assets/images/avatars/${_controller._selectedSkin.value}s/${_controller._selectedSkinUrl.value}18.png'), height: MediaQuery.of(context).size.height)),  visible: _controller._selectedSkinNumber.value<18?false:true),
                             ),
                           ],
                         ),
@@ -477,6 +514,13 @@ class AvatarsController extends GetxController {
   RxString _mouth = 'assets/images/avatars/Mouths/mouth_1.png'.obs;
   RxString _hair = 'assets/images/avatars/Hairs/hair_1.png'.obs;
   RxString _specials = 'assets/images/avatars/Specials/special_1.png'.obs;
+
+  // late bool faces = false;
+  // late bool clothes = false;
+  // late bool eyes = false;
+  // late bool mouth = false;
+  // late bool hairs = false;
+  // late bool specials = false;
 
   RxString _selectedSkin = 'Face'.obs;
   RxString _selectedSkinUrl = 'face_'.obs;
