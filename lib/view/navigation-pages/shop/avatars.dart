@@ -54,12 +54,14 @@ Widget AvatarsScreen(BuildContext context) {
   }
 
   Future<bool> _onWillPop() async {
+    print('heighttttt');
+    print(MediaQuery.of(context).size.height);
     return (await  showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
               content: SizedBox(
-                height: 160,
+                height: 152,
                 child: Stack(
                   overflow: Overflow.visible,
                   children: <Widget>[
@@ -179,8 +181,9 @@ Widget AvatarsScreen(BuildContext context) {
               top: 0,
               right: 75,
               width: 30,
+              height: 12,
               child: FlatButton(
-                minWidth: 25,
+                // minWidth: 25,
                 child: Icon(Icons.shopping_cart, size: 24, color: Colors.white),
                 onPressed: () {
                  _onWillPop();
@@ -200,11 +203,11 @@ Widget AvatarsScreen(BuildContext context) {
         ],
       )
     ),
-    body: Column(
+    body: SingleChildScrollView( child: Column(
       children: [
         Container(
           // color: Colors.white,
-          height: MediaQuery.of(context).size.height-60,
+          height: MediaQuery.of(context).size.height-60-MediaQuery.of(context).padding.bottom-MediaQuery.of(context).padding.top,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/wallpapers/ShopPageWallpaper.png"),
@@ -218,7 +221,7 @@ Widget AvatarsScreen(BuildContext context) {
                 Row(
                   children: [
                     Expanded(child: Container(
-                      width: 77.0,
+                      // width: 77.0,
                       decoration: BoxDecoration(
                           color: const Color(0xffb9ebfd),
                           border: Border.all(
@@ -232,19 +235,19 @@ Widget AvatarsScreen(BuildContext context) {
                         onPressed: () {
                           _controller.changeSkin('Face', 'face_', 4);
                         },
-                        child: Column(
+                        child: Expanded(child:Column(
                           children: [
                             Text(
                               'Faces',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(420))? 10:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
                             Image.asset('assets/images/avatars/Faces/face_1.png', width: 50.0,),
                           ],
-                        ),
+                        ),)
                       ),
                     )),
                     Expanded(child: Container(
@@ -268,7 +271,7 @@ Widget AvatarsScreen(BuildContext context) {
                               'Cloths',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(420))? 10:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -298,7 +301,7 @@ Widget AvatarsScreen(BuildContext context) {
                               'Eyes',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(420))? 10:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -328,7 +331,7 @@ Widget AvatarsScreen(BuildContext context) {
                              'Mouths',
                              style: TextStyle(
                                  fontWeight: FontWeight.bold,
-                                 fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                 fontSize: (MediaQuery.of(context).size.width<(420))? 8:16.0,
                                  color: Colors.blueAccent
                              ),
                            ),
@@ -358,7 +361,7 @@ Widget AvatarsScreen(BuildContext context) {
                               'Hairs',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(420))? 10:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -388,7 +391,7 @@ Widget AvatarsScreen(BuildContext context) {
                               'Specials',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: (MediaQuery.of(context).size.width<(380))? 12:16.0,
+                                  fontSize: (MediaQuery.of(context).size.width<(420))? 7:16.0,
                                   color: Colors.blueAccent
                               ),
                             ),
@@ -513,7 +516,7 @@ Widget AvatarsScreen(BuildContext context) {
               ],
             )
         ),
-      ],
+      ],)
     )
   ));
 }

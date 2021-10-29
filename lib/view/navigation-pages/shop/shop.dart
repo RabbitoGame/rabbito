@@ -111,7 +111,7 @@ Widget shopMenu(BuildContext context) {
                 name: '100 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0,
+                price: 1000,
                 value_added: 10
             ))),
             Expanded(child:  shopCard(new ShopItem(
@@ -122,7 +122,7 @@ Widget shopMenu(BuildContext context) {
                 name: '200 Coins',
                 description: '',
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0,
+                price: 1500,
                 value_added: 12
             ))),
             Expanded(child:   shopCard(new ShopItem(
@@ -133,7 +133,7 @@ Widget shopMenu(BuildContext context) {
                 name: '500 Coins',
                 description: '', //100 Coins package is a cool improvement!
                 imageURL: 'assets/images/appbar/coin.png',
-                price: 100.0,
+                price: 3000,
                 value_added: 15
             ))),
           ],
@@ -149,7 +149,7 @@ Widget shopMenu(BuildContext context) {
                 name: '1000 Coins',
                 description: '',
                 imageURL: 'assets/images/packs/coin_pack1.png',
-                price: 100.0,
+                price: 5000,
                 value_added: 18
             ))),
             Expanded(child:   shopCard(new ShopItem(
@@ -160,7 +160,7 @@ Widget shopMenu(BuildContext context) {
                 name: '5000 Coins',
                 description: '',
                 imageURL: 'assets/images/packs/coin_pack2.png',
-                price: 100.0,
+                price: 15000,
                 value_added: 20
             ))),
             Expanded(child:   shopCard(new ShopItem(
@@ -171,7 +171,7 @@ Widget shopMenu(BuildContext context) {
                 name: '50000 Coins',
                 description: '',
                 imageURL: 'assets/images/packs/coin_pack3.png',
-                price: 100.0,
+                price: 40000,
                 value_added: 25
             ))),
           ],
@@ -204,7 +204,7 @@ Widget shopMenu(BuildContext context) {
                 name: '3 Hearts',
                 description: '',
                 imageURL: 'assets/images/appbar/heart.png',
-                price: 100.0,
+                price: 3000,
                 value_added: 10
             ))),
             Expanded(child: shopCard(new ShopItem(
@@ -215,7 +215,7 @@ Widget shopMenu(BuildContext context) {
                 name: 'Fill Hearts',
                 description: '',
                 imageURL: 'assets/images/packs/heart_pack2.png',
-                price: 100.0,
+                price: 5000,
                 value_added: 14
             ))),
             Expanded(child: shopCard(new ShopItem(
@@ -226,7 +226,7 @@ Widget shopMenu(BuildContext context) {
                 name: 'Infinite',
                 description: '',
                 imageURL: 'assets/images/appbar/infinite.png',
-                price: 100.0,
+                price: 25000,
                 value_added: 18
             ))),
           ],
