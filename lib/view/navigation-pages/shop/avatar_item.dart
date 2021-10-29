@@ -52,7 +52,7 @@ Widget avatar(AvatarItem item) {
               child: Stack(
                 children: [
                   Image.asset('assets/images/avatars/Faces/face_1.png'),
-                  Image.asset('assets/images/avatars/Cloths/cloth_1.png'),
+                  Image.asset('assets/images/avatars/Clothes/cloth_1.png'),
                   Image.asset('assets/images/avatars/Eyes/eye_1.png'),
                   Image.asset('assets/images/avatars/Mouths/mouth_1.png'),
                   Image.asset('assets/images/avatars/Hairs/hair_1.png'),

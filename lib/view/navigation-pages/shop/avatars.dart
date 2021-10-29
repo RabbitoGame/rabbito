@@ -13,7 +13,7 @@ Widget AvatarsScreen(BuildContext context) {
   AvatarsController _controller = Get.put(AvatarsController());
   final box = GetStorage();
   box.write('assets/images/avatars/Faces/face_1.png', 'bought');
-  box.write('assets/images/avatars/Cloths/cloth_1.png', 'bought');
+  box.write('assets/images/avatars/Clothes/cloth_1.png', 'bought');
   box.write('assets/images/avatars/Eyes/eye_1.png', 'bought');
   box.write('assets/images/avatars/Mouths/mouth_1.png', 'bought');
   box.write('assets/images/avatars/Hairs/hair_1.png', 'bought');
@@ -275,7 +275,7 @@ Widget AvatarsScreen(BuildContext context) {
                                   color: Colors.blueAccent
                               ),
                             ),
-                            Image.asset('assets/images/avatars/Cloths/cloth_1.png', width: 50.0,),
+                            Image.asset('assets/images/avatars/Clothes/cloth_1.png', width: 50.0,),
                           ],
                         ),
                       ),
@@ -523,7 +523,7 @@ Widget AvatarsScreen(BuildContext context) {
 
 class AvatarsController extends GetxController {
   RxString _face = 'assets/images/avatars/Faces/face_1.png'.obs;
-  RxString _clothes = 'assets/images/avatars/Cloths/cloth_1.png'.obs;
+  RxString _clothes = 'assets/images/avatars/Clothes/cloth_1.png'.obs;
   RxString _eyes = 'assets/images/avatars/Eyes/eye_1.png'.obs;
   RxString _mouth = 'assets/images/avatars/Mouths/mouth_1.png'.obs;
   RxString _hair = 'assets/images/avatars/Hairs/hair_1.png'.obs;
