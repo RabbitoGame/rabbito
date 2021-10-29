@@ -142,9 +142,9 @@ Widget shopMenu(BuildContext context) {
         Row(
           children: [
             Expanded(child:  shopCard(new ShopItem(
-                deepColor: deepGreen,
-                shadowColor: shadowGreen,
-                lightColor: lightGreen,
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
                 width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '1000 Coins',
                 description: '',
@@ -153,9 +153,9 @@ Widget shopMenu(BuildContext context) {
                 value_added: 18
             ))),
             Expanded(child:   shopCard(new ShopItem(
-                deepColor: deepGreen,
-                shadowColor: shadowGreen,
-                lightColor: lightGreen,
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
                 width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '5000 Coins',
                 description: '',
@@ -164,9 +164,9 @@ Widget shopMenu(BuildContext context) {
                 value_added: 20
             ))),
             Expanded(child:   shopCard(new ShopItem(
-                deepColor: deepGreen,
-                shadowColor: shadowGreen,
-                lightColor: lightGreen,
+                deepColor: deepYellow,
+                shadowColor: shadowYellow,
+                lightColor: lightYellow,
                 width: MediaQuery.of(context).size.width*0.3, height: 131,
                 name: '50000 Coins',
                 description: '',
@@ -177,23 +177,23 @@ Widget shopMenu(BuildContext context) {
           ],
         ),
         Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
-        Row(
-          children: [
-            Expanded(child: bundleCard(new BundleItem(
-                deepColor: deepYellow,
-                shadowColor: shadowYellow,
-                lightColor: lightYellow,
-                width: MediaQuery.of(context).size.width, height: 162,
-                name: 'Special Bundle for You',
-                description: 'Buy infinite heart to do anything in the game without any limits!',
-                imageURL: 'assets/images/appbar/cup.png',
-                price: 500.0,
-                last_price: 600,
-                discount_percentage: 20
-            )))
-          ],
-        ),
-        Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
+        // Row(
+        //   children: [
+        //     Expanded(child: bundleCard(new BundleItem(
+        //         deepColor: deepYellow,
+        //         shadowColor: shadowYellow,
+        //         lightColor: lightYellow,
+        //         width: MediaQuery.of(context).size.width, height: 162,
+        //         name: 'Special Bundle for You',
+        //         description: 'Buy infinite heart to do anything in the game without any limits!',
+        //         imageURL: 'assets/images/appbar/cup.png',
+        //         price: 500.0,
+        //         last_price: 600,
+        //         discount_percentage: 20
+        //     )))
+        //   ],
+        // ),
+        // Padding(padding: EdgeInsets.symmetric(vertical: 4, horizontal: 0)),
         Row(
           children: [
             Expanded(child: shopCard(new ShopItem(

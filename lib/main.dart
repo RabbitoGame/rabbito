@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:rabbito/view/init/init.dart';
 import 'package:tapsell_plus/tapsell_plus.dart';
 
-void main() {
+Future<void> main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(App());
