@@ -11,6 +11,13 @@ import 'package:rabbito/view/widgets/custom_container.dart';
 Widget AvatarsScreen(BuildContext context) {
   AvatarsController _controller = Get.put(AvatarsController());
   final box = GetStorage();
+  box.write('assets/images/avatars/Faces/face_1.png', 'bought');
+  box.write('assets/images/avatars/Cloths/cloth_1.png', 'bought');
+  box.write('assets/images/avatars/Eyes/eye_1.png', 'bought');
+  box.write('assets/images/avatars/Mouths/mouth_1.png', 'bought');
+  box.write('assets/images/avatars/Hairs/hair_1.png', 'bought');
+  box.write('assets/images/avatars/Specials/special_1.png', 'bought');
+
 
   hasBought(String key) {
     if(box.hasData(key)) {
@@ -390,8 +397,8 @@ Widget AvatarsScreen(BuildContext context) {
                 ),
                 // Padding(padding: EdgeInsets.only(top: 80.0)),
                 Container(
-                    height: (MediaQuery.of(context).size.height<(700))? 240:300,
-                    width: (MediaQuery.of(context).size.height<(700))? 240:300,
+                    height: (MediaQuery.of(context).size.height<(700))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
+                    width: (MediaQuery.of(context).size.height<(700))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -399,8 +406,8 @@ Widget AvatarsScreen(BuildContext context) {
                         border: Border.all(width: 1, color: Colors.blueAccent)
                     ),
                     child: Container(
-                      width: (MediaQuery.of(context).size.height<(700))? 200:250,
-                      height: (MediaQuery.of(context).size.height<(700))? 200:250,
+                      height: (MediaQuery.of(context).size.height<(700))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
+                      width: (MediaQuery.of(context).size.height<(700))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
                       child: Stack(
                         children: [
                           // Obx(() => Image.asset("$face")),
@@ -418,7 +425,7 @@ Widget AvatarsScreen(BuildContext context) {
                   child: Padding(
                       padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
                       child: SizedBox(
-                        height: (MediaQuery.of(context).size.height<(700))? 150:191,
+                        height: (MediaQuery.of(context).size.height<(700))? ((MediaQuery.of(context).size.height<(450))?125:150):190,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
