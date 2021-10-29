@@ -33,7 +33,39 @@ class ProfileUI2 extends StatelessWidget {
         if (_controller.isDataReady.value) {
           return profileWidget(context);
         } else {
-          return LoadingWidget(Indicator.ballBeat);
+          return Container(
+            color: Colors.green.withOpacity(0.7),
+            margin: EdgeInsets.all(0),
+            width: double.maxFinite,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox.square(
+                  dimension: Get.width * .75,
+                  child: Image.asset(
+                    'assets/gifs/Rabitto_Searching.gif',
+                  ),
+                ),
+                FittedBox(
+                  child: Text(
+                    '      please wait to fetch your data      ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(Get.width / 150, Get.width / 150),
+                          color: Color(0xFF101051),
+                        ),
+                      ],
+                      fontWeight: FontWeight.w900,
+                      fontSize: Get.width / 15,
+                      fontFamily: 'Roboto_Condensed',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         }
       },
     );
@@ -139,7 +171,8 @@ class ProfileUI2 extends StatelessWidget {
                     win: _controller._win.value,
                     loose: _controller._loose.value,
                     rank: _controller._rank.value,
-                    leagueString: User.calculateLeagueImageString(name: _controller._leagueString.value),
+                    leagueString: User.calculateLeagueImageString(
+                        name: _controller._leagueString.value),
                   );
                 }),
               ),
@@ -147,7 +180,7 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value , group);
+                return WordsLearned(_controller.wordsLearned.value, group);
               }),
               SizedBox(
                 height: 10,
