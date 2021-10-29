@@ -97,6 +97,8 @@ flutter:
     - assets/images/avatars/
     - assets/images/wallpapers/
     - assets/images/packs/
+    - assets/images/Coin Packs/
+    - assets/images/Heart Packs/
     - assets/gifs/
     - assets/sounds/
 

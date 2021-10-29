@@ -28,7 +28,7 @@ class UserPreferences {
     if (prefs.containsKey(UserStrings.username)) {
       print("shared prefs: " + prefs.getString(UserStrings.username)!);
     } else {
-      print("shared prefs: not contains ");
+      print("shared prefs: not contains username in phobne cash");
     }
   }
 

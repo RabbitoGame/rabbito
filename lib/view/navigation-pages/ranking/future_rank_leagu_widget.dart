@@ -1,15 +1,18 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:rabbito/global/size_config.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_item.dart';
 import 'package:rabbito/view/navigation-pages/ranking/rank_watch.dart';
 import 'package:rabbito/view/navigation-pages/ranking/statics.dart';
 import 'package:rabbito/view/widgets/loading.dart';
 
 class FutureRankLeagueWidget extends StatelessWidget {
-  int leagueNum = 5;
+  int leagueNum = 18;
   bool isRanking;
 
   FutureRankLeagueWidget(this.isRanking);
@@ -38,11 +41,13 @@ class FutureRankLeagueWidget extends StatelessWidget {
       child: FutureBuilder(
         future: getRankPageInfo(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            dynamic jsonData = convertToUsefulJson(data: snapshot.data);
+          if (snapshot.hasData) {
+            print("this data is from word/rank page: " +
+                snapshot.data.toString());
+
             return Padding(
               padding: EdgeInsets.only(bottom: lowPadding),
-              child: ListView(children: makeChildren(jsonData)),
+              child: ListView(children: makeChildren(snapshot.data)),
             );
           } else {
             return Center(
@@ -59,10 +64,11 @@ class FutureRankLeagueWidget extends StatelessWidget {
 
   Future<dynamic> getRankPageInfo() async {
     //todo get info from back
+    print("inside getRankPageInfo()");
     if (isRanking) {
-      return Future.delayed(Duration(seconds: 0));
+      return await User.getUserRankPage();
     } else {
-      return Future.delayed(Duration(seconds: 0));
+      return await User.getUserWordPage();
     }
   }
 
@@ -70,7 +76,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
     return ExpandableThemeData(
       hasIcon: true,
       tapHeaderToExpand: true,
-      iconColor: isRanking?Colors.orange: Colors.white,
+      iconColor: isRanking ? Colors.orange : Colors.white,
       iconSize: iconWidth,
       headerAlignment: ExpandablePanelHeaderAlignment.center,
       iconRotationAngle: 50,
@@ -113,7 +119,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.symmetric(
-                          vertical: lowPadding*2, horizontal: lowPadding),
+                          vertical: lowPadding * 2, horizontal: lowPadding),
                       itemCount: competitors.length,
                       itemBuilder: (context, index) {
                         print("words here:" + competitors[index].toString());
@@ -147,7 +153,7 @@ class FutureRankLeagueWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       elevation: 20,
-      color: isRanking?Color(0xff3c2457):Colors.green,
+      color: isRanking ? Color(0xff3c2457) : Colors.green,
       child: widget,
     );
   }
@@ -255,34 +261,79 @@ class FutureRankLeagueWidget extends StatelessWidget {
     }
   }
 
-  List<Widget> makeChildren(jsonData) {
+  List<Widget> makeChildren(Map data) {
     if (isRanking) {
-      int leagueIndex = jsonData["league"];
-      int rank = jsonData["rank"];
-      List competitors = jsonData["competitors"];
+
+      if (data.length==0) {
+        return [
+          Center(
+            child: Text("you have no rank (must play game)"),
+          )
+        ];
+      }
+      print("makechildren is ranking data : "+ data.toString());
+      String name = data["name"];
+      int leagueIndex = findInt(name);
+      List competitors = data["competitors"];
       return List<Widget>.generate(leagueNum, (index) {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
         if (index == leagueIndex) {
           return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, competitors, rank);
+              leagueDetail.rightSide, competitors, 4);
         } else {
           return closeLeague(
               leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
         }
       }).toList();
     } else {
-      int leagueIndex = jsonData["league"];
-      List jsonWords = jsonData["league-details"];
+
+      Map currentRank = json.decode(data["current_rank"]);
+
+      Map allRanks =  json.decode(data["all_ranks"]);
+
+      if (currentRank.length==0) {
+        return [
+          Center(
+            child: Text("you have no words (must play game)"),
+          )
+        ];
+      }
+      int leagueIndex =findInt(currentRank.keys.first);
       return List<Widget>.generate(leagueNum, (index) {
         LeagueDetails leagueDetail = LeagueDetails.details.elementAt(index);
-        if (index >= leagueIndex) {
-          return openableLeague(leagueDetail.image, leagueDetail.text,
-              leagueDetail.rightSide, jsonWords.elementAt(index)["words"], -1);
-        } else {
-          return closeLeague(
-              leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
-        }
+        // if (index >= leagueIndex) {
+        //   return openableLeague(leagueDetail.image, leagueDetail.text,
+        //       leagueDetail.rightSide, jsonWords.elementAt(index)["words"], -1);
+        // } else {
+        //   return closeLeague(
+        //       leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
+        // }
+        return closeLeague(
+            leagueDetail.image, leagueDetail.text, leagueDetail.rightSide);
       }).toList();
     }
+  }
+  findInt(String name){
+    int x =0;
+    if(name.contains(r'Bronze')){
+      x=0;
+    }else if(name.contains(r'Silver')){
+      x=1;
+    }
+    else if(name.contains(r'Gold')){
+      x=2;
+    }
+    else if(name.contains(r'Crystal')){
+      x=3;
+    }
+    else if(name.contains(r'Epic')){
+      x=4;
+    }
+    else if(name.contains(r'Legendary')){
+      x=5;
+    }
+    int last =int.parse(name.substring(name.length - 1));
+    return x*3 +(3 - last);
+
   }
 }

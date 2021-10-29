@@ -95,7 +95,7 @@ class RankItem extends StatelessWidget {
                       ),
                       Align(
                         child: Text(
-                          userState["xp"].toString(),
+                          userState["xp_level"].toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class RankItem extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child: CircleAvatar(
-                    child: Image.asset(userState["image"]),
+                    child: Image.asset(ImageStrings.logoAsset),
                   ),
                 ),
                 SizedBox(
@@ -121,7 +121,7 @@ class RankItem extends StatelessWidget {
                 Flexible(
                   flex: 3,
                   child: AutoSizeText(
-                    userState["name"],
+                    userState["username"],
                     maxLines: 1,
                   ),
                 ),

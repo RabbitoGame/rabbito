@@ -34,16 +34,25 @@ class ImageStrings {
       'assets/images/ranking/progress.png';
   static const String rankingBadgeAsset = 'assets/images/ranking/badge.png';
   static const String rankingClockAsset = 'assets/images/ranking/clock.png';
-  static const String rankingLeagueCrystal1Asset = 'assets/images/ranking/league/Crystal_1.png';
-  static const String rankingLeagueCrystal2Asset = 'assets/images/ranking/league/Crystal_2.png';
-  static const String rankingLeagueCrystal3Asset = 'assets/images/ranking/league/Crystal_3.png';
-  static const String rankingLeagueCrystal4Asset = 'assets/images/ranking/league/Crystal_4.png';
-  static const String rankingLeagueCrystal5Asset = 'assets/images/ranking/league/Crystal_5.png';
-  static const String rankingLeagueBronze1Asset = 'assets/images/ranking/league/Bronze_1.png';
-  static const String rankingLeagueBronze2Asset = 'assets/images/ranking/league/Bronze_2.png';
-  static const String rankingLeagueBronze3Asset = 'assets/images/ranking/league/Bronze_3.png';
-  static const String rankingLeagueBronze4Asset = 'assets/images/ranking/league/Bronze_4.png';
-  static const String rankingLeagueBronze5Asset = 'assets/images/ranking/league/Bronze_5.png';
+  static const String rankingLeagueCrystal1Asset = 'assets/images/leagues/Crystal_1.png';
+  static const String rankingLeagueCrystal2Asset = 'assets/images/leagues/Crystal_2.png';
+  static const String rankingLeagueCrystal3Asset = 'assets/images/leagues/Crystal_3.png';
+  static const String rankingLeagueBronze1Asset = 'assets/images/leagues/Bronze_1.png';
+  static const String rankingLeagueBronze2Asset = 'assets/images/leagues/Bronze_2.png';
+  static const String rankingLeagueBronze3Asset = 'assets/images/leagues/Bronze_3.png';
+  static const String rankingLeagueSilver1Asset = 'assets/images/leagues/Silver_1.png';
+  static const String rankingLeagueSilver2Asset = 'assets/images/leagues/Silver_2.png';
+  static const String rankingLeagueSilver3Asset = 'assets/images/leagues/Silver_3.png';
+  static const String rankingLeagueGold1Asset = 'assets/images/leagues/Gold_1.png';
+  static const String rankingLeagueGold2Asset = 'assets/images/leagues/Gold_2.png';
+  static const String rankingLeagueGold3Asset = 'assets/images/leagues/Gold_3.png';
+  static const String rankingLeagueEpic1Asset = 'assets/images/leagues/Epic_1.png';
+  static const String rankingLeagueEpic2Asset = 'assets/images/leagues/Epic_2.png';
+  static const String rankingLeagueEpic3Asset = 'assets/images/leagues/Epic_3.png';
+  static const String rankingLeagueLegendary1Asset = 'assets/images/leagues/Legendary_1.png';
+  static const String rankingLeagueLegendary2Asset = 'assets/images/leagues/Legendary_2.png';
+  static const String rankingLeagueLegendary3Asset = 'assets/images/leagues/Legendary_3.png';
+
   static const String rankingLeagueBroAsset = 'assets/images/ranking/league/bro.png';
   static const String gameHomeChestAsset = 'assets/images/game-home/chest2.png';
   static const String gameHomeRouletteAsset =

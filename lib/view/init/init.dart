@@ -85,6 +85,7 @@ class Init {
       print("inside init prefs");
       if (sharedPref.containsKey(UserStrings.username)) {
         print("before in in");
+        // User.logOut();
         User user = await UserPreferences.getUser();
         print("in in");
         print(user.toString());
@@ -92,9 +93,17 @@ class Init {
           refreshToken: user.refreshToken!,
         );
         if (result[RequestStrings.status]) {
+
           user.refreshToken = result[UserStrings.refreshToken];
           user.accessToken = result[UserStrings.accessToken];
           AppController.appController.currUser = user.obs;
+          // var ans = await User.getUserDetails();
+          // var data =ans["data"];
+          // print(ans.toString());
+          // AppController.appController.currUser!.update((usi) {
+          //   usi.xp = data[]
+          // });
+
         } else {
           UserPreferences.removeUser();
         }

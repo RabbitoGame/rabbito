@@ -13,7 +13,6 @@ class UserStatistics extends StatelessWidget {
   int win;
   int loose;
   int correctMatches;
-  int wrongMatches;
   String leagueString;
   int rank;
 
@@ -21,7 +20,6 @@ class UserStatistics extends StatelessWidget {
     required this.win,
     required this.loose,
     required this.correctMatches,
-    required this.wrongMatches,
     required this.rank,
     required this.leagueString,
   });
@@ -38,7 +36,7 @@ class UserStatistics extends StatelessWidget {
       child: Column(
         children: [
           xpWidget(
-              all: AppController.isLoggedIn() ? 1000 : 0,
+              all: AppController.isLoggedIn() ? AppController.getXpLevel()*30 : 0,
               part: AppController.isLoggedIn() ? AppController.getXp() : 0,
               xpLevel:
                   AppController.isLoggedIn() ? AppController.getXpLevel() : 0,
@@ -66,7 +64,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 2,
                           child: Center(
                             child: Image.asset(
-                              leagueString
+                                rank==-1?ImageStrings.appbarCupAsset:leagueString
                             ),
                           ),
                         ),
@@ -74,7 +72,7 @@ class UserStatistics extends StatelessWidget {
                           flex: 1,
                           child: Center(
                             child: AutoSizeText(
-                              rank.toString() + "th",
+                              rank==-1?"no rank":rank.toString() + "th",
                               textAlign: TextAlign.center,
                               minFontSize: 12,
                               maxLines: 1,
@@ -107,17 +105,6 @@ class UserStatistics extends StatelessWidget {
                       SmallRow(
                         title: "correct matches",
                         number: correctMatches.toString(),
-                        width: SizeConfig.screenWidth,
-                        group: group,
-                      ),
-                      Divider(
-                        color: Colors.black,
-                        thickness: 0.5,
-                        height: dividerHeight,
-                      ),
-                      SmallRow(
-                        title: "wrong matches",
-                        number: wrongMatches.toString(),
                         width: SizeConfig.screenWidth,
                         group: group,
                       ),

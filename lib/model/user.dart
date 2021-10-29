@@ -47,24 +47,22 @@ class User {
 
   factory User.fromJson(
     Map<String, dynamic> responseData,
-    String username,
   ) {
     Map<String, dynamic> mainData = responseData["data"];
     String heartTime;
 
     return User(
-      username: username,
+      username: mainData["username"],
       // fixme heart been removed
       // hearts: mainData[UserStrings.hearts],
       hearts: maxHearts,
       coin: mainData[UserStrings.coin],
       carrot: mainData[UserStrings.carrot],
-      // xp: mainData[UserStrings.xp],
-      // xplevel: mainData[UserStrings.xpLevel],
-      // avatar fixme add when added in server
+      // avatar: mainData[UserStrings.avatar],
+      avatar: Avatar.defaultAvatar(),
       id: mainData[UserStrings.id],
-      xp: 0,
-      xpLevel: 0,
+      xp: mainData[UserStrings.xp],
+      xpLevel: mainData[UserStrings.xpLevel],
       accessToken: responseData[UserStrings.accessToken],
       refreshToken: responseData[UserStrings.refreshToken],
       heartTime: DateTime.now(),
@@ -77,11 +75,12 @@ class User {
       hearts: maxHearts,
       coin: startCoin,
       carrot: 0,
-      id: responseData["id"],
+      id: responseData["data"]["id"],
       xp: 0,
-      xpLevel: 0,
+      xpLevel: 1,
       accessToken: responseData[UserStrings.accessToken],
       refreshToken: responseData[UserStrings.refreshToken],
+      avatar: Avatar.defaultAvatar(),
       heartTime: DateTime.now(),
     );
   }
@@ -97,6 +96,7 @@ class User {
     var refreshData = {
       UserStrings.refreshToken: refreshToken,
     };
+    print("getAccessToken: before getting access token");
     httpResponse.Response response = await post(
       Uri.parse(AppUrl.refreshToken),
       body: json.encode(refreshData),
@@ -167,7 +167,7 @@ class User {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
-      User authUser = User.fromJson(responseData, username);
+      User authUser = User.fromJson(responseData);
 
       await UserPreferences.saveUser(authUser);
 
@@ -201,7 +201,7 @@ class User {
     };
 
     AppController.appController.registeredInStatus.value = Status.Registering;
-
+    print("before sending register data");
     return await post(Uri.parse(AppUrl.register),
         body: json.encode(registrationData),
         headers: {
@@ -217,7 +217,7 @@ class User {
     print(response.headers.toString());
     print(response.body.toString());
     final Map<String, dynamic> responseData = json.decode(response.body);
-
+    print("on value");
     if (response.statusCode == 200) {
       User authUser = User.zeroUser(responseData, username);
 
@@ -244,7 +244,7 @@ class User {
       Uri.parse(AppUrl.userDetails),
       headers: {
         RequestStrings.authentication:
-            "JWT "+AppController.appController.currUser!.value.accessToken!,
+            "JWT " + AppController.appController.currUser!.value.accessToken!,
       },
     );
     print(response.statusCode.toString());
@@ -264,6 +264,35 @@ class User {
       };
     }
     return result;
+  }
+  static Future<Map<String, dynamic>> getUserRankPage() async {
+    var result;
+    httpResponse.Response response = await get(
+      Uri.parse(AppUrl.rankPage),
+      headers: {
+        RequestStrings.authentication:
+        "JWT " + AppController.appController.currUser!.value.accessToken!,
+      },
+    );
+    print(response.statusCode.toString());
+    print("JWT " + AppController.appController.currUser!.value.accessToken!);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      print("responseData in geetuserrankpage: "+ responseData.toString());
+      return responseData;
+      // result = {
+      //   RequestStrings.status: true,
+      //   RequestStrings.message: 'Successful',
+      //   RequestStrings.data: responseData,
+      // };
+    } else {
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+      return result;
+    }
+
   }
 
   static Future<Map<String, dynamic>> transactions({
@@ -316,34 +345,29 @@ class User {
     };
   }
 
-  static String calculateLeagueImageString({required String name , required int layer}) {
+  static String calculateLeagueImageString({required String name}) {
+    if (name.length<4) return "";
     String base = ImageStrings.league;
     String main = "";
-    int leagueNumber =0;
-    switch (name) {
-      case "bronze":
-        main = "Bronze_";
-        break;
-      case "silver":
-        main = "Silver_";
-        break;
-      case "gold":
-        main = "Gold_";
-        break;
-      case "crystal":
-        main = "Crystal_";
-        break;
-      case "epic":
-        main = "Epic_";
-        break;
-      case "legendary":
-        main = "Legendary_";
-        break;
-      default:
-        print("fucked up in calculate league image string");
+    print("Bronze1".contains(RegExp(r'Bronze')));
+    if(name.contains(r'Bronze')){
+      main = "Bronze_";
+    }else if(name.contains(r'Silver')){
+      main = "Silver_";
     }
-    main += layer.toString() + ".png";
-    return base + main;
+    else if(name.contains(r'Gold')){
+      main = "Gold_";
+    }
+    else if(name.contains(r'Crystal')){
+      main = "Crystal_";
+    }
+    else if(name.contains(r'Epic')){
+      main = "Epic_";
+    }
+    else if(name.contains(r'Legendary')){
+      main = "Legendary_";
+    }
+    return base + main + name.substring(name.length - 1)+".png";
   }
 
   static void addHeart(int value) {
@@ -353,9 +377,37 @@ class User {
       value = 7;
       AppController.appController.currUser!
           .update((val) => val!.heartTime = DateTime.now());
-
     }
     AppController.appController.currUser!
         .update((val) => (val as User).hearts = value);
+  }
+
+  static getUserWordPage() async{
+    var result;
+    httpResponse.Response response = await get(
+      Uri.parse(AppUrl.wordPage),
+      headers: {
+        RequestStrings.authentication:
+        "JWT " + AppController.appController.currUser!.value.accessToken!,
+      },
+    );
+    print(response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData;
+      // result = {
+      //   RequestStrings.status: true,
+      //   RequestStrings.message: 'Successful',
+      //   RequestStrings.data: responseData,
+      // };
+    } else {
+      result = {
+        RequestStrings.status: false,
+        RequestStrings.message: json.decode(response.body)['error'],
+      };
+      return result;
+    }
+
   }
 }
