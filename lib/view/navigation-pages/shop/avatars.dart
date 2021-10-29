@@ -397,8 +397,8 @@ Widget AvatarsScreen(BuildContext context) {
                 ),
                 // Padding(padding: EdgeInsets.only(top: 80.0)),
                 Container(
-                    height: (MediaQuery.of(context).size.height<(650))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
-                    width: (MediaQuery.of(context).size.height<(650))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
+                    height: (MediaQuery.of(context).size.height<(750))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
+                    width: (MediaQuery.of(context).size.height<(750))? ((MediaQuery.of(context).size.height<(450))?150:200):280,
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -406,8 +406,8 @@ Widget AvatarsScreen(BuildContext context) {
                         border: Border.all(width: 1, color: Colors.blueAccent)
                     ),
                     child: Container(
-                      height: (MediaQuery.of(context).size.height<(650))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
-                      width: (MediaQuery.of(context).size.height<(650))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
+                      height: (MediaQuery.of(context).size.height<(750))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
+                      width: (MediaQuery.of(context).size.height<(750))? ((MediaQuery.of(context).size.height<(450))?135:170):240,
                       child: Stack(
                         children: [
                           // Obx(() => Image.asset("$face")),
@@ -425,7 +425,7 @@ Widget AvatarsScreen(BuildContext context) {
                   child: Padding(
                       padding: EdgeInsets.fromLTRB(6, 3, 5, 5),
                       child: SizedBox(
-                        height: (MediaQuery.of(context).size.height<(650))? ((MediaQuery.of(context).size.height<(450))?125:150):190,
+                        height: (MediaQuery.of(context).size.height<(750))? ((MediaQuery.of(context).size.height<(450))?125:150):190,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
