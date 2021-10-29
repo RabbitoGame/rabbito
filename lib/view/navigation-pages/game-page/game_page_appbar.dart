@@ -26,7 +26,7 @@ class GameAppBar extends StatelessWidget {
             children: [
               Expanded(child: Obx(() {
                 return xpWidget(
-                  all: AppController.isLoggedIn() ? 1000 : 0,
+                  all: AppController.isLoggedIn() ? AppController.getXpLevel()*30 : 0,
                   part: AppController.isLoggedIn()
                       ? AppController.getXp()
                       : 0,

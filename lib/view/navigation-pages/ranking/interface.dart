@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabbito/model/user.dart';
 import 'package:rabbito/view/navigation-pages/ranking/ranking.dart';
 
 class Interface extends StatelessWidget {
@@ -13,5 +14,6 @@ class Interface extends StatelessWidget {
     }else{
       return RankingMenu(false);
     }
+
   }
 }

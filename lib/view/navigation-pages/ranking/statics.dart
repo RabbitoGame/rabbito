@@ -108,13 +108,8 @@ class RankingStatics {
 class LeagueDetails {
   static final List<LeagueDetails> details = [
     LeagueDetails(
-      ImageStrings.rankingLeagueBroAsset,
-      "GEM League",
-      true,
-    ),
-    LeagueDetails(
-      ImageStrings.rankingLeagueBronze1Asset,
-      "bronze1 League",
+      ImageStrings.rankingLeagueBronze3Asset,
+      "bronze3 League",
       false,
     ),
     LeagueDetails(
@@ -122,31 +117,96 @@ class LeagueDetails {
       "bronze2 League",
       true,
     ),
+
     LeagueDetails(
-      ImageStrings.leaguePlatinumAsset,
-      "plat League",
+      ImageStrings.rankingLeagueBronze1Asset,
+      "bronze1 League",
       false,
     ),
+
     LeagueDetails(
-      ImageStrings.leagueGoldAsset,
-      "gold League",
+      ImageStrings.rankingLeagueSilver3Asset,
+      "silver3 League",
       true,
     ),
     LeagueDetails(
-      ImageStrings.leagueIronAsset,
-      "iron League",
+      ImageStrings.rankingLeagueSilver2Asset,
+      "silver2 League",
       false,
     ),
     LeagueDetails(
-      ImageStrings.leagueSilverAsset,
-      "silver League",
+      ImageStrings.rankingLeagueSilver1Asset,
+      "silver1 League",
       true,
     ),
     LeagueDetails(
-      ImageStrings.rankingLeagueBronze2Asset,
-      "bronze League",
+      ImageStrings.rankingLeagueGold3Asset,
+      "gold3 League",
       false,
     ),
+    LeagueDetails(
+      ImageStrings.rankingLeagueGold2Asset,
+      "gold2 League",
+      true,
+    ),
+    LeagueDetails(
+      ImageStrings.rankingLeagueGold1Asset,
+      "gold1 League",
+      false,
+    ),
+
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueCrystal3Asset,
+      "crystal3 League",
+      true,
+    ),
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueCrystal2Asset,
+      "crystal2 League",
+      false,
+    ),
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueCrystal1Asset,
+      "crystal1 League",
+      true,
+    ),
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueEpic3Asset,
+      "epic3 League",
+      false,
+    ),
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueEpic2Asset,
+      "epic2 League",
+      true,
+    ),
+
+    LeagueDetails(
+      ImageStrings.rankingLeagueEpic1Asset,
+      "epic1 League",
+      false,
+    ),
+    LeagueDetails(
+      ImageStrings.rankingLeagueLegendary3Asset,
+      "legendary3 League",
+      true,
+    ),
+    LeagueDetails(
+      ImageStrings.rankingLeagueLegendary2Asset,
+      "legendary2 League",
+      false,
+    ),
+    LeagueDetails(
+      ImageStrings.rankingLeagueLegendary1Asset,
+      "legendary1 League",
+      true,
+    ),
+
   ];
   late String image;
   late String text;

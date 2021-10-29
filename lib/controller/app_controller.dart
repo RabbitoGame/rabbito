@@ -76,7 +76,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() async {
-    AppController.appController.loggedInStatus.value =Status.LoggedIn;
+    // AppController.appController.loggedInStatus.value =Status.LoggedIn;
     initiateHeartTimer();
     initiateGamePageGifTimer();
     await prefsOnInit();
@@ -112,7 +112,7 @@ class AppController extends GetxController {
   }
 
   static int getXpLevel() {
-    return AppController.appController.currUser!.value.xpLevel! + 1;
+    return AppController.appController.currUser!.value.xpLevel! ;
   }
 
   static int getCoin() {

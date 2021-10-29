@@ -12,6 +12,7 @@ import 'package:rabbito/view/navigation-pages/profile/invite_friends.dart';
 import 'package:rabbito/view/navigation-pages/profile/user_statistics.dart';
 import 'package:rabbito/view/navigation-pages/profile/words_learned.dart';
 import 'package:rabbito/view/widgets/loading.dart';
+import 'package:intl/intl.dart';
 
 Widget profileMenu(BuildContext context) {
   return ProfileUI2();
@@ -24,21 +25,19 @@ class ProfileUI2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(
-        'assets/images/avatars/Faces/face_${AppController.appController
-            .currUser!.value.avatar!.face}.png');
+        'assets/images/avatars/Faces/face_${AppController.appController.currUser!.value.avatar!.face}.png');
     return FutureBuilder(
       future: _controller.getProfileInfo(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        return profileWidget(context);
-        // if (_controller.isDataReady.value) {
-        //   return profileWidget(context);
-        // } else {
-        //   return LoadingWidget(Indicator.ballBeat);
-        // }
+        // return profileWidget(context);
+        if (_controller.isDataReady.value) {
+          return profileWidget(context);
+        } else {
+          return LoadingWidget(Indicator.ballBeat);
+        }
       },
     );
   }
-
 
   Widget profileWidget(context) {
     AutoSizeGroup group = AutoSizeGroup();
@@ -93,8 +92,10 @@ class ProfileUI2 extends StatelessWidget {
                   group: null,
                   min: 12.0,
                   partition: 1 / 2,
-                  text:
-                  AppController.isLoggedIn() ? AppController.getDate() : "",
+                  text: AppController.isLoggedIn()
+                      ? DateFormat('yyyy-MM-dd')
+                          .format(DateTime.parse(_controller.stringDate.value))
+                      : "",
                   style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black45,
@@ -135,11 +136,10 @@ class ProfileUI2 extends StatelessWidget {
                 child: Obx(() {
                   return UserStatistics(
                     correctMatches: _controller._corr_matches.value,
-                    wrongMatches: _controller._wronng_matches.value,
                     win: _controller._win.value,
                     loose: _controller._loose.value,
                     rank: _controller._rank.value,
-                    leagueString: _controller._leagueString.value,
+                    leagueString: User.calculateLeagueImageString(name: _controller._leagueString.value),
                   );
                 }),
               ),
@@ -147,7 +147,7 @@ class ProfileUI2 extends StatelessWidget {
                 height: 10,
               ),
               Obx(() {
-                return WordsLearned(_controller.wordsLearned.value + 5, group);
+                return WordsLearned(_controller.wordsLearned.value , group);
               }),
               SizedBox(
                 height: 10,
@@ -170,10 +170,7 @@ class ProfileUI2 extends StatelessWidget {
 Widget text({text, style, context, min, group, partition}) {
   return Container(
     alignment: Alignment.center,
-    width: MediaQuery
-        .of(context)
-        .size
-        .width * partition,
+    width: MediaQuery.of(context).size.width * partition,
     child: AutoSizeText(
       text,
       maxLines: 1,
@@ -188,13 +185,12 @@ class ProfileController extends GetxController {
   RxString _avatar = "".obs;
   RxString _stringDate = "sampleDate".obs;
   RxInt _rank = 0.obs;
-  RxInt _league = 0.obs;
   RxString _leagueString = "".obs;
   RxInt _wordsLearned = 0.obs;
   RxInt _win = 0.obs;
   RxInt _loose = 0.obs;
   RxInt _corr_matches = 0.obs;
-  RxInt _wronng_matches = 0.obs;
+  RxInt _wrong_matches = 0.obs;
 
   RxBool isDataReady = false.obs;
 
@@ -210,18 +206,15 @@ class ProfileController extends GetxController {
     print("result from User.getUserDetails(): " + result.toString());
     if (result[RequestStrings.status]) {
       var data = result[RequestStrings.data];
+      //data is ready
+      _wordsLearned.value = data[UserStrings.totalLearnedWordsCount];
       _stringDate.value = data[UserStrings.joinDate];
-      var rankJson =data[UserStrings.rank];
-
-      var mLeague = rankJson["name"];
-      var mLayer = rankJson["rank_under_layer"];
-      _leagueString.value = User.calculateLeagueImageString(name: mLeague, layer: mLayer,);
-      _rank.value =10;
-      // _wordsLearned.value = data[UserStrings.wordsLearned];
-      // _win.value = data[UserStrings.win];
-      // _loose.value = data[UserStrings.loose];
-      // _corr_matches.value = data[UserStrings.correctMatches];
-      // _wronng_matches.value = data[UserStrings.wrongMatches];
+      // _leagueString.value = User.calculateLeagueImageString(name: mLeague, layer: mLayer,);
+      _rank.value = data["position"] == "-" ? -1 : data["position"];
+      _leagueString.value = data["rank"];
+      _win.value = data[UserStrings.win];
+      _loose.value = data[UserStrings.loose];
+      _corr_matches.value = data[UserStrings.correctMatches];
       isDataReady.value = true;
     } else {
       // User.logOut();

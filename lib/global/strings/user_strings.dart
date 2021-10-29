@@ -6,7 +6,7 @@ class UserStrings {
   static const String carrot = "carrot";
   static const String coin = "coin";
   static const String xp = "xp";
-  static const String xpLevel = "xpLevel";
+  static const String xpLevel = "xp_level";
   static const String league = "league";
   static const String rank = "rank";
   static const String avatar = "avatar";
@@ -16,14 +16,16 @@ class UserStrings {
   static const String emptyInfo = "--";
   static const String musicLevel = "music-level";
   static const String soundEffectsLevel = "sound-effects-level";
-  static const String wordsLearned = "words_learned";
+  static const String wordsLearned = "learned_words";
 
   static const String wrongMatches = "wrongMatches";
-  static const String correctMatches = "correctMatches";
+  static const String correctMatches = "correct_match";
   static const String win = "win";
   static const String loose = "loose";
 
   static const String id = "id";
 
   static const String heartTime = "heart-time";
+
+  static const String  totalLearnedWordsCount= "total_learned_words_count";
 }
