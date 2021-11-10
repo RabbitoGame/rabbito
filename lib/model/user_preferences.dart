@@ -94,7 +94,6 @@ class UserPreferences {
     prefs.remove(UserStrings.carrot);
     prefs.remove(UserStrings.hearts);
     prefs.remove(UserStrings.id);
-    prefs.remove(PlacementGameWidget.keyHasDonePlacement);
   }
 
   static Future<String?> getRefreshToken() async {

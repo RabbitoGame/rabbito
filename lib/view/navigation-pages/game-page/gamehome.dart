@@ -152,34 +152,19 @@ playButtons() {
                 accessToken: user.value.accessToken!,
               );
 
-              // if player hasnt dont placement game before start placement game widget instead
-              if (!(await SharedPreferences.getInstance())
-                  .containsKey(PlacementGameWidget.keyHasDonePlacement)) {
-                Get.snackbar(
-                  'Placement first!!',
-                  'Looks like you haven\'t played a Placement Game yet. Tap to start one right now!!',
-                  isDismissible: true,
-                  backgroundColor: Colors.black54,
-                  colorText: Colors.white,
-                  duration: Duration(seconds: 5),
-                  onTap: (_) async {
-                    final rankWords = await PlacementGameWidget.getRankWords();
-                    Get.off(() => PlacementGameWidget(currentUser, rankWords));
-                  },
-                );
-                return;
-              }
-
               final game = await Game.join(currentUser);
-              unawaited(
-                  AppController.appController.menuMusicAudioPlayer.pause());
-              Get.to(
-                () => GameWidget(
-                  game,
-                  afterGameTodo: () =>
-                      AppController.appController.menuMusicAudioPlayer.resume(),
-                ),
-              );
+              if (game != null) {
+                unawaited(
+                    AppController.appController.menuMusicAudioPlayer.pause());
+                Get.to(
+                  () => GameWidget(
+                    game,
+                    afterGameTodo: () => AppController
+                        .appController.menuMusicAudioPlayer
+                        .resume(),
+                  ),
+                );
+              }
             },
             // innerColor: const Color(0xff6383F7),
             innerColor: Colors.deepOrangeAccent,
