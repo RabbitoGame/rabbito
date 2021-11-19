@@ -144,7 +144,7 @@ playButtons() {
                 );
                 return;
               }
-              currentUser = game_widget_user_mod.User(
+              final curUser = game_widget_user_mod.User(
                 user.value.username!,
                 avatar: user.value.avatar!,
                 cardBg: 1,
@@ -152,7 +152,7 @@ playButtons() {
                 accessToken: user.value.accessToken!,
               );
 
-              final game = await Game.join(currentUser);
+              final game = await Game.join(curUser);
               if (game != null) {
                 unawaited(
                     AppController.appController.menuMusicAudioPlayer.pause());
